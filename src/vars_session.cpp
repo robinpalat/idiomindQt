@@ -1,4 +1,4 @@
-#include "session.h"
+#include "vars_session.h"
 
 #include <QDialog>
 
@@ -106,7 +106,75 @@ namespace ivar {
   QString FILE_shrdb = Home+"/.idiomind/topics/"+tlng+"/data/config";
   QString FILE_tlngdb = Home+"/.idiomind/topics/"+tlng+"/data/"+tlng+".db";
   QString FILE_tpcdb = Home+"/.idiomind/topics/"+tlng+"/"+tpc+"/.conf/tpcbd";
+  QString slangs[47][47] = {
+
+      { "", "Afrikaans", "Azərbaycanca","Català","Dansk","Deutsch","English","Español","Filipino","Français","Italiano",
+        "Kiswahili","Lietuvių","Magyar","Malagasy","Malti","Nederlands","Norsk","Polski","Português","Română",
+        "Slovenčina","Slovenščina","Soomaali","Suomi","Svenska","Tiếng Việt","Türkçe","Ελληνικά","Беларуская","Беларуская",
+        "Қазақ Тілі","Македонски","Монгол","Русский","Српски","Українська","Ўзбек","ქართული","Հայերեն","‫עברית‬",
+        "മലയാളം","한국어","中文 (香港)","中文（简体中文","中文（繁體中文","日本語" },
+
+      { "", "af","az","ca","da","de","en","es","fil","fr","it",
+        "sw","lt","hu","mg","mt","nl","no","pl","pt","ro",
+        "sk","sl","so","fi","sv","vi","tr","el","be","bg",
+        "kk","mk","mn","ru","sr","uk","uz","ka","hy","iw",
+        "ml","ko","zh-HK","zh-CN","zh-TW","ja" }
+  };
+
 }
+
+/*
+['Afrikaans']='af' \
+['Azərbaycanca']='az' \
+['Català']='ca' \
+['Dansk']='da' \
+['Deutsch']='de' \
+['English']='en' \
+['Español']='es' \
+['Filipino']='fil' \
+['Français']='fr' \
+['Italiano']='it' \
+
+['Kiswahili']='sw' \
+['Lietuvių']='lt' \
+['Magyar']='hu' \
+['Malagasy']='mg' \
+['Malti']='mt' \
+['Nederlands']='nl' \
+['Norsk']='no' \
+['Polski']='pl' \
+['Português']='pt' \
+['Română']='ro' \
+
+['Slovenčina']='sk' \
+['Slovenščina']='sl' \
+['Soomaali ']='so' \
+['Suomi']='fi' \
+['Svenska']='sv' \
+['Tiếng Việt']='vi' \
+['Türkçe']='tr' \
+['Ελληνικά']='el' \
+['Беларуская']='be' \
+['Беларуская']='bg' \
+
+['Қазақ Тілі']='kk' \
+['Македонски']='mk' \
+['Монгол']='mn' \
+['Русский']='ru' \
+['Српски']='sr' \
+['Українська']='uk' \
+['Ўзбек']='uz' \
+['ქართული']='ka' \
+['Հայերեն']='hy' \
+['‫עברית‬']='iw' \
+
+['മലയാളം']='ml' \
+['한국어']='ko' \
+['中文 (香港)']='zh-HK' \
+['中文（简体中文）']='zh-CN' \
+['中文（繁體中文）']='zh-TW' \
+['日本語']='ja' )
+*/
 
 
 Session::Session(QObject *parent) : QObject(parent)
@@ -119,6 +187,7 @@ Session::Session(QObject *parent) : QObject(parent)
 
     out_result();
 }
+
 
 
 void Session::out_result(){

@@ -40,6 +40,7 @@ namespace ivar {
     extern QString FILE_shrdb;
     extern QString FILE_tlngdb;
     extern QString FILE_tpcdb;
+    extern QString slangs[47][47];
 }
 
 

@@ -1,5 +1,7 @@
+
 #include "dlg_translate.h"
 #include "ui_dlg_translate.h"
+#include "vars_session.h"
 
 #include <QtWidgets/QtWidgets>
 #include <QGroupBox>
@@ -12,9 +14,7 @@ Translate::Translate(QWidget *parent) :
     ui(new Ui::Translate)
 {
     ui->setupUi(this);
-//    vbox = new QVBoxLayout(); // var declared in headerfile as "QVBoxLayout *vbox;"
-//    ui->scrollArea->setLayout(vbox); // set the base layout on the central widget
-    QTextEdit TE1;
+    ui->widget_verified->hide();
     load_data();
 }
 
@@ -25,7 +25,7 @@ Translate::~Translate()
 
 QString Translate::get_tpc() {
     Global mGlobal;
-    return  mGlobal.get_textline(ivar::FILE_mn);
+    return mGlobal.get_textline(ivar::FILE_mn);
 }
 
 
@@ -46,8 +46,8 @@ void Translate::load_data() {
     if (!mydb.open()) qDebug()<<("Failed to open the database");
 
     QSqlQuery* qry_a=new QSqlQuery(mydb);
-    qry_a->prepare("select * from Data");
 
+    qry_a->prepare("select * from Data");
     //QFormLayout *layouta = new QFormLayout;
     int n = 0;
     if (qry_a->exec( )) {
@@ -110,9 +110,51 @@ void Translate::load_data() {
     ui->scrollAreaWidgetContents->setLayout(ui->layouta);
     ui->scrollAreaWidgetContents->setStyleSheet("border-color: #F8FAFC;");
 
-    mydb.close();
-    mydb = QSqlDatabase();
-    mydb.removeDatabase(QSqlDatabase::defaultConnection);
+    for(int i = 0; i < 47; i++) {
+        ui->comboBox_nativelang->addItem(ivar::slangs[0][i]);
+        if (ivar::slangs[0][i] == ivar::slng) lgs = ivar::slangs[1][i];
+    }
+
+    ui->label_nativeLang->setText(ivar::slng);
+    ui->checkBox_verifiedtrans->setText("Verified — "+ivar::slng+"");
+
+    // check/load verified languages
+    qry_a->prepare("select * from verified_translations");
+    ui->comboBox_verified_trans->addItem("");
+
+    //
+    lang_verif_count = 0;
+    if (qry_a->exec( )) {
+        while(qry_a->next()) {
+            QString lang = qry_a->value(0).toString();
+
+            // Adding item to first comboBox list of veried translations avoiding current language
+            if ( lang != "" && lang != ivar::slng ) {
+                ui->comboBox_verified_trans->addItem(lang);
+                lang_verif_count++;
+            }
+            // checkBok, true if current native language was verified by user
+            if ( lang == ivar::slng)  {
+                current_lang_is_already_verified = true;
+                ui->checkBox_verifiedtrans->setText("The translation was verified — "+ivar::slng+"");
+                ui->checkBox_verifiedtrans->setChecked(true);
+            }
+        }
+    }
+
+    if (current_lang_is_already_verified == false) {
+        ui->checkBox_verifiedtrans->setText("Verified — "+ivar::slng+"");
+        ui->checkBox_verifiedtrans->setChecked(false);
+    }
+
+    if ( lang_verif_count > 0 ) {
+        ui->widget_no_verified->hide();
+        ui->widget_verified->show();
+    }
+    else {
+        ui->widget_no_verified->show();
+        ui->widget_verified->hide();
+    }
 }
 
 
@@ -120,6 +162,7 @@ void Translate::on_pushButton_close_clicked()
 {
     this->close();
 }
+
 
 void Translate::save_data() {
 
@@ -133,7 +176,6 @@ void Translate::save_data() {
     mydb.setDatabaseName(ivar::DM_tl+"/"+tpc+"/.conf/tpcdb");
 
     if (!mydb.open()) qDebug()<<("Failed to open the database");
-
 
     trans_check_items.clear();
     // getting values from orphated widget this qobject_cast, usind nested calls
@@ -165,11 +207,48 @@ void Translate::save_data() {
 }
 
 
-
 void Translate::on_pushButton_save_trans_clicked()
 {
-
     save_data();
+    ui->pushButton_save_trans->setEnabled(false);
+}
 
-   ui->pushButton_save_trans->setEnabled(false);
+
+void Translate::on_checkBox_verifiedtrans_stateChanged(int arg1)
+{
+    QSqlQuery qry_c;
+
+    if (arg1==0 && current_lang_is_already_verified == true) {
+
+            ui->checkBox_verifiedtrans->setText("Verified — "+ivar::slng+"");
+
+            qry_c.prepare("DELETE FROM verified_translations WHERE lang = ?");
+            qry_c.addBindValue(ivar::slng);
+            if (!qry_c.exec()) qDebug() << qry_c.lastError();
+    }
+     else {
+        if (current_lang_is_already_verified == false) {
+
+            ui->checkBox_verifiedtrans->setText("The translation was verified — "+ivar::slng+"");
+
+            qry_c.prepare("INSERT INTO verified_translations (lang) values (?)");
+            qry_c.addBindValue(ivar::slng);
+            if (!qry_c.exec()) qDebug() << qry_c.lastError();
+        }
+    }
+
+    if ( lang_verif_count > 0 ) {
+        ui->widget_no_verified->hide();
+        ui->widget_verified->show();
+    }
+    else {
+        ui->widget_no_verified->show();
+        ui->widget_verified->hide();
+    }
+
+        /*
+
+        qry_c.prepare("update verified_translations set "+lgs+"=1 where "+lgs+"=0");
+
+        */
 }

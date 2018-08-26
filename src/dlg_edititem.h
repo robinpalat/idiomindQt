@@ -5,8 +5,8 @@
 #include <QtSql/QtSql>
 
 #include <iostream>
-#include "session.h"
-#include "global.h"
+#include "vars_session.h"
+#include "vars_global.h"
 
 namespace Ui {
 class Dlg_editItem;

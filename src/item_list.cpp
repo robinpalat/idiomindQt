@@ -1,6 +1,6 @@
 #include "item_list.h"
 #include "ui_item_list.h"
-#include "session.h"
+#include "vars_session.h"
 
 
 #include <string>

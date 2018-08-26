@@ -200,7 +200,7 @@
     <enum>QAbstractItemView::SelectRows</enum>
    </property>
    <property name="gridStyle">
-    <enum>Qt::DashLine</enum>
+    <enum>Qt::SolidLine</enum>
    </property>
    <attribute name="horizontalHeaderVisible">
     <bool>false</bool>

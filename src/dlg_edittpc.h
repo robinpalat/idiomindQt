@@ -4,8 +4,8 @@
 #include <QDialog>
 #include <QSql>
 
-#include "session.h"
-#include "global.h"
+#include "vars_session.h"
+#include "vars_global.h"
 
 namespace Ui {
 class EditTpc;

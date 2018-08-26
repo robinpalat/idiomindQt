@@ -19,7 +19,7 @@
 #include "dlg_imageview.h"
 #include "dlg_edititem.h"
 #include "clickablelabel.h"
-#include "global.h"
+#include "vars_global.h"
 
 using namespace std;
 
@@ -82,7 +82,7 @@ public:
     int numberOfRows = 0, checkpos;
     bool loaded;
     std::vector< QString > arr;
-    QString trgt, srce, list, grmr,
+    QString trgt, srce, list, grmr, cdid,
     wrds, type, note, defn, exmp;
     void load_array(QString, QString);
     void sleepcp(int milliseconds);

@@ -1,7 +1,7 @@
 #include "dlg_share.h"
 #include "ui_dlg_share.h"
-#include "session.h"
-#include "global.h"
+#include "vars_session.h"
+#include "vars_global.h"
 
 Share::Share(QWidget *parent) :
     QDialog(parent),

@@ -1,8 +1,8 @@
 #include "dlg_topics.h"
 #include "ui_dlg_topics.h"
-#include "session.h"
+#include "vars_session.h"
 #include <qdebug.h>
-#include "global.h"
+#include "vars_global.h"
 #include "item_list.h"
 #include "icontray.h"
 

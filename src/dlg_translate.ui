@@ -31,7 +31,7 @@
      <x>10</x>
      <y>-10</y>
      <width>521</width>
-     <height>231</height>
+     <height>261</height>
     </rect>
    </property>
    <property name="title">
@@ -41,12 +41,15 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>30</y>
-      <width>381</width>
-      <height>191</height>
+      <y>25</y>
+      <width>501</width>
+      <height>232</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <property name="spacing">
+      <number>6</number>
+     </property>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
@@ -92,15 +95,85 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_6">
-       <property name="font">
-        <font>
-         <pointsize>8</pointsize>
-        </font>
+      <widget class="QWidget" name="widget_verified" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>25</height>
+        </size>
        </property>
-       <property name="text">
-        <string>This topic has no verified translations</string>
+       <widget class="QWidget" name="horizontalLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>501</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QComboBox" name="comboBox_verified_trans">
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Change native language:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <widget class="QWidget" name="widget_no_verified" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>25</height>
+        </size>
        </property>
+       <widget class="QWidget" name="horizontalLayoutWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>501</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QLabel" name="label_info1">
+           <property name="font">
+            <font>
+             <pointsize>8</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>This topic has no verified translations</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
      </item>
      <item>
@@ -119,13 +192,6 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Select native language:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QComboBox" name="comboBox_nativelang">
          <property name="minimumSize">
           <size>
@@ -135,7 +201,7 @@
          </property>
          <property name="maximumSize">
           <size>
-           <width>200</width>
+           <width>150</width>
            <height>16777215</height>
           </size>
          </property>
@@ -148,17 +214,14 @@
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Select native language:</string>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
          </property>
-        </spacer>
+        </widget>
        </item>
       </layout>
      </item>
@@ -228,9 +291,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>240</y>
+     <y>260</y>
      <width>521</width>
-     <height>261</height>
+     <height>251</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -251,7 +314,7 @@
       <x>0</x>
       <y>0</y>
       <width>519</width>
-      <height>259</height>
+      <height>249</height>
      </rect>
     </property>
     <widget class="QWidget" name="verticalLayoutWidget">
@@ -260,7 +323,7 @@
        <x>10</x>
        <y>10</y>
        <width>501</width>
-       <height>241</height>
+       <height>231</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="layouta"/>

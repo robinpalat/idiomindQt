@@ -18,8 +18,8 @@
 #include "item_list.h"
 #include "dlg_vwr.h"
 #include "dlg_topics.h"
-#include "session.h"
-#include "global.h"
+#include "vars_session.h"
+#include "vars_global.h"
 
 class Icontray : public QMainWindow
 {

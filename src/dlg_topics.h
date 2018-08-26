@@ -3,7 +3,7 @@
 
 #include <QDialog>
 
-#include "global.h"
+#include "vars_global.h"
 
 namespace Ui {
 class Topics;

@@ -1,4 +1,4 @@
-#include "global.h"
+#include "vars_global.h"
 
 Global::Global()
 {

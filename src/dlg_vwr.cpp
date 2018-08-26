@@ -1,6 +1,6 @@
 #include "dlg_vwr.h"
 #include "ui_dlg_vwr.h"
-#include "session.h"
+#include "vars_session.h"
 
 #include <QSqlQuery>
 #include <QPixmap>
@@ -70,7 +70,7 @@ void Vwr::load_array(QString trgt_ind, QString list_sel)
      QMessageBox::critical(this, tr("Error"), qry.lastError().text());
    }
 
-   qry.finish();
+    qry.finish();
 }
 
 
@@ -262,12 +262,31 @@ void Vwr::on_pushButton_edit_clicked()
 
 void Vwr::on_pushButton_2_clicked()
 {
-    QString trgt_mp1 = ivar::DC_tls+"audio/"+trgt.toLower()+".mp3";
-//    QString trgt_mp2 = ivar::DM_tl+"/"+tpc+"audio/"+trgt.toLower()+".mp3";
-//    if(QFileInfo(trgt_mp3).exists()){
-//        player->setMedia(QUrl::fromLocalFile(trgt_mp3);
-//    }
-    player->setMedia(QUrl::fromLocalFile(trgt_mp1));
-    player->play();
+    QSqlQuery qry;
+    qry.prepare("select * from Data where trgt=(:trgt_val)");
+    qry.bindValue(":trgt_val", trgt);
 
+    if (qry.exec( )) {
+        while(qry.next()) {
+            cdid = qry.value(12).toString();
+
+        }
+    }
+    else {
+
+        qDebug() << qry.lastError();
+    }
+    qry.finish();
+
+    QString trgt_mp1 = ivar::DC_tls+"audio/"+trgt.toLower()+".mp3";
+    QString trgt_mp2 = ivar::DM_tl+"/"+tpc+"/"+cdid+".mp3";
+
+    if(QFileInfo(trgt_mp1).exists()){
+        player->setMedia(QUrl::fromLocalFile(trgt_mp1));
+    }
+    else if(QFileInfo(trgt_mp2).exists()){
+        player->setMedia(QUrl::fromLocalFile(trgt_mp2));
+    }
+
+    player->play();
 }

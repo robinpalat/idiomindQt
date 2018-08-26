@@ -13,6 +13,7 @@
 
 using namespace std;
 
+
 Dlg_editItem::Dlg_editItem(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dlg_editItem)
@@ -25,6 +26,7 @@ Dlg_editItem::~Dlg_editItem()
 {
     delete ui;
 }
+
 
 void Dlg_editItem::load_data(QString trgt_ind, QString list_sel)
 {
@@ -110,6 +112,7 @@ void Dlg_editItem::fill_data(QString trgt)
     qry.finish();
 }
 
+
 void Dlg_editItem::save_data() {
 
 
@@ -166,8 +169,6 @@ void Dlg_editItem::save_data() {
 
     trgt = trgt_mod;
     load_data(trgt, list);
-
-
 }
 
 void Dlg_editItem::on_pushButton_editItem_next_clicked()
@@ -197,11 +198,11 @@ void Dlg_editItem::on_pushButton_editItem_prev_clicked()
 }
 
 
-
 void Dlg_editItem::on_pushButton_editItem_close_clicked()
 {
     this->close();
 }
+
 
 void Dlg_editItem::closeEvent( QCloseEvent* event )
 {

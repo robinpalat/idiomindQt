@@ -1,7 +1,7 @@
 #include "welcome.h"
 #include "ui_welcome.h"
 
-#include "session.h"
+#include "vars_session.h"
 #include <string>
 #include <iostream>
 #include <map>

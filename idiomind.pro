@@ -32,14 +32,14 @@ SOURCES += \
     src/dlg_imageview.cpp \
     src/dlg_vwr.cpp \
     src/dlg_edititem.cpp \
-    src/session.cpp \
     src/dlg_topics.cpp \
     src/welcome.cpp \
-    src/global.cpp \
     src/dlg_share.cpp \
     src/dlg_edittpc.cpp \
     src/dlg_translate.cpp \
-    src/mainwindow.cpp
+    src/mainwindow.cpp \
+    src/vars_session.cpp \
+    src/vars_global.cpp
 
 HEADERS += \
         src/item_list.h \
@@ -49,14 +49,14 @@ HEADERS += \
     src/dlg_imageview.h \
     src/dlg_vwr.h \
     src/dlg_edititem.h \
-    src/session.h \
     src/dlg_topics.h \
     src/welcome.h \
-    src/global.h \
     src/dlg_share.h \
     src/dlg_edittpc.h \
     src/dlg_translate.h \
-    src/mainwindow.h
+    src/mainwindow.h \
+    src/vars_session.h \
+    src/vars_global.h
 
 FORMS += \
         src/item_list.ui \
