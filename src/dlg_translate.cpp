@@ -1,7 +1,7 @@
 
 #include "dlg_translate.h"
 #include "ui_dlg_translate.h"
-#include "vars_session.h"
+#include "vars_statics.h"
 
 #include <QtWidgets/QtWidgets>
 #include <QGroupBox>
@@ -38,16 +38,16 @@ void Translate::load_data() {
 
     this->setWindowTitle("Idiomind - "+tpc);
 
-    mydb.setDatabaseName(ivar::DM_tl+"/"+tpc+"/.conf/tpcdb");
+    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
 
     mydb=QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName(ivar::DM_tl+"/"+tpc+"/.conf/tpcdb");
+    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
 
     if (!mydb.open()) qDebug()<<("Failed to open the database");
 
     QSqlQuery* qry_a=new QSqlQuery(mydb);
 
-    qry_a->prepare("select * from Data");
+    qry_a->prepare("select * from "+Source_LANG+"");
     //QFormLayout *layouta = new QFormLayout;
     int n = 0;
     if (qry_a->exec( )) {
@@ -66,9 +66,9 @@ void Translate::load_data() {
 
             QLabel * LA = new QLabel(trgt);
             LA->setObjectName("LA"+QString::number(n));
-            LA->setMaximumWidth(488);
+            //LA->setMaximumWidth(488);
             LA->setMinimumHeight(50);
-            LA->setStyleSheet(QString("font-weight: bold; color: #14273E ;background-color: #E7F0F9;"));
+            LA->setStyleSheet(QString("font-weight: bold; color: #0E1B2A ;background-color: #E7F0F9;"));
             LA->setMargin(6);
             LA->setAlignment(Qt::AlignLeft | Qt::AlignTop);
             LA->setWordWrap(488);
@@ -76,10 +76,10 @@ void Translate::load_data() {
 
             QTextEdit * TE = new QTextEdit(srce);
             TE->setObjectName("TE"+QString::number(n));
-            TE->setMaximumWidth(488);
+           //TE->setMaximumWidth(488);
             TE->setMaximumHeight(50);
             TE->setFrameStyle(QFrame::Plain);
-            TE->setStyleSheet("background-color: #F7F8FC; color: #32393E;");
+            TE->setStyleSheet("background-color: #FFFFFF; color: #1E262C;");
 
             layoutA->addWidget(TE);
             layoutA->setVerticalSpacing(0);
@@ -112,11 +112,11 @@ void Translate::load_data() {
 
     for(int i = 0; i < 47; i++) {
         ui->comboBox_nativelang->addItem(ivar::slangs[0][i]);
-        if (ivar::slangs[0][i] == ivar::slng) lgs = ivar::slangs[1][i];
+        if (ivar::slangs[0][i] == slng) lgs = ivar::slangs[1][i];
     }
 
-    ui->label_nativeLang->setText(ivar::slng);
-    ui->checkBox_verifiedtrans->setText("Verified — "+ivar::slng+"");
+    ui->label_nativeLang->setText(slng);
+    ui->checkBox_verifiedtrans->setText("Verified — "+slng+"");
 
     // check/load verified languages
     qry_a->prepare("select * from verified_translations");
@@ -129,21 +129,21 @@ void Translate::load_data() {
             QString lang = qry_a->value(0).toString();
 
             // Adding item to first comboBox list of veried translations avoiding current language
-            if ( lang != "" && lang != ivar::slng ) {
+            if ( lang != "" && lang != slng ) {
                 ui->comboBox_verified_trans->addItem(lang);
                 lang_verif_count++;
             }
             // checkBok, true if current native language was verified by user
-            if ( lang == ivar::slng)  {
+            if ( lang == slng)  {
                 current_lang_is_already_verified = true;
-                ui->checkBox_verifiedtrans->setText("The translation was verified — "+ivar::slng+"");
+                ui->checkBox_verifiedtrans->setText("The translation was verified — "+slng+"");
                 ui->checkBox_verifiedtrans->setChecked(true);
             }
         }
     }
 
     if (current_lang_is_already_verified == false) {
-        ui->checkBox_verifiedtrans->setText("Verified — "+ivar::slng+"");
+        ui->checkBox_verifiedtrans->setText("Verified — "+slng+"");
         ui->checkBox_verifiedtrans->setChecked(false);
     }
 
@@ -170,10 +170,10 @@ void Translate::save_data() {
 
     this->setWindowTitle("Idiomind - "+tpc);
 
-    mydb.setDatabaseName(ivar::DM_tl+"/"+tpc+"/.conf/tpcdb");
+    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
 
     mydb=QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName(ivar::DM_tl+"/"+tpc+"/.conf/tpcdb");
+    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
 
     if (!mydb.open()) qDebug()<<("Failed to open the database");
 
@@ -194,13 +194,12 @@ void Translate::save_data() {
         for(std::vector<QString>::iterator it = trans_load_items.begin(); it != trans_load_items.end(); ++it) {
             if (*it != arraytrgt[n]) {
                 QSqlQuery qry;
-                qry.prepare("update Data set srce='"+arraytrgt[n]+"' where srce='"+*it+"'");
+                qry.prepare("update "+Source_LANG+" set srce='"+arraytrgt[n]+"' where srce='"+*it+"'");
                 qry.exec();
             }
             n++;
         }
     }
-
     mydb.close();
     mydb = QSqlDatabase();
     mydb.removeDatabase(QSqlDatabase::defaultConnection);
@@ -220,20 +219,22 @@ void Translate::on_checkBox_verifiedtrans_stateChanged(int arg1)
 
     if (arg1==0 && current_lang_is_already_verified == true) {
 
-            ui->checkBox_verifiedtrans->setText("Verified — "+ivar::slng+"");
+            ui->checkBox_verifiedtrans->setText("Verified — "+slng+"");
 
             qry_c.prepare("DELETE FROM verified_translations WHERE lang = ?");
-            qry_c.addBindValue(ivar::slng);
+            qry_c.addBindValue(slng);
             if (!qry_c.exec()) qDebug() << qry_c.lastError();
+            else current_lang_is_already_verified = false;
     }
      else {
         if (current_lang_is_already_verified == false) {
 
-            ui->checkBox_verifiedtrans->setText("The translation was verified — "+ivar::slng+"");
+            ui->checkBox_verifiedtrans->setText("The translation was verified — "+slng+"");
 
             qry_c.prepare("INSERT INTO verified_translations (lang) values (?)");
-            qry_c.addBindValue(ivar::slng);
-            if (!qry_c.exec()) qDebug() << qry_c.lastError();
+            qry_c.addBindValue(slng);
+            if (!qry_c.exec())  qDebug() << qry_c.lastError();
+            else current_lang_is_already_verified = true;
         }
     }
 

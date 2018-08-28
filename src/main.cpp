@@ -6,6 +6,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+
     item_list f;
     f.load_data();
     Icontray w;

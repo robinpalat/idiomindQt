@@ -1,14 +1,14 @@
 #include "dlg_share.h"
 #include "ui_dlg_share.h"
+#include "vars_statics.h"
 #include "vars_session.h"
-#include "vars_global.h"
 
 Share::Share(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Share)
 {
     ui->setupUi(this);
-    QString lang = ivar::tlng;
+    QString lang = tlng;
     ui->label_link_library->setText("<a href=\"http://idiomind.net/"+lang.toLower()+"\">Visit the topics library</a>");
     ui->label_link_library->setTextFormat(Qt::RichText);
     ui->label_link_library->setTextInteractionFlags(Qt::TextBrowserInteraction);
@@ -49,7 +49,7 @@ void Share::load_data() {
 //    mydb.removeDatabase(QSqlDatabase::defaultConnection);
 
     // load note
-    QFile file(ivar::DM_tl+"/"+tpc+"/.conf/note");
+    QFile file(DM_tl+"/"+tpc+"/.conf/note");
     if(!file.open(QIODevice::ReadOnly)) {
         QMessageBox::information(nullptr, "error", file.errorString());
     }

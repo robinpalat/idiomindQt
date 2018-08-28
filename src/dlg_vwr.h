@@ -18,10 +18,11 @@
 
 #include "dlg_imageview.h"
 #include "dlg_edititem.h"
-#include "clickablelabel.h"
-#include "vars_global.h"
+#include "adds_clicklabel.h"
+#include "vars_session.h"
 
 using namespace std;
+
 
 
 namespace Ui {
@@ -61,7 +62,7 @@ public:
 
         // mydb.setDatabaseName("/sdcard/Ankidroid/tpc");
        // mydb.setDatabaseName(ivar::DC_tlt+"/tpcdb");
-        mydb.setDatabaseName(ivar::DM_tl+"/"+tpc+"/.conf/tpcdb");
+        mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
 
         if (!mydb.open())
         {
@@ -103,11 +104,14 @@ private slots:
     void on_pushButton_next_clicked();
     void on_pushButton_prev_clicked();
     void on_label_image_clicked();
+    void on_label_trgt_clicked();
+    void on_label_srce_clicked();
     void on_label_note_clicked();
-    void on_pushButton_edit_clicked();
+    //void on_pushButton_edit_clicked();
     //void closeEvent( QCloseEvent* event );
 
-    void on_pushButton_2_clicked();
+    //void on_pushButton_2_clicked();
+
 
 private:
     Ui::Vwr *ui;

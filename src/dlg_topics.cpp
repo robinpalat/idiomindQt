@@ -1,8 +1,8 @@
 #include "dlg_topics.h"
 #include "ui_dlg_topics.h"
-#include "vars_session.h"
+#include "vars_statics.h"
 #include <qdebug.h>
-#include "vars_global.h"
+#include "vars_session.h"
 #include "item_list.h"
 #include "icontray.h"
 
@@ -18,7 +18,6 @@ Topics::Topics(QWidget *parent) :
     mGlobal = new Global();
 
     QString tpc = mGlobal->get_textline(ivar::FILE_mn);
-    qDebug() << tpc;
     load_index();
 
 }
@@ -43,14 +42,14 @@ void Topics::load_index()
     ui->tableWidget_topics->setStyleSheet("QTableWidget::item { padding: 1px }");
     ui->tableWidget_topics->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
-    QDirIterator it(ivar::DM_tl, QDir::Dirs);
+    QDirIterator it(DM_tl, QDir::Dirs);
     while (it.hasNext()) {
         QFileInfo substring = it.next();
         QString tpc = substring.baseName();
         if (tpc!=""){
 
             QString Home = QDir::homePath();
-            QString FILE_mn = ivar::DM_tl+"/"+tpc+"/.conf/stts";
+            QString FILE_mn = DM_tl+"/"+tpc+"/.conf/stts";
             Global mGlobal;
             QString stts = mGlobal.get_textline(FILE_mn);
 

@@ -1,5 +1,6 @@
-#ifndef SESSION_H
-#define SESSION_H
+#ifndef GLOBAL_H
+#define GLOBAL_H
+#include <qstring.h>
 
 #include <QObject>
 #include <QWidget>
@@ -10,64 +11,35 @@
 #include <QtSql/QtSql>
 
 #include <iostream>
+#include <map>
+#include <algorithm>
+#include <string>
 
-#include "welcome.h"
+extern QString tpc;
+extern QString FILE_mn;
 
-namespace ivar {
-    extern QString tpc;
-    extern QString Username;
-    extern QString Home;
-    extern QString DT;
-    extern QString DS;
-    extern QString DS_a;
-    extern QString FILE_mn;
+extern QString tlng;
+extern QString slng;
 
-    extern QString tlng;
-    extern QString slng;
+extern QString DM_tl;
+extern QString DM_tlt;
+extern QString DC_tlt;
+extern QString DC_tls;
 
-    extern QString DM;
-    extern QString DM_t;
-    extern QString DM_tl;
-    extern QString DM_tlt;
-    extern QString DC_tlt;
+extern QString FILE_shrdb;
+extern QString FILE_tlngdb;
+extern QString FILE_tpcdb;
 
-    extern QString DC_tls;
+extern QString Source_LANG;
+extern QString Home;
 
-    extern QString DC;
-    extern QString DC_a;
-    extern QString DC_d;
-
-    extern QString FILE_shrdb;
-    extern QString FILE_tlngdb;
-    extern QString FILE_tpcdb;
-    extern QString slangs[47][47];
-}
-
-
-class Session : public QObject
+class Global
 {
-    Q_OBJECT
-
-
 public:
-    explicit Session(QObject *parent = nullptr);
-
-
-public:
-
-    void out_result();
-
-signals:
-
-
-public slots:
-
-
-private:
-   // Welcome * mWelcome;
+    Global();
+    void get_vars();
+    QString get_textline(QString);
 
 };
 
-#endif // SESSION_H
-
-
+#endif // GLAOBAL_H

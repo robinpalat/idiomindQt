@@ -1,16 +1,14 @@
 #include "vars_session.h"
 
-#include <QDialog>
 
-using namespace std;
+Global::Global()
+{
 
 
-namespace ivar {
+}
 
-    QString mn(){
-    QString Home = QDir::homePath();
-    QString FILE_mn = Home+"/.config/idiomind/tpc";
-      QFile file(FILE_mn);
+QString Global::get_textline(QString tfile){ // To get topic name and topics status
+      QFile file(tfile);
       QString line;
       if (file.open(QIODevice::ReadOnly)) {
           QTextStream in(&file);
@@ -18,27 +16,27 @@ namespace ivar {
           file.close();
       }
       return line;
-    }
+}
 
-    QString user_name() {
-        QString name = qgetenv("USER");
+QString user_name() {
+    QString name = qgetenv("USER");
       if (name.isEmpty())
           name = qgetenv("USERNAME");
       return name;
-    }
+}
 
-    void connClose()
-    {
+void connClose()
+{
       QSqlDatabase mydb;
       QSqlQuery qry;
       qry.finish();
       mydb.close();
       mydb = QSqlDatabase();
       mydb.removeDatabase(QSqlDatabase::defaultConnection);
-    }
+}
 
-    bool connOpen()
-    {
+bool connOpen()
+{
       QString Home = QDir::homePath();
       QSqlDatabase mydb;
       mydb=QSqlDatabase::addDatabase("QSQLITE");
@@ -52,9 +50,9 @@ namespace ivar {
       {
           return true;
       }
-    }
+}
 
-    QString get_tlng(){
+QString get_tlng(){
       connOpen();
       QSqlQuery qry;
       qry.prepare("select tlng from lang");
@@ -63,9 +61,9 @@ namespace ivar {
       QString pre_tlng = qry.value(0).toString();
       qry.finish(); connClose();
       return pre_tlng;
-    }
+}
 
-    QString get_slng(){
+QString get_slng(){
       connOpen();
       QSqlQuery qry;
       qry.prepare("select slng from lang");
@@ -74,123 +72,95 @@ namespace ivar {
       QString pre_slng = qry.value(0).toString();
       qry.finish(); connClose();
       return pre_slng;
-    }
-
-  QString Username = user_name();
-  QString Home = QDir::homePath();
-
-
-  QString DT = "/tmp/.idiomind-"+Username;
-
-  QString DS = "/usr/share/idiomind";
-  QString DS_a = "/usr/share/idiomind/addons";
-  QString FILE_mn = Home+"/.config/idiomind/tpc";
-
-  QString tpc = mn();
-
-  QString tlng = get_tlng();
-  QString slng = get_slng();
-
-  QString DM = Home+"/.idiomind";
-  QString DM_t = Home+"/.idiomind/topics";
-  QString DM_tl = Home+"/.idiomind/topics/"+tlng;
-  QString DM_tlt = Home+"/.idiomind/topics/"+tlng+"/"+tpc+"/";
-  QString DC_tlt = Home+"/.idiomind/topics/"+tlng+"/"+tpc+"/.conf";
-
-  QString DC_tls = Home+"/.idiomind/topics/"+tlng+"/.share/";
-
-  QString DC = Home+"/.config/idiomind/";
-  QString DC_a =  Home+"/.config/idiomind/addons";
-  QString DC_d =  Home+"/.config/idiomind/addons/dict/enables";
-
-  QString FILE_shrdb = Home+"/.idiomind/topics/"+tlng+"/data/config";
-  QString FILE_tlngdb = Home+"/.idiomind/topics/"+tlng+"/data/"+tlng+".db";
-  QString FILE_tpcdb = Home+"/.idiomind/topics/"+tlng+"/"+tpc+"/.conf/tpcbd";
-  QString slangs[47][47] = {
-
-      { "", "Afrikaans", "Azərbaycanca","Català","Dansk","Deutsch","English","Español","Filipino","Français","Italiano",
-        "Kiswahili","Lietuvių","Magyar","Malagasy","Malti","Nederlands","Norsk","Polski","Português","Română",
-        "Slovenčina","Slovenščina","Soomaali","Suomi","Svenska","Tiếng Việt","Türkçe","Ελληνικά","Беларуская","Беларуская",
-        "Қазақ Тілі","Македонски","Монгол","Русский","Српски","Українська","Ўзбек","ქართული","Հայերեն","‫עברית‬",
-        "മലയാളം","한국어","中文 (香港)","中文（简体中文","中文（繁體中文","日本語" },
-
-      { "", "af","az","ca","da","de","en","es","fil","fr","it",
-        "sw","lt","hu","mg","mt","nl","no","pl","pt","ro",
-        "sk","sl","so","fi","sv","vi","tr","el","be","bg",
-        "kk","mk","mn","ru","sr","uk","uz","ka","hy","iw",
-        "ml","ko","zh-HK","zh-CN","zh-TW","ja" }
-  };
-
 }
 
-/*
-['Afrikaans']='af' \
-['Azərbaycanca']='az' \
-['Català']='ca' \
-['Dansk']='da' \
-['Deutsch']='de' \
-['English']='en' \
-['Español']='es' \
-['Filipino']='fil' \
-['Français']='fr' \
-['Italiano']='it' \
+QString mn(){
+    QString Home = QDir::homePath();
+    QString FILE_mn = Home+"/.config/idiomind/tpc";
+      QFile file(FILE_mn);
+      QString line;
+      if (file.open(QIODevice::ReadOnly)) {
+          QTextStream in(&file);
+          while (!in.atEnd()) line = in.readLine();
+          file.close();
+      }
+      return line;
+}
 
-['Kiswahili']='sw' \
-['Lietuvių']='lt' \
-['Magyar']='hu' \
-['Malagasy']='mg' \
-['Malti']='mt' \
-['Nederlands']='nl' \
-['Norsk']='no' \
-['Polski']='pl' \
-['Português']='pt' \
-['Română']='ro' \
+QString  get_LANG(QString LANG) {
+    std::map<QString,QString>  smaplangs;
+    std::map<QString,QString>::iterator  it;
+    smaplangs["Afrikaans"]="af";
+    smaplangs["Azərbaycanca"]="az";
+    smaplangs["Català"]="ca";
+    smaplangs["Dansk"]="da";
+    smaplangs["Deutsch"]="de";
+    smaplangs["English"]="en";
+    smaplangs["Español"]="es";
+    smaplangs["Filipino"]="fil";
+    smaplangs["Français"]="fr";
+    smaplangs["Italiano"]="it";
 
-['Slovenčina']='sk' \
-['Slovenščina']='sl' \
-['Soomaali ']='so' \
-['Suomi']='fi' \
-['Svenska']='sv' \
-['Tiếng Việt']='vi' \
-['Türkçe']='tr' \
-['Ελληνικά']='el' \
-['Беларуская']='be' \
-['Беларуская']='bg' \
+    smaplangs["Kiswahili"]="sw";
+    smaplangs["Lietuvių"]="lt";
+    smaplangs["Magyar"]="hu";
+    smaplangs["Malagasy"]="mg";
+    smaplangs["Malti"]="mt";
+    smaplangs["Nederlands"]="nl";
+    smaplangs["Norsk"]="no";
+    smaplangs["Polski"]="pl";
+    smaplangs["Português"]="pt";
+    smaplangs["Română"]="ro";
 
-['Қазақ Тілі']='kk' \
-['Македонски']='mk' \
-['Монгол']='mn' \
-['Русский']='ru' \
-['Српски']='sr' \
-['Українська']='uk' \
-['Ўзбек']='uz' \
-['ქართული']='ka' \
-['Հայերեն']='hy' \
-['‫עברית‬']='iw' \
+    smaplangs["Slovenčina"]="sk";
+    smaplangs["Slovenščina"]="sl";
+    smaplangs["Soomaali "]="so";
+    smaplangs["Suomi"]="fi";
+    smaplangs["Svenska"]="sv";
+    smaplangs["Tiếng Việt"]="vi";
+    smaplangs["Türkçe"]="tr";
+    smaplangs["Ελληνικά"]="el";
+    smaplangs["Беларуская"]="be";
+    smaplangs["Беларуская"]="bg";
 
-['മലയാളം']='ml' \
-['한국어']='ko' \
-['中文 (香港)']='zh-HK' \
-['中文（简体中文）']='zh-CN' \
-['中文（繁體中文）']='zh-TW' \
-['日本語']='ja' )
-*/
+    smaplangs["Қазақ Тілі"]="kk";
+    smaplangs["Македонски"]="mk";
+    smaplangs["Монгол"]="mn";
+    smaplangs["Русский"]="ru";
+    smaplangs["Српски"]="sr";
+    smaplangs["Українська"]="uk";
+    smaplangs["Ўзбек"]="uz";
+    smaplangs["ქართული"]="ka";
+    smaplangs["Հայերեն"]="hy";
+    smaplangs["‫עברית‬"]="iw";
 
+    smaplangs["മലയാളം"]="ml";
+    smaplangs["한국어"]="ko";
+    smaplangs["中文 (香港)"]="zh-HK";
+    smaplangs["中文（简体中文）"]="zh-CN";
+    smaplangs["中文（繁體中文）"]="zh-TW";
+    smaplangs["日本語"]="ja";
 
-Session::Session(QObject *parent) : QObject(parent)
-{
-    if (!QDir(ivar::DM).exists() || !QDir(ivar::DC).exists()) {
-
-        Welcome newu;
-        newu.show();
-    }
-
-    out_result();
+    return smaplangs[LANG].toUpper();
 }
 
 
+QString Home = QDir::homePath();
+QString FILE_mn = Home+"/.config/idiomind/tpc";
 
-void Session::out_result(){
+QString tpc = "mn()";
 
-    cout << "FILE_tlngdb: " << ivar::FILE_tlngdb.toStdString() << endl;
-}
+QString tlng = get_tlng();
+QString slng = get_slng();
+QString Source_LANG =  "Source_"+get_LANG(slng);
+
+QString DM_tl = Home+"/.idiomind/topics/"+tlng;
+QString DM_tlt = Home+"/.idiomind/topics/"+tlng+"/"+tpc+"/";
+QString DC_tlt = Home+"/.idiomind/topics/"+tlng+"/"+tpc+"/.conf";
+QString DC_tls = Home+"/.idiomind/topics/"+tlng+"/.share/";
+QString FILE_shrdb = Home+"/.idiomind/topics/"+tlng+"/data/config";
+QString FILE_tlngdb = Home+"/.idiomind/topics/"+tlng+"/data/"+tlng+".db";
+QString FILE_tpcdb = Home+"/.idiomind/topics/"+tlng+"/"+tpc+"/.conf/tpcdb";
+
+
+

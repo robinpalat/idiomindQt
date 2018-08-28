@@ -4,8 +4,8 @@
 #include <QDialog>
 #include <QSql>
 
+#include "vars_statics.h"
 #include "vars_session.h"
-#include "vars_global.h"
 
 namespace Ui {
 class EditTpc;
@@ -20,15 +20,17 @@ public:
     ~EditTpc();
 
     void load_data();
+    void save_data();
     QString get_tpc();
     QString tpc;
+    int numberOfRows = 0, numberOfRowsx = 0;
+    std::vector< QString > edittpc_load_items;
+    std::vector< QString > edittpc_check_items;
+
 
 private slots:
-    void on_pushButton_cancel_clicked();
-    void on_pushButton_save_clicked();
-    void on_pushButton_more_clicked();
-    void on_pushButton_close_clicked();
 
+    void on_pushButton_close_clicked();
     void on_pushButton_save_edits_clicked();
 
 private:

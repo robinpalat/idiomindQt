@@ -19,8 +19,8 @@
 
 #include "dlg_vwr.h"
 #include "dlg_topics.h"
+#include "vars_statics.h"
 #include "vars_session.h"
-#include "vars_global.h"
 #include "dlg_share.h"
 #include "dlg_edittpc.h"
 #include "dlg_translate.h"

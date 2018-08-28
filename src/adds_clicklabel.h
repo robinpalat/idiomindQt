@@ -1,5 +1,5 @@
-#ifndef CLICKABLELABEL_H
-#define CLICKABLELABEL_H
+#ifndef ADDS_CLICKLABEL_H
+#define ADDS_CLICKLABEL_H
 
 #include <QLabel>
 #include <QWidget>
@@ -20,4 +20,4 @@ protected:
 
 };
 
-#endif // CLICKABLELABEL_H
+#endif // ADDS_CLICKLABEL_H

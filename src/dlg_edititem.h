@@ -5,8 +5,8 @@
 #include <QtSql/QtSql>
 
 #include <iostream>
+#include "vars_statics.h"
 #include "vars_session.h"
-#include "vars_global.h"
 
 namespace Ui {
 class Dlg_editItem;
@@ -48,7 +48,7 @@ public:
 
         // mdb.setDatabaseName("/sdcard/Ankidroid/tpc");
         //mdb.setDatabaseName(ivar::DC_tlt+"/tpcdb");
-        mdb.setDatabaseName(ivar::DM_tl+"/"+tpc+"/.conf/tpcdb");
+        mdb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
 
         if (!mdb.open())
         {

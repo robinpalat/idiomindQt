@@ -6,7 +6,7 @@
 #include <QPixmap>
 #include <QIcon>
 #include <QSql>
-#include "vars_session.h"
+#include "vars_statics.h"
 #include "item_list.h"
 
 

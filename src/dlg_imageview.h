@@ -2,6 +2,7 @@
 #define DLG_IMAGEVIEW_H
 
 #include <QDialog>
+#include "vars_session.h"
 
 namespace Ui {
 class Dlg_ImageView;

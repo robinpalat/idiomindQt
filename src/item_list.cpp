@@ -1,6 +1,6 @@
 #include "item_list.h"
 #include "ui_item_list.h"
-#include "vars_session.h"
+#include "vars_statics.h"
 
 
 #include <string>
@@ -29,8 +29,8 @@ item_list::item_list(QWidget *parent) :
 
     QSqlQuery qry;
 
-    ui->label_tpc_name->setText(ivar::tpc);
-    this->setWindowTitle("Idiomind - "+ivar::tpc);
+    ui->label_tpc_name->setText(tpc);
+    this->setWindowTitle("Idiomind - "+tpc);
 
     watcher = new QFileSystemWatcher();
     connect(watcher, SIGNAL(fileChanged(QString)), this, SLOT(fileChangedEvent(QString)));
@@ -79,10 +79,10 @@ void item_list::load_data() {
     ui->label_tpc_name->setText(tpc);
     this->setWindowTitle("Idiomind - "+tpc);
 
-    mydb.setDatabaseName(ivar::DM_tl+"/"+tpc+"/.conf/tpcdb");
+    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
 
     mydb=QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName(ivar::DM_tl+"/"+tpc+"/.conf/tpcdb");
+    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
 
     if (!mydb.open()) qDebug()<<("Failed to open the database");
 
@@ -131,7 +131,7 @@ void item_list::load_data() {
     mydb.removeDatabase(QSqlDatabase::defaultConnection);
 
     // load note
-    QFile file(ivar::DM_tl+"/"+tpc+"/.conf/note");
+    QFile file(DM_tl+"/"+tpc+"/.conf/note");
     if(!file.open(QIODevice::ReadOnly)) {
         QMessageBox::information(nullptr, "error", file.errorString());
     }
@@ -224,7 +224,7 @@ void item_list::closeEvent(QCloseEvent * event)
     tpc = get_tpc();
     QSqlDatabase mydb;
     mydb=QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName(ivar::DM_tl+"/"+tpc+"/.conf/tpcdb");
+    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
     QSqlQuery* qry=new QSqlQuery(mydb);
     if (!mydb.open()) qDebug()<<("Failed to open the database");
 
@@ -245,7 +245,7 @@ void item_list::closeEvent(QCloseEvent * event)
 
     // save note
     QString text = ui->textEdit->toHtml();
-    QString filename=ivar::DM_tl+"/"+tpc+"/.conf/note";
+    QString filename=DM_tl+"/"+tpc+"/.conf/note";
     QFile file( filename );
     if ( file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
     {
@@ -280,7 +280,7 @@ void item_list::on_pushButton_tabmanage_delete_clicked()
     if (msgBox.clickedButton() == deleteButton) {
         QSqlDatabase mydb;
         mydb=QSqlDatabase::addDatabase("QSQLITE");
-        mydb.setDatabaseName(ivar::DM_tl+"/.share/data/topics");
+        mydb.setDatabaseName(DM_tl+"/.share/data/topics");
         QSqlQuery* qry=new QSqlQuery(mydb);
         if (!mydb.open()) qDebug()<<("Failed to open the database");
         qry->prepare("DELETE FROM topics WHERE list = ?");
@@ -335,6 +335,7 @@ void item_list::on_pushButton_tabmanage_edit_clicked()
     mEditTpc->show();
 
 }
+
 
 void item_list::on_pushButton_tabmanage_markas_clicked()
 {

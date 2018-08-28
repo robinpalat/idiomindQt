@@ -1,6 +1,6 @@
 #include "dlg_vwr.h"
 #include "ui_dlg_vwr.h"
-#include "vars_session.h"
+#include "vars_statics.h"
 
 #include <QSqlQuery>
 #include <QPixmap>
@@ -12,6 +12,8 @@
 #include <vector>
 
 using namespace std;
+
+
 
 
 Vwr::Vwr(QWidget *parent) :
@@ -26,7 +28,8 @@ Vwr::Vwr(QWidget *parent) :
 
     ui->label_image->setScaledContents( true );
 
-    ui->pushButton_2->setIcon(QIcon(ivar::DS+"/images/listen.png"));
+
+    //ui->pushButton_2->setIcon(QIcon(ivar::DS+"/images/listen.png"));
 
     QSqlQuery qry;
 
@@ -77,11 +80,8 @@ void Vwr::load_array(QString trgt_ind, QString list_sel)
 void Vwr::setLabelText(QString trgt)
 {
     QSqlQuery qry;
-    trgt.replace("'", "''");
-    qry.prepare("select * from Data where trgt='"+trgt+"'");
-
-//    qry.prepare("select * from Data where (trgt) values (trgt_val)");
-//    qry.bindValue("trgt_val", trgt);
+    qry.prepare("select * from "+Source_LANG+" where trgt=(:trgt_val)");
+    qry.bindValue(":trgt_val", trgt);
 
     QString grmr, wrds, type;
     if (qry.exec( )) {
@@ -112,17 +112,27 @@ void Vwr::setLabelText(QString trgt)
                 lo=true;
             }
             else {
-                ui->tableWidget_wrdsList->setItem(ui->tableWidget_wrdsList->rowCount() -1, 1,
-                                                  new QTableWidgetItem( QString::fromStdString(substring)));
+                QTableWidgetItem * abocado = new QTableWidgetItem( QString::fromStdString(substring));
+                abocado->setTextColor("#5F5F5F");
+
+
+
+                     //ui->tableWidget_wrdsList->setStyleSheet("QTableWidget::item:selected{background-color:'#FFFFFF'};");
+
+                ui->tableWidget_wrdsList->setItem(ui->tableWidget_wrdsList->rowCount() -1, 1, abocado);
                 lo=false;
             }
             prev_pos = ++pos;
         }
+
+
+
+
     }
 
     if (type == "1") {
 
-        QString userimg=ivar::DM_tl+"/.share/images/"+trgt.toLower()+"-1.jpg";
+        QString userimg=DM_tl+"/.share/images/"+trgt.toLower()+"-1.jpg";
         //ui->label_image->setStyleSheet("QLabel {border: 1px solid '#BDBDBD';border-radius: 4px;padding: 0px 0px 0px 0px;}");
         //ui->label_image->setMargin(3);
 
@@ -169,12 +179,12 @@ void Vwr::setLabelText(QString trgt)
         ui->label_image->hide();
 
         QFont font_trgt = ui->label_trgt->font();
-        font_trgt.setPointSize(17);
+        font_trgt.setPointSize(18);
         ui->label_trgt->setAlignment(Qt::AlignLeft);
         ui->label_trgt->setFont(font_trgt);
 
         QFont font_srce = ui->label_srce->font();
-        font_srce.setPointSize(11);
+        font_srce.setPointSize(12);
         ui->label_srce->setAlignment(Qt::AlignLeft);
         //font_srce.setStyle()
         ui->label_srce->setFont(font_srce);
@@ -241,16 +251,16 @@ void Vwr::on_label_note_clicked()
 }
 
 
-void Vwr::on_pushButton_edit_clicked()
-{
-    Vwr conn;
-    conn.connClose();
-    this->close();
-    mDlg_editItem = new Dlg_editItem(this);
-    mDlg_editItem->load_data(trgt, list);
+//void Vwr::on_pushButton_edit_clicked()
+//{
+//    Vwr conn;
+//    conn.connClose();
+//    this->close();
+//    mDlg_editItem = new Dlg_editItem(this);
+//    mDlg_editItem->load_data(trgt, list);
 
-    mDlg_editItem->show();
-}
+//    mDlg_editItem->show();
+//}
 
 
 //void Vwr::closeEvent( QCloseEvent* event )
@@ -260,10 +270,14 @@ void Vwr::on_pushButton_edit_clicked()
 //    event->accept();
 //}
 
-void Vwr::on_pushButton_2_clicked()
+void Vwr::on_label_srce_clicked(){
+    on_label_trgt_clicked();
+}
+
+void Vwr::on_label_trgt_clicked()
 {
     QSqlQuery qry;
-    qry.prepare("select * from Data where trgt=(:trgt_val)");
+    qry.prepare("select * from "+Source_LANG+" where trgt=(:trgt_val)");
     qry.bindValue(":trgt_val", trgt);
 
     if (qry.exec( )) {
@@ -278,8 +292,8 @@ void Vwr::on_pushButton_2_clicked()
     }
     qry.finish();
 
-    QString trgt_mp1 = ivar::DC_tls+"audio/"+trgt.toLower()+".mp3";
-    QString trgt_mp2 = ivar::DM_tl+"/"+tpc+"/"+cdid+".mp3";
+    QString trgt_mp1 = DC_tls+"audio/"+trgt.toLower()+".mp3";
+    QString trgt_mp2 = DM_tl+"/"+tpc+"/"+cdid+".mp3";
 
     if(QFileInfo(trgt_mp1).exists()){
         player->setMedia(QUrl::fromLocalFile(trgt_mp1));
@@ -290,3 +304,4 @@ void Vwr::on_pushButton_2_clicked()
 
     player->play();
 }
+

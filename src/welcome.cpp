@@ -1,6 +1,7 @@
 #include "welcome.h"
 #include "ui_welcome.h"
 
+#include "vars_statics.h"
 #include "vars_session.h"
 #include <string>
 #include <iostream>
@@ -28,10 +29,10 @@ bool Welcome::create_user(){
 
     // share db in "$HOME/.idiomind/topics/$LANGUA/data/config";
     // related to configuration of topics in $LANGUA
-    if (!QFile(ivar::FILE_shrdb).exists()) {
+    if (!QFile(FILE_shrdb).exists()) {
 
         QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName(ivar::FILE_shrdb);
+        db.setDatabaseName(FILE_shrdb);
         db.open();
         QSqlQuery query;
         query.exec("create table person "
@@ -43,10 +44,10 @@ bool Welcome::create_user(){
 
     // share db in "$HOME/.idiomind/topics/$LANGUA/data/$LANGUA.db";
     // related to translation of words in $LANGUA
-    if (!QFile(ivar::FILE_tlngdb).exists()) {
+    if (!QFile(FILE_tlngdb).exists()) {
 
         QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName(ivar::FILE_tlngdb);
+        db.setDatabaseName(FILE_tlngdb);
         db.open();
         QSqlQuery query;
         query.exec("create table person "
