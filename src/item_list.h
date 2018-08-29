@@ -24,7 +24,7 @@
 #include "dlg_share.h"
 #include "dlg_edittpc.h"
 #include "dlg_translate.h"
-#include "dlg_practice.h"
+#include "practice/dlg_practice.h"
 
 using namespace std;
 

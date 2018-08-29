@@ -73,19 +73,13 @@ QString item_list::get_tpc() {
 void item_list::load_data() {
 
     tpc = get_tpc();
-
-    QSqlDatabase mydb;
-
     ui->label_tpc_name->setText(tpc);
     this->setWindowTitle("Idiomind - "+tpc);
 
-    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-
+    QSqlDatabase mydb;
     mydb=QSqlDatabase::addDatabase("QSQLITE");
     mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-
     if (!mydb.open()) qDebug()<<("Failed to open the database");
-
 
      // Tab 2
     QSqlQuery* qry_a=new QSqlQuery(mydb);

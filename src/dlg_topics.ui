@@ -74,6 +74,9 @@
            <pointsize>10</pointsize>
           </font>
          </property>
+         <property name="focusPolicy">
+          <enum>Qt::ClickFocus</enum>
+         </property>
          <property name="styleSheet">
           <string notr="true">selection-color: rgb(142, 255, 101);</string>
          </property>
