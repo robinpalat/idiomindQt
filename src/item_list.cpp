@@ -362,3 +362,11 @@ void item_list::on_pushButton_tabmanage_trans_clicked()
 
 }
 
+
+void item_list::on_pushButton_practice_clicked()
+{
+    this->hide();
+    Practice dlg;
+    dlg.setModal(true);
+    dlg.exec();
+}

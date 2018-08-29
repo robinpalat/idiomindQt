@@ -24,6 +24,7 @@
 #include "dlg_share.h"
 #include "dlg_edittpc.h"
 #include "dlg_translate.h"
+#include "dlg_practice.h"
 
 using namespace std;
 
@@ -73,6 +74,8 @@ private slots:
     void on_pushButton_tabmanage_share_clicked();
     void on_pushButton_tabmanage_markas_clicked();
 
+    void on_pushButton_practice_clicked();
+
 private:
     Ui::item_list *ui;
     Vwr * mVwr;
@@ -80,6 +83,7 @@ private:
     Share * mShare;
     EditTpc * mEditTpc;
     Translate * mTranslate;
+    Practice * mPractice;
     QSystemTrayIcon * trayIcon;
     QFileSystemWatcher * watcher;
 

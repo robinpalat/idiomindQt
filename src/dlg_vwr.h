@@ -104,6 +104,7 @@ private slots:
     void on_pushButton_next_clicked();
     void on_pushButton_prev_clicked();
     void on_label_image_clicked();
+    void on_label_trgt_doubleClicked();
     void on_label_trgt_clicked();
     void on_label_srce_clicked();
     void on_label_note_clicked();

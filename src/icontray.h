@@ -34,6 +34,7 @@ public:
 
 private slots:
     void show_tpc();
+    void show_dlg_add();
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
     void show_index();
     void fileChangedEvent(const QString & path);

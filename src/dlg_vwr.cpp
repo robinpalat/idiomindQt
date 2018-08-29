@@ -242,6 +242,7 @@ void Vwr::on_label_image_clicked()
 }
 
 
+
 void Vwr::on_label_note_clicked()
 {
     //setConnect_lABEL_IMAGE();
@@ -297,11 +298,23 @@ void Vwr::on_label_trgt_clicked()
 
     if(QFileInfo(trgt_mp1).exists()){
         player->setMedia(QUrl::fromLocalFile(trgt_mp1));
+        player->play();
     }
     else if(QFileInfo(trgt_mp2).exists()){
         player->setMedia(QUrl::fromLocalFile(trgt_mp2));
+        player->play();
     }
+}
 
-    player->play();
+
+void Vwr::on_label_trgt_doubleClicked()
+{
+        Vwr conn;
+        conn.connClose();
+        this->close();
+        mDlg_editItem = new Dlg_editItem(this);
+        mDlg_editItem->load_data(trgt, list);
+
+        mDlg_editItem->show();
 }
 

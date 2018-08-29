@@ -1,5 +1,6 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource prefix="/">
-   <file>images/idiomind.png</file>
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file>images/idiomind.png</file>
+        <file>images/nw.png</file>
+    </qresource>
 </RCC>

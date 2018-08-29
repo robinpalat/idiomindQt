@@ -148,7 +148,7 @@ QString  get_LANG(QString LANG) {
 QString Home = QDir::homePath();
 QString FILE_mn = Home+"/.config/idiomind/tpc";
 
-QString tpc = "mn()";
+QString tpc = mn();
 
 QString tlng = get_tlng();
 QString slng = get_slng();

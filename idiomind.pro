@@ -39,7 +39,10 @@ SOURCES += \
     src/mainwindow.cpp \
     src/vars_statics.cpp \
     src/vars_session.cpp \
-    src/adds_clicklabel.cpp
+    src/adds_clicklabel.cpp \
+    src/widgets/cmenucontex.cpp \
+    src/dlg_add.cpp \
+    src/dlg_practice.cpp
 
 HEADERS += \
         src/item_list.h \
@@ -56,7 +59,10 @@ HEADERS += \
     src/mainwindow.h \
     src/vars_statics.h \
     src/vars_session.h \
-    src/adds_clicklabel.h
+    src/adds_clicklabel.h \
+    src/widgets/cmenucontex.h \
+    src/dlg_add.h \
+    src/dlg_practice.h
 
 FORMS += \
         src/item_list.ui \
@@ -68,7 +74,9 @@ FORMS += \
     src/dlg_share.ui \
     src/dlg_edittpc.ui \
     src/dlg_translate.ui \
-    src/mainwindow.ui
+    src/mainwindow.ui \
+    src/dlg_add.ui \
+    src/dlg_practice.ui
 
 DISTFILES += \
     android/AndroidManifest.xml \

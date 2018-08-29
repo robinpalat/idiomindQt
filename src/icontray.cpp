@@ -8,6 +8,7 @@
 #include <QSql>
 #include "vars_statics.h"
 #include "item_list.h"
+#include "dlg_add.h"
 
 
 Icontray::Icontray(QWidget *parent)
@@ -34,24 +35,24 @@ void Icontray::fileChangedEvent(const QString & path)
 
 void Icontray::icontray() {
 
+    Global mGlobal;
+    QString tpc = mGlobal.get_textline(ivar::FILE_mn);
+
     trayIcon = new QSystemTrayIcon(this);
 
     trayIcon->setIcon(QIcon(ivar::DS+"/images/logo.png"));
     trayIcon->setToolTip("");
 
-    Global mGlobal;
-    QString tpc = mGlobal.get_textline(ivar::FILE_mn);
-
     QMenu * menu = new QMenu(this);
-    QAction * play_ = new QAction(tr("Add"), this);
-    QAction * add_ = new QAction(tr("Play"), this);
+    QAction * play_ = new QAction(tr("Play"), this);
+    QAction * add_ = new QAction(tr("Add"), this);
     QAction * viewTopic = new QAction(tpc, this);
 
     QAction * viewTopics = new QAction(tr("Index"), this);
     QAction * quitAction = new QAction(tr("Salir"), this);
 
     connect(play_, SIGNAL(triggered()), this, SLOT(show_tpc()));
-    connect(add_, SIGNAL(triggered()), this, SLOT(show()));
+    connect(add_, SIGNAL(triggered()), this, SLOT(show_dlg_add()));
     connect(viewTopic, SIGNAL(triggered()), this, SLOT(show_tpc()));
 
     // ----------------------------------------
@@ -81,8 +82,9 @@ void Icontray::icontray() {
     connect(viewTopics, SIGNAL(triggered()), this, SLOT(show_index()));
     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
 
-    menu->addAction(play_);
     menu->addAction(add_);
+    menu->addAction(play_);
+
     menu->addAction(viewTopic);
     menu->addSeparator();
     menu->addAction(viewTopics);
@@ -110,7 +112,11 @@ void Icontray::show_tpc() {
     mitem_list.exec();
 }
 
-
+void Icontray::show_dlg_add() {
+    Add dlg;
+    dlg.setModal(true);
+    dlg.exec();
+}
 
 void Icontray::iconActivated(QSystemTrayIcon::ActivationReason reason)
 {
