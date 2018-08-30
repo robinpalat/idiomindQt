@@ -35,6 +35,7 @@ public:
     void answer_card();
     void save_data();
     QString tpc, trgt, srce, type;
+    QString scr_learnt, scr_easy, scr_ling, scr_hard;
     bool cuest;
     unsigned long int pos, items, round;
 

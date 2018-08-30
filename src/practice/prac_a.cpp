@@ -47,28 +47,29 @@ void Prac_a::load_data(QString tpc) {
             if (qry.exec( )) {
                 while(qry.next()) {
                     type = "2";
-                    srce = qry.value(0).toString();
+                    srce = qry.value(1).toString();
                     type = qry.value(13).toString();
                 }
             }
             if (trgt!="" && srce != "" && type == "1") {
                 words.push_back(trgt);
                 pair_words[trgt]=srce;
+                items ++;
             }
-            items ++;
         }
     }
-
-    pos = 0;
-    round = 1;
-    cuest = true;
-    on_pushButton_nex_clicked();
 
     qry_a->finish();
     qry.finish();
     mydb.close();
     mydb = QSqlDatabase();
     mydb.removeDatabase(QSqlDatabase::defaultConnection);
+
+    qDebug() << items;
+    pos = 0;
+    round = 1;
+    cuest = true;
+    on_pushButton_nex_clicked();
 }
 
 
@@ -152,7 +153,7 @@ void Prac_a::answer_card() {
         setLabelText_answer(trgt);
         pos++;
 
-    if ((pos)==items) {
+    if (pos == items) {
         if (round == 1) {
             round=2; pos=0;
             words.clear();
@@ -173,11 +174,11 @@ void Prac_a::answer_card() {
 
 void Prac_a::cuestion_card() {
 
-    if (round == 3) {
-        qDebug() << easy.size();
-        qDebug() << learning.size();
-        qDebug() << learnt.size();
-        qDebug() << difficult.size();
+    if (round == 3 || items < 1) {
+        scr_easy =  QString::number(easy.size());
+        scr_ling = QString::number(learning.size());
+        scr_learnt = QString::number(learnt.size());
+       scr_hard = QString::number(difficult.size());
         this->close();
     }
     else {
@@ -202,8 +203,18 @@ void Prac_a::closeEvent( QCloseEvent* event )
         event->ignore();
         this->hide();
      }
+
     Practice * mPractice;
     mPractice = new Practice(this);
+    if(items < 1){
+        mPractice->score_info(scr_easy, scr_ling, scr_hard);
+    }
+    else{
+
+        mPractice->score_info(scr_easy, scr_ling, scr_hard);
+    }
+
+
     mPractice->show();
 }
 

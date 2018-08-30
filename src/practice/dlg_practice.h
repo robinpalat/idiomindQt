@@ -22,6 +22,7 @@ public:
     void load_data();
     QString tpc;
     QString get_tpc();
+    void score_info(QString easy, QString ling, QString hard);
 
 
 private slots:

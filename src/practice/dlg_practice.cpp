@@ -36,6 +36,16 @@ QString Practice::get_tpc() {
     return  mGlobal.get_textline(ivar::FILE_mn);
 }
 
+void Practice::score_info(QString easy, QString ling, QString hard) {
+
+    ui->widget_score->show();
+    ui->label_score_total->setText(easy);
+    ui->label_score_learnt->setText(easy);
+    ui->label_score_easy->setText(easy);
+    ui->label_score_ling->setText(ling);
+    ui->label_score_hard->setText(hard);
+
+}
 
 void Practice::load_data() {
 
@@ -51,7 +61,7 @@ void Practice::load_data() {
     for( int n = 1; n < 6; n = n + 1 ) {
             ui->tableWidget->insertRow(ui->tableWidget->rowCount());
 
-            QString Path = DC_tlt+"/practice/."+QString::number(n);
+            QString Path = DM_tl+"/"+tpc+"/.conf/practice/."+QString::number(n);
             QString IMG = mGlobal.get_textline(Path);
             QString imgPath = ivar::DS+"/practice/images/"+IMG+".png";
             QImage *img = new QImage(imgPath);
