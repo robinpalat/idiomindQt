@@ -42,7 +42,8 @@ SOURCES += \
     src/adds_clicklabel.cpp \
     src/dlg_add.cpp \
     src/practice/dlg_practice.cpp \
-    src/practice/prac_a.cpp
+    src/practice/prac_a.cpp \
+    src/database.cpp
 
 HEADERS += \
         src/item_list.h \
@@ -62,7 +63,8 @@ HEADERS += \
     src/adds_clicklabel.h \
     src/dlg_add.h \
     src/practice/dlg_practice.h \
-    src/practice/prac_a.h
+    src/practice/prac_a.h \
+    src/database.h
 
 FORMS += \
         src/item_list.ui \

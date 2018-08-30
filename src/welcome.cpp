@@ -3,6 +3,7 @@
 
 #include "vars_statics.h"
 #include "vars_session.h"
+#include "database.h"
 #include <string>
 #include <iostream>
 #include <map>
@@ -23,6 +24,9 @@ Welcome::~Welcome()
 }
 
 bool Welcome::create_user(){
+
+    Database conn;
+    //conn.Opendb();
 
     if (!QDir(ivar::DM).exists()) QDir().mkdir(ivar::DM);
     if (!QDir(ivar::DM_t).exists()) QDir().mkdir(ivar::DM_t);
@@ -77,6 +81,8 @@ bool Welcome::create_user(){
 
     cout << tlangs["Chinese"] << endl;
     cout << tlangs["Italian"] << endl;
+
+    //conn.Closedb();
 }
 
 

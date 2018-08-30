@@ -31,13 +31,6 @@ Vwr::Vwr(QWidget *parent) :
 
     //ui->pushButton_2->setIcon(QIcon(ivar::DS+"/images/listen.png"));
 
-    QSqlQuery qry;
-
-    if (connOpen() == false)
-        cout << " ******* Failed to open the database";
-    else
-        cout << "******* Connected...";
-
     player = new QMediaPlayer(this);
 }
 
@@ -45,7 +38,11 @@ Vwr::Vwr(QWidget *parent) :
 void Vwr::load_array(QString trgt_ind, QString list_sel)
 {
     QString t, s;
+
+    Database conn;
+    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
     QSqlQuery qry;
+
     trgt = trgt_ind;
     list = list_sel;
     qry.prepare("select list from '"+list+"'");
@@ -74,11 +71,14 @@ void Vwr::load_array(QString trgt_ind, QString list_sel)
    }
 
     qry.finish();
+    conn.Closedb();
 }
 
 
 void Vwr::setLabelText(QString trgt)
 {
+    Database conn;
+    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
     QSqlQuery qry;
     qry.prepare("select * from "+Source_LANG+" where trgt=(:trgt_val)");
     qry.bindValue(":trgt_val", trgt);
@@ -115,18 +115,13 @@ void Vwr::setLabelText(QString trgt)
                 QTableWidgetItem * abocado = new QTableWidgetItem( QString::fromStdString(substring));
                 abocado->setTextColor("#5F5F5F");
 
-
-
-                     //ui->tableWidget_wrdsList->setStyleSheet("QTableWidget::item:selected{background-color:'#FFFFFF'};");
+                //ui->tableWidget_wrdsList->setStyleSheet("QTableWidget::item:selected{background-color:'#FFFFFF'};");
 
                 ui->tableWidget_wrdsList->setItem(ui->tableWidget_wrdsList->rowCount() -1, 1, abocado);
                 lo=false;
             }
             prev_pos = ++pos;
         }
-
-
-
 
     }
 
@@ -199,7 +194,9 @@ void Vwr::setLabelText(QString trgt)
         ui->label_trgt->setText(grmr); // label dialog
         ui->label_srce->setText("<font color='#494949'>"+srce+"</font>"); // label dialog
     }
+
     qry.finish();
+    conn.Closedb();
 }
 
 
@@ -309,8 +306,7 @@ void Vwr::on_label_trgt_clicked()
 
 void Vwr::on_label_trgt_doubleClicked()
 {
-        Vwr conn;
-        conn.connClose();
+
         this->close();
         mDlg_editItem = new Dlg_editItem(this);
         mDlg_editItem->load_data(trgt, list);

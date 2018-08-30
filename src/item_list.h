@@ -25,6 +25,7 @@
 #include "dlg_edittpc.h"
 #include "dlg_translate.h"
 #include "practice/dlg_practice.h"
+#include "database.h"
 
 using namespace std;
 

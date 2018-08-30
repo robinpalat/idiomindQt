@@ -47,11 +47,8 @@ void EditTpc::delete_item() {
 
     QString trgt = ui->tableWidget_edit->item(ui->tableWidget_edit->currentRow(), 0)->text();
 
-    QSqlDatabase mydb;
-    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    mydb=QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    if (!mydb.open()) qDebug()<<("Failed to open the database");
+    Database conn;
+    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
     QSqlQuery qry;
 
     qry.prepare("DELETE FROM "+Source_LANG+" WHERE trgt = ?");
@@ -74,9 +71,7 @@ void EditTpc::delete_item() {
     if (!qry.exec()) qDebug() << qry.lastError().text();
     qry.finish();
 
-    mydb.close();
-    mydb = QSqlDatabase();
-    mydb.removeDatabase(QSqlDatabase::defaultConnection);
+    conn.Closedb();
 
     load_data();
 }
@@ -98,23 +93,21 @@ void EditTpc::load_data() {
     tpc = get_tpc();
     this->setWindowTitle("Idiomind - "+tpc);
 
-    QSqlDatabase mydb;
-    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    mydb=QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    if (!mydb.open()) qDebug()<<("Failed to open the database");
-    QSqlQuery* qry_a=new QSqlQuery(mydb);
-    qry_a->prepare("select trgt from "+Source_LANG+"");
+    Database conn;
+    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
+
+    QSqlQuery qry_a;
+    qry_a.prepare("select trgt from "+Source_LANG+"");
 
     ui->tableWidget_edit->setColumnCount(1);
     ui->tableWidget_edit->setRowCount(0);
 
     edittpc_check_items.clear();
 
-    if (qry_a->exec( )) {
-        while(qry_a->next()) {
+    if (qry_a.exec( )) {
+        while(qry_a.next()) {
 
-            QString trgt = qry_a->value(0).toString();
+            QString trgt = qry_a.value(0).toString();
             edittpc_load_items.push_back(trgt);
 
             ui->tableWidget_edit->insertRow(ui->tableWidget_edit->rowCount());
@@ -126,9 +119,9 @@ void EditTpc::load_data() {
 
     ui->tableWidget_edit->setColumnWidth(0, 500);
 
-    mydb.close();
-    mydb = QSqlDatabase();
-    mydb.removeDatabase(QSqlDatabase::defaultConnection);
+    qry_a.finish();
+    conn.Closedb();
+
 }
 
 
@@ -136,11 +129,8 @@ void EditTpc::save_data() {
 
     this->setWindowTitle("Idiomind - "+tpc);
 
-    QSqlDatabase mydb;
-    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    mydb=QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    if (!mydb.open()) qDebug()<<("Failed to open the database");
+    Database conn;
+    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
 
     edittpc_check_items.clear();
     QAbstractItemModel *model = ui->tableWidget_edit->model();
@@ -181,9 +171,7 @@ void EditTpc::save_data() {
         n++;
     }
 
-    mydb.close();
-    mydb = QSqlDatabase();
-    mydb.removeDatabase(QSqlDatabase::defaultConnection);
+    conn.Closedb();
 }
 
 

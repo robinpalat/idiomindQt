@@ -36,10 +36,10 @@ QString Practice::get_tpc() {
     return  mGlobal.get_textline(ivar::FILE_mn);
 }
 
-void Practice::score_info(QString easy, QString ling, QString hard) {
+void Practice::score_info(QString total, QString easy, QString ling, QString hard) {
 
     ui->widget_score->show();
-    ui->label_score_total->setText(easy);
+    ui->label_score_total->setText(total);
     ui->label_score_learnt->setText(easy);
     ui->label_score_easy->setText(easy);
     ui->label_score_ling->setText(ling);
@@ -53,17 +53,25 @@ void Practice::load_data() {
 
     this->setWindowTitle(tr("Practice - ")+tpc);
 
-    Global mGlobal;
     QString pracs[5] = {tr("Flashcards"),tr("Multiple-choice"),
                         tr("Recognize Pronunciation"),
                         tr("Images"),tr("Listen and Writing Sentences")};
+    QString pracs_nicons[5] = {"a","b","c","d","e"};
 
+    Database conn;
+    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlQuery qry;
+
+    QString img;
     for( int n = 1; n < 6; n = n + 1 ) {
+
             ui->tableWidget->insertRow(ui->tableWidget->rowCount());
 
-            QString Path = DM_tl+"/"+tpc+"/.conf/practice/."+QString::number(n);
-            QString IMG = mGlobal.get_textline(Path);
-            QString imgPath = ivar::DS+"/practice/images/"+IMG+".png";
+            qry.prepare("SELECT prac_"+pracs_nicons[n-1]+" FROM Practice_icons");
+            if (qry.exec( )) {
+                while(qry.next()) {img = qry.value(0).toString();}
+            }
+            QString imgPath = ivar::DS+"/practice/images/"+img+".png";
             QImage *img = new QImage(imgPath);
             QTableWidgetItem *thumbnail = new QTableWidgetItem;
             thumbnail->setData(Qt::DecorationRole, QPixmap::fromImage(*img));
@@ -71,6 +79,8 @@ void Practice::load_data() {
 
             ui->tableWidget->setItem(ui->tableWidget->rowCount()-1 , 1, new QTableWidgetItem(pracs[n-1]));
         }
+
+    conn.Closedb();
 }
 
 

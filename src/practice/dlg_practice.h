@@ -5,6 +5,7 @@
 #include <QTableWidget>
 
 #include "src/practice/prac_a.h"
+#include "src/database.h"
 
 namespace Ui {
 class Practice;
@@ -22,8 +23,7 @@ public:
     void load_data();
     QString tpc;
     QString get_tpc();
-    void score_info(QString easy, QString ling, QString hard);
-
+    void score_info(QString total, QString easy, QString ling, QString hard);
 
 private slots:
     void on_pushButton_clicked();

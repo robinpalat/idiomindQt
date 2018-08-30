@@ -34,27 +34,20 @@ void Translate::load_data() {
 
     tpc = get_tpc();
 
-    QSqlDatabase mydb;
+    Database conn;
+    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlQuery qry_a;
 
     this->setWindowTitle("Idiomind - "+tpc);
 
-    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-
-    mydb=QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-
-    if (!mydb.open()) qDebug()<<("Failed to open the database");
-
-    QSqlQuery* qry_a=new QSqlQuery(mydb);
-
-    qry_a->prepare("select * from "+Source_LANG+"");
+    qry_a.prepare("select * from "+Source_LANG+"");
     //QFormLayout *layouta = new QFormLayout;
     int n = 0;
-    if (qry_a->exec( )) {
-        while(qry_a->next()) {
+    if (qry_a.exec( )) {
+        while(qry_a.next()) {
 
-            QString trgt = qry_a->value(0).toString();
-            QString srce = qry_a->value(1).toString();
+            QString trgt = qry_a.value(0).toString();
+            QString srce = qry_a.value(1).toString();
             trans_load_items.push_back(srce);
 
             //QGroupBox * BOX = new QGroupBox(QString::number(n), this);
@@ -119,14 +112,14 @@ void Translate::load_data() {
     ui->checkBox_verifiedtrans->setText("Verified — "+slng+"");
 
     // check/load verified languages
-    qry_a->prepare("select * from verified_translations");
+    qry_a.prepare("select * from verified_translations");
     ui->comboBox_verified_trans->addItem("");
 
     //
     lang_verif_count = 0;
-    if (qry_a->exec( )) {
-        while(qry_a->next()) {
-            QString lang = qry_a->value(0).toString();
+    if (qry_a.exec( )) {
+        while(qry_a.next()) {
+            QString lang = qry_a.value(0).toString();
 
             // Adding item to first comboBox list of veried translations avoiding current language
             if ( lang != "" && lang != slng ) {
@@ -155,6 +148,9 @@ void Translate::load_data() {
         ui->widget_no_verified->show();
         ui->widget_verified->hide();
     }
+
+    qry_a.finish();
+    conn.Closedb();
 }
 
 
@@ -166,16 +162,10 @@ void Translate::on_pushButton_close_clicked()
 
 void Translate::save_data() {
 
-    QSqlDatabase mydb;
-
     this->setWindowTitle("Idiomind - "+tpc);
 
-    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-
-    mydb=QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-
-    if (!mydb.open()) qDebug()<<("Failed to open the database");
+    Database conn;
+    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
 
     trans_check_items.clear();
     // getting values from orphated widget this qobject_cast, usind nested calls
@@ -189,20 +179,22 @@ void Translate::save_data() {
     if (trans_load_items != trans_check_items ) {
 
         QString* arraytrgt = &trans_check_items[0];
+        QSqlQuery qry;
 
         int n = 0;
         for(std::vector<QString>::iterator it = trans_load_items.begin(); it != trans_load_items.end(); ++it) {
             if (*it != arraytrgt[n]) {
-                QSqlQuery qry;
+
                 qry.prepare("update "+Source_LANG+" set srce='"+arraytrgt[n]+"' where srce='"+*it+"'");
                 qry.exec();
             }
             n++;
         }
+        qry.finish();
     }
-    mydb.close();
-    mydb = QSqlDatabase();
-    mydb.removeDatabase(QSqlDatabase::defaultConnection);
+
+    conn.Closedb();
+
 }
 
 
@@ -215,6 +207,8 @@ void Translate::on_pushButton_save_trans_clicked()
 
 void Translate::on_checkBox_verifiedtrans_stateChanged(int arg1)
 {
+    Database conn;
+    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
     QSqlQuery qry_c;
 
     if (arg1==0 && current_lang_is_already_verified == true) {
@@ -247,6 +241,8 @@ void Translate::on_checkBox_verifiedtrans_stateChanged(int arg1)
         ui->widget_verified->hide();
     }
 
+    qry_c.finish();
+    conn.Closedb();
         /*
 
         qry_c.prepare("update verified_translations set "+lgs+"=1 where "+lgs+"=0");

@@ -1,5 +1,5 @@
 #include "vars_session.h"
-
+#include "src/database.h"
 
 Global::Global()
 {
@@ -25,53 +25,36 @@ QString user_name() {
       return name;
 }
 
-void connClose()
-{
-      QSqlDatabase mydb;
-      QSqlQuery qry;
-      qry.finish();
-      mydb.close();
-      mydb = QSqlDatabase();
-      mydb.removeDatabase(QSqlDatabase::defaultConnection);
-}
-
-bool connOpen()
-{
-      QString Home = QDir::homePath();
-      QSqlDatabase mydb;
-      mydb=QSqlDatabase::addDatabase("QSQLITE");
-      mydb.setDatabaseName(Home+"/.config/idiomind/config");
-      if (!mydb.open())
-      {
-          qDebug()<<("Failed to open the database");
-          return false;
-      }
-      else
-      {
-          return true;
-      }
-}
 
 QString get_tlng(){
-      connOpen();
-      QSqlQuery qry;
-      qry.prepare("select tlng from lang");
-      if(!qry.exec()) qDebug() << "Error";
-      qry.next();
-      QString pre_tlng = qry.value(0).toString();
-      qry.finish(); connClose();
-      return pre_tlng;
+
+    Database conn;
+    conn.Opendb(Home+"/.config/idiomind/config");
+    QSqlQuery qry;
+
+    qry.prepare("select tlng from lang");
+    if(!qry.exec()) qDebug() << "Error";
+    qry.next();
+    QString pre_tlng = qry.value(0).toString();
+
+    qry.finish();
+    conn.Closedb();
+    return pre_tlng;
 }
 
 QString get_slng(){
-      connOpen();
-      QSqlQuery qry;
-      qry.prepare("select slng from lang");
-      if(!qry.exec()) qDebug() << "Error";
-      qry.next();
-      QString pre_slng = qry.value(0).toString();
-      qry.finish(); connClose();
-      return pre_slng;
+    Database conn;
+    conn.Opendb(Home+"/.config/idiomind/config");
+    QSqlQuery qry;
+
+    qry.prepare("select slng from lang");
+    if(!qry.exec()) qDebug() << "Error";
+    qry.next();
+    QString pre_slng = qry.value(0).toString();
+
+    qry.finish();
+    conn.Closedb();
+    return pre_slng;
 }
 
 QString mn(){

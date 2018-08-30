@@ -7,6 +7,7 @@
 #include <iostream>
 #include "vars_statics.h"
 #include "vars_session.h"
+#include "database.h"
 
 namespace Ui {
 class Dlg_editItem;
@@ -28,40 +29,6 @@ public:
 
     Global mGlobal;
     QString tpc = mGlobal.get_textline(ivar::FILE_mn);
-
-    void connCloseb()
-    {
-        QSqlDatabase mdb;
-        QSqlQuery qry;
-        qry.finish();
-        mdb.close();
-        mdb = QSqlDatabase();
-        mdb.removeDatabase(QSqlDatabase::defaultConnection);
-        if(mdb.open()) std::cout << "Failed to close the databse... (edit)" << std::endl;
-        else std::cout << "Database closed... (edit)" << std::endl;
-    }
-
-    bool connOpenb()
-    {
-        QSqlDatabase mdb;
-        mdb=QSqlDatabase::addDatabase("QSQLITE");
-
-        // mdb.setDatabaseName("/sdcard/Ankidroid/tpc");
-        //mdb.setDatabaseName(ivar::DC_tlt+"/tpcdb");
-        mdb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-
-        if (!mdb.open())
-        {
-            qDebug()<<("Failed to open the database (edit)");
-            return false;
-        }
-        else
-        {
-            qDebug()<<("Connected... (edit)");
-            return true;
-        }
-    }
-
 
 public:
     unsigned long int pos = 0, items =0;

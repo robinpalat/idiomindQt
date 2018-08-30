@@ -11,6 +11,7 @@
 
 #include "vars_statics.h"
 #include "vars_session.h"
+#include "database.h"
 
 namespace Ui {
 class Translate;
@@ -34,39 +35,6 @@ public:
     std::vector< QString > trans_load_items;
     std::vector< QString > trans_check_items;
 
-
-    void connCloseb()
-    {
-        QSqlDatabase mdb;
-        QSqlQuery qry;
-        qry.finish();
-        mdb.close();
-        mdb = QSqlDatabase();
-        mdb.removeDatabase(QSqlDatabase::defaultConnection);
-        if(mdb.open()) std::cout << "Failed to close the databse... (edit)" << std::endl;
-        else std::cout << "Database closed... (edit)" << std::endl;
-    }
-
-    bool connOpenb()
-    {
-        QSqlDatabase mdb;
-        mdb=QSqlDatabase::addDatabase("QSQLITE");
-
-        // mdb.setDatabaseName("/sdcard/Ankidroid/tpc");
-        //mdb.setDatabaseName(ivar::DC_tlt+"/tpcdb");
-        mdb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-
-        if (!mdb.open())
-        {
-            qDebug()<<("Failed to open the database (edit)");
-            return false;
-        }
-        else
-        {
-            qDebug()<<("Connected... (edit)");
-            return true;
-        }
-    }
 
 private slots:
     void on_pushButton_close_clicked();

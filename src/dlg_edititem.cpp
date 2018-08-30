@@ -32,7 +32,9 @@ void Dlg_editItem::load_data(QString trgt_ind, QString list_sel)
 {
     trgt = trgt_ind;
     list = list_sel;
-    connOpenb();
+    Database conn;
+    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
+
     QString t, s;
     QSqlQuery qry;
     qry.prepare("select list from '"+list+"'");
@@ -57,7 +59,7 @@ void Dlg_editItem::load_data(QString trgt_ind, QString list_sel)
    }
    else {
      QMessageBox::critical(this, tr("Error"), qry.lastError().text());
-     connCloseb();
+     conn.Closedb();
    }
     qry.finish();
 }
@@ -115,6 +117,8 @@ void Dlg_editItem::fill_data(QString trgt)
 
 void Dlg_editItem::save_data() {
 
+    Database conn;
+    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
 
     QString trgt_mod, srce_mod, note_mod,
             defn_mod, exmp_mod, mark_mod;
@@ -167,6 +171,7 @@ void Dlg_editItem::save_data() {
         qry.exec();
     }
 
+    conn.Closedb();
     trgt = trgt_mod;
     load_data(trgt, list);
 }
@@ -208,7 +213,6 @@ void Dlg_editItem::closeEvent( QCloseEvent* event )
 {
     save_data();
 
-    connCloseb();
     this->close();
     Vwr * mVwr;
     mVwr = new Vwr(this);

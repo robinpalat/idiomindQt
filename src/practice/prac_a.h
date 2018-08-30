@@ -10,8 +10,9 @@
 #include <fstream>
 #include <QFileSystemWatcher>
 
-#include "../vars_statics.h"
-#include "../vars_session.h"
+#include "src/vars_statics.h"
+#include "src/vars_session.h"
+#include "src/database.h"
 
 
 namespace Ui {
@@ -35,9 +36,10 @@ public:
     void answer_card();
     void save_data();
     QString tpc, trgt, srce, type;
-    QString scr_learnt, scr_easy, scr_ling, scr_hard;
+    QString scr_total, scr_learnt, scr_easy, scr_ling, scr_hard;
     bool cuest;
-    unsigned long int pos, items, round;
+    unsigned short int pos, total, round;
+    unsigned long int items;
 
     std::vector< QString > words;
     std::vector< QString > learning;
@@ -48,10 +50,10 @@ public:
     std::map<QString,QString>::iterator it;
 
 private slots:
-    void on_pushButton_nex_clicked();
+    void on_pushButton_ok_clicked();
     void closeEvent(QCloseEvent * event);
 
-    void on_pushButton_exit_clicked();
+    void on_pushButton_no_clicked();
 
 private:
     Ui::Prac_a *ui;

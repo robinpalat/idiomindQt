@@ -20,6 +20,7 @@
 #include "dlg_edititem.h"
 #include "adds_clicklabel.h"
 #include "vars_session.h"
+#include "database.h"
 
 using namespace std;
 
@@ -44,38 +45,6 @@ public:
     QSqlDatabase mydb;
     Global mGlobal;
     QString tpc = mGlobal.get_textline(ivar::FILE_mn);
-
-    void connClose()
-    {
-        QSqlQuery qry;
-        qry.finish();
-        mydb.close();
-        mydb = QSqlDatabase();
-        mydb.removeDatabase(QSqlDatabase::defaultConnection);
-        if(mydb.open()) cout << "Failed to close the databse..." << endl;
-        else cout << "Database closed..." << endl;
-    }
-
-    bool connOpen()
-    {
-        mydb=QSqlDatabase::addDatabase("QSQLITE");
-
-        // mydb.setDatabaseName("/sdcard/Ankidroid/tpc");
-       // mydb.setDatabaseName(ivar::DC_tlt+"/tpcdb");
-        mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-
-        if (!mydb.open())
-        {
-            qDebug()<<("Failed to open the database");
-            return false;
-        }
-        else
-        {
-            qDebug()<<("Connected...");
-            return true;
-        }
-    }
-
 
 public:
     unsigned long int pos = 0, items =0;

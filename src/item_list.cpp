@@ -76,21 +76,19 @@ void item_list::load_data() {
     ui->label_tpc_name->setText(tpc);
     this->setWindowTitle("Idiomind - "+tpc);
 
-    QSqlDatabase mydb;
-    mydb=QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    if (!mydb.open()) qDebug()<<("Failed to open the database");
+    Database conn;
+    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
 
      // Tab 2
-    QSqlQuery* qry_a=new QSqlQuery(mydb);
-    qry_a->prepare("select list from learning");
+    QSqlQuery qry_a;
+    qry_a.prepare("select list from learning");
     ui->list_learning->setColumnCount(2);
     ui->list_learning->setRowCount(0);
 
     int numberOfRows = 0;
-    if (qry_a->exec( )) {
-        while(qry_a->next()) {
-            QString srce = qry_a->value(0).toString();
+    if (qry_a.exec( )) {
+        while(qry_a.next()) {
+            QString srce = qry_a.value(0).toString();
             QTableWidgetItem *item2 = new QTableWidgetItem("");
             item2->setCheckState(Qt::Unchecked);
             ui->list_learning->insertRow(ui->list_learning->rowCount());
@@ -103,7 +101,8 @@ void item_list::load_data() {
 
     // Tab 2
     QSqlQueryModel * tab2_modal=new QSqlQueryModel();
-    QSqlQuery* qry_b=new QSqlQuery(mydb);
+    QSqlQuery * qry_b=new QSqlQuery();
+    //QSqlQuery qry_b;
     qry_b->prepare("select list from learnt");
     qry_b->exec();
     tab2_modal->setQuery(*qry_b);
@@ -120,9 +119,9 @@ void item_list::load_data() {
 
     ui->tabWidget->setTabText(1, "Learnt (" +QString::number(numberOfRows)+ ")");
 
-    mydb.close();
-    mydb = QSqlDatabase();
-    mydb.removeDatabase(QSqlDatabase::defaultConnection);
+    qry_a.finish();
+    qry_b->finish();
+    conn.Closedb();
 
     // load note
     QFile file(DM_tl+"/"+tpc+"/.conf/note");
@@ -216,26 +215,23 @@ void item_list::closeEvent(QCloseEvent * event)
 {
     // Save data
     tpc = get_tpc();
-    QSqlDatabase mydb;
-    mydb=QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    QSqlQuery* qry=new QSqlQuery(mydb);
-    if (!mydb.open()) qDebug()<<("Failed to open the database");
+
+    Database conn;
+    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlQuery qry;
 
     for(std::vector<QString>::iterator chkd = checked_items.begin(); chkd != checked_items.end(); ++chkd) {
        QString checked = *chkd;
-       qry->prepare("DELETE FROM learning WHERE list = ?");
-       qry->addBindValue(checked);
-       if (!qry->exec()) qDebug() << qry->lastError().text();
-       qry->prepare("INSERT INTO learnt(list) values(:checked)");
-       qry->bindValue(":checked",checked);
-       if (!qry->exec()) qDebug() << qry->lastError().text();
+       qry.prepare("DELETE FROM learning WHERE list = ?");
+       qry.addBindValue(checked);
+       if (!qry.exec()) qDebug() << qry.lastError().text();
+       qry.prepare("INSERT INTO learnt(list) values(:checked)");
+       qry.bindValue(":checked",checked);
+       if (!qry.exec()) qDebug() << qry.lastError().text();
     }
 
-    qry->finish();
-    mydb.close();
-    mydb = QSqlDatabase();
-    mydb.removeDatabase(QSqlDatabase::defaultConnection);
+    qry.finish();
+    conn.Closedb();
 
     // save note
     QString text = ui->textEdit->toHtml();
@@ -272,26 +268,23 @@ void item_list::on_pushButton_tabmanage_delete_clicked()
     // -----------------------------------------------
 
     if (msgBox.clickedButton() == deleteButton) {
-        QSqlDatabase mydb;
-        mydb=QSqlDatabase::addDatabase("QSQLITE");
-        mydb.setDatabaseName(DM_tl+"/.share/data/topics");
-        QSqlQuery* qry=new QSqlQuery(mydb);
-        if (!mydb.open()) qDebug()<<("Failed to open the database");
-        qry->prepare("DELETE FROM topics WHERE list = ?");
-        qry->addBindValue(tpc);
-        if (!qry->exec()) qDebug() << qry->lastError().text();
+
+        Database conn;
+        conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
+        QSqlQuery qry;
+
+        qry.prepare("DELETE FROM topics WHERE list = ?");
+        qry.addBindValue(tpc);
+        if (!qry.exec()) qDebug() << qry.lastError().text();
 
         for (int i=0; i<8; ++i) {
             col = "T"+QString::number(i);
-            qry->prepare("DELETE FROM '"+col+"' WHERE list = ?");
-            qry->addBindValue(tpc);
-            if (!qry->exec()) qDebug() << qry->lastError().text();
+            qry.prepare("DELETE FROM '"+col+"' WHERE list = ?");
+            qry.addBindValue(tpc);
+            if (!qry.exec()) qDebug() << qry.lastError().text();
         }
-        qry->finish();
-        mydb.close();
-        mydb = QSqlDatabase();
-        mydb.removeDatabase(QSqlDatabase::defaultConnection);
-
+        qry.finish();
+        conn.Closedb();
 
     } else if (msgBox.clickedButton() == cancelButton) {
         return;
