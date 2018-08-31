@@ -71,7 +71,7 @@ void Practice::load_data() {
             if (qry.exec( )) {
                 while(qry.next()) {img = qry.value(0).toString();}
             }
-            QString imgPath = ivar::DS+"/practice/images/"+img+".png";
+            QString imgPath = ivar::DS+"/images/practice/"+img+".png";
             QImage *img = new QImage(imgPath);
             QTableWidgetItem *thumbnail = new QTableWidgetItem;
             thumbnail->setData(Qt::DecorationRole, QPixmap::fromImage(*img));
