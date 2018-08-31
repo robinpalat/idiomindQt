@@ -113,8 +113,6 @@ DISTFILES += \
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
-RC_ICONS = idiomind.ico
-RC_ICONS = idiomind.png
 
 QMAKE_CXXFLAGS += -std=gnu++14
 
