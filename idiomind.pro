@@ -25,61 +25,63 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        src/main.cpp \
-        src/icontray.cpp \
-        src/item_list.cpp \
-    src/dlg_imageview.cpp \
-    src/dlg_vwr.cpp \
-    src/dlg_edititem.cpp \
-    src/dlg_topics.cpp \
-    src/welcome.cpp \
-    src/dlg_share.cpp \
-    src/dlg_edittpc.cpp \
-    src/dlg_translate.cpp \
-    src/mainwindow.cpp \
-    src/vars_statics.cpp \
-    src/vars_session.cpp \
-    src/adds_clicklabel.cpp \
-    src/dlg_add.cpp \
-    src/practice/dlg_practice.cpp \
-    src/practice/prac_a.cpp \
-    src/database.cpp
+        Core/main.cpp \
+        Core/icontray.cpp \
+        Core/item_list.cpp \
+    Core/dlg_imageview.cpp \
+    Core/dlg_vwr.cpp \
+    Core/dlg_edititem.cpp \
+    Core/dlg_topics.cpp \
+    Core/welcome.cpp \
+    Core/dlg_share.cpp \
+    Core/dlg_edittpc.cpp \
+    Core/dlg_translate.cpp \
+    Core/mainwindow.cpp \
+    Core/vars_statics.cpp \
+    Core/vars_session.cpp \
+    Classes/adds_clicklabel.cpp \
+    Core/dlg_add.cpp \
+    Core/practice/dlg_practice.cpp \
+    Core/practice/prac_a.cpp \
+    Media/database.cpp \
+    Media/audioplayer.cpp
 
 HEADERS += \
-        src/item_list.h \
-    src/icontray.h \
-    src/ui_item_list.h \
-    src/dlg_imageview.h \
-    src/dlg_vwr.h \
-    src/dlg_edititem.h \
-    src/dlg_topics.h \
-    src/welcome.h \
-    src/dlg_share.h \
-    src/dlg_edittpc.h \
-    src/dlg_translate.h \
-    src/mainwindow.h \
-    src/vars_statics.h \
-    src/vars_session.h \
-    src/adds_clicklabel.h \
-    src/dlg_add.h \
-    src/practice/dlg_practice.h \
-    src/practice/prac_a.h \
-    src/database.h
+        Core/item_list.h \
+    Core/icontray.h \
+    Core/ui_item_list.h \
+    Core/dlg_imageview.h \
+    Core/dlg_vwr.h \
+    Core/dlg_edititem.h \
+    Core/dlg_topics.h \
+    Core/welcome.h \
+    Core/dlg_share.h \
+    Core/dlg_edittpc.h \
+    Core/dlg_translate.h \
+    Core/mainwindow.h \
+    Core/vars_statics.h \
+    Core/vars_session.h \
+    Classes/adds_clicklabel.h \
+    Core/dlg_add.h \
+    Core/practice/dlg_practice.h \
+    Core/practice/prac_a.h \
+    Media/database.h \
+    Media/audioplayer.h
 
 FORMS += \
-        src/item_list.ui \
-    src/dlg_imageview.ui \
-    src/dlg_vwr.ui \
-    src/dlg_edititem.ui \
-    src/dlg_topics.ui \
-    src/welcome.ui \
-    src/dlg_share.ui \
-    src/dlg_edittpc.ui \
-    src/dlg_translate.ui \
-    src/mainwindow.ui \
-    src/dlg_add.ui \
-    src/practice/dlg_practice.ui \
-    src/practice/prac_a.ui
+        Ui/item_list.ui \
+    Ui/dlg_imageview.ui \
+    Ui/dlg_vwr.ui \
+    Ui/dlg_edititem.ui \
+    Ui/dlg_topics.ui \
+    Ui/welcome.ui \
+    Ui/dlg_share.ui \
+    Ui/dlg_edittpc.ui \
+    Ui/dlg_translate.ui \
+    Ui/mainwindow.ui \
+    Ui/dlg_add.ui \
+    Ui/dlg_practice.ui \
+    Ui/prac_a.ui
 
 DISTFILES += \
     android/AndroidManifest.xml \

@@ -6,7 +6,6 @@
 #include <QPixmap>
 #include <QCloseEvent>
 
-
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -28,10 +27,8 @@ Vwr::Vwr(QWidget *parent) :
 
     ui->label_image->setScaledContents( true );
 
-
     //ui->pushButton_2->setIcon(QIcon(ivar::DS+"/images/listen.png"));
 
-    player = new QMediaPlayer(this);
 }
 
 
@@ -274,37 +271,9 @@ void Vwr::on_label_srce_clicked(){
 
 void Vwr::on_label_trgt_clicked()
 {
-    Database conn;
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    QSqlQuery qry;
-    qry.prepare("select * from "+Source_LANG+" where trgt=(:trgt_val)");
-    qry.bindValue(":trgt_val", trgt);
+    Audioplayer listen;
+    listen.play(trgt);
 
-    if (qry.exec( )) {
-        while(qry.next()) {
-            cdid = qry.value(12).toString();
-
-        }
-    }
-    else {
-
-        qDebug() << qry.lastError();
-    }
-    qry.finish();
-
-    QString trgt_mp1 = DC_tls+"audio/"+trgt.toLower()+".mp3";
-    QString trgt_mp2 = DM_tl+"/"+tpc+"/"+cdid+".mp3";
-
-    if(QFileInfo(trgt_mp1).exists()){
-        player->setMedia(QUrl::fromLocalFile(trgt_mp1));
-        player->play();
-    }
-    else if(QFileInfo(trgt_mp2).exists()){
-        player->setMedia(QUrl::fromLocalFile(trgt_mp2));
-        player->play();
-    }
-
-    conn.Closedb();
 }
 
 

@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/idiomind.png</file>
-        <file>images/nw.png</file>
+        <file>Images/idiomind.png</file>
+        <file>Images/nw.png</file>
     </qresource>
 </RCC>

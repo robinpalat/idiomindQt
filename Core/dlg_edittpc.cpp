@@ -1,4 +1,4 @@
-#include "src/dlg_edittpc.h"
+#include "dlg_edittpc.h"
 #include "ui_dlg_edittpc.h"
 #include <QMenu>
 

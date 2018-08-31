@@ -5,8 +5,8 @@
 #include <QtSql/QtSql>
 #include <QDebug>
 
-#include "vars_statics.h"
-#include "vars_session.h"
+#include "Core/vars_statics.h"
+#include "Core/vars_session.h"
 
 class Database : public QObject
 {

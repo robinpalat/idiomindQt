@@ -2,8 +2,8 @@
 
 #include "dlg_practice.h"
 #include "ui_dlg_practice.h"
-#include "../vars_statics.h"
-#include "../vars_session.h"
+#include "Core/vars_statics.h"
+#include "Core/vars_session.h"
 
 Practice::Practice(QWidget *parent) :
     QDialog(parent),

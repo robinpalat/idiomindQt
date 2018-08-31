@@ -4,8 +4,8 @@
 #include <QDialog>
 #include <QTableWidget>
 
-#include "src/practice/prac_a.h"
-#include "src/database.h"
+#include "Core/practice/prac_a.h"
+#include "Media/database.h"
 
 namespace Ui {
 class Practice;

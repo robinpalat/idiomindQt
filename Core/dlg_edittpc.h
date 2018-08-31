@@ -6,7 +6,7 @@
 
 #include "vars_statics.h"
 #include "vars_session.h"
-#include "database.h"
+#include "Media/database.h"
 
 namespace Ui {
 class EditTpc;

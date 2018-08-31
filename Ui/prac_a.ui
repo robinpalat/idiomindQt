@@ -20,7 +20,7 @@
    <string>Flashcards</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../res.qrc">
+   <iconset>
     <normaloff>:/images/idiomind.png</normaloff>:/images/idiomind.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -49,13 +49,16 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QLabel" name="label_trgt">
+       <widget class="ClickableLabel" name="label_trgt">
         <property name="font">
          <font>
           <pointsize>26</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="text">
          <string>TextLabel</string>
@@ -219,8 +222,13 @@ color: rgb(40, 81, 0);</string>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../res.qrc"/>
- </resources>
+ <customwidgets>
+  <customwidget>
+   <class>ClickableLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">Classes/adds_clicklabel.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
  <connections/>
 </ui>

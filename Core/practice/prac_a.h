@@ -10,9 +10,11 @@
 #include <fstream>
 #include <QFileSystemWatcher>
 
-#include "src/vars_statics.h"
-#include "src/vars_session.h"
-#include "src/database.h"
+#include "Classes/adds_clicklabel.h"
+#include "Core/vars_statics.h"
+#include "Core/vars_session.h"
+#include "Media/database.h"
+#include "Media/audioplayer.h"
 
 
 namespace Ui {
@@ -56,6 +58,7 @@ private slots:
     void on_pushButton_no_clicked();
 
     void on_pushButton_answer_clicked();
+    void on_label_trgt_clicked();
 
 private:
     Ui::Prac_a *ui;

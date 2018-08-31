@@ -248,4 +248,10 @@ void Prac_a::closeEvent( QCloseEvent* event )
     mPractice->show();
 }
 
+void Prac_a::on_label_trgt_clicked()
+{
+    Audioplayer listen;
+    listen.play(trgt);
+
+}
 
