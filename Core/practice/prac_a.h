@@ -31,7 +31,7 @@ public:
     ~Prac_a();
 
 public:
-    void load_data(QString tpc);
+    //void load_data(QString tpc);
     QString get_tpc();
     void setLabelText_cuest(QString trgt);
     void setLabelText_answer(QString trgt);
@@ -39,10 +39,10 @@ public:
     void answer_card();
     void save_data();
     QString tpc, trgt, srce, type;
-    QString scr_total, scr_learnt, scr_easy, scr_ling, scr_hard;
+    unsigned long int int_total, int_learnt, int_easy, int_ling, int_hard;
     bool cuest;
-    unsigned short int pos, total, round, ok_count = 0, no_count = 0;
-    unsigned long int items;
+    unsigned short int pos, round, ok_count = 0, no_count = 0;
+    unsigned long int items, total;
 
     std::vector< QString > words;
     std::vector< QString > learning;
@@ -51,6 +51,12 @@ public:
     std::vector< QString > difficult;
     std::map<QString,QString> pair_words;
     std::map<QString,QString>::iterator it;
+
+
+    void load_data(std::map<QString, QString> &tmp_pair_words,
+                   std::vector< QString > &tmp_words);
+
+
 
 private slots:
     void on_pushButton_ok_clicked();

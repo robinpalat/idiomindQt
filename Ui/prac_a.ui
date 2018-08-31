@@ -196,6 +196,9 @@ color: rgb(77, 51, 0);</string>
          <height>25</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(247, 247, 227);</string>
+       </property>
        <property name="text">
         <string>Show Answer</string>
        </property>

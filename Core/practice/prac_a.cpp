@@ -19,46 +19,12 @@ Prac_a::~Prac_a() {
     delete ui;
 }
 
-void Prac_a::load_data(QString tpc) {
+void Prac_a::load_data(std::map<QString, QString> &tmp_pair_words,
+                       std::vector< QString > &tmp_words) {
 
-    tpc = tpc;
-
-    Database conn;
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
-
-    QSqlQuery qry_a;
-    qry_a.prepare("select list from learning");
-
-    QSqlQuery qry;
-
-    total = 0;
-    if (qry_a.exec( )) {
-
-        while(qry_a.next()) {
-            trgt = qry_a.value(0).toString();
-
-            qry.prepare("select * from "+Source_LANG+" where trgt=(:trgt_val)");
-            qry.bindValue(":trgt_val", trgt);
-
-            if (qry.exec( )) {
-                while(qry.next()) {
-                    type = "2";
-                    srce = qry.value(1).toString();
-                    type = qry.value(13).toString();
-                }
-            }
-            if (trgt != "" && srce != "" && type == "1") {
-                words.push_back(trgt);
-                pair_words[trgt]=srce;
-                total ++;
-            }
-        }
-    }
-
-    qry_a.finish();
-    qry.finish();
-    conn.Closedb();
-
+    words = tmp_words;
+    pair_words = tmp_pair_words;
+    total = words.size();
     ok_count = 0;
     no_count = 0;
     items = total;
@@ -181,62 +147,25 @@ void Prac_a::answer_card() {
 
 }
 
-void Prac_a::save_data() {
 
-    Database conn;
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
-
-    // ----------------------------------------------- icons stats
-    unsigned long int isok = 100*easy.size()/total;
-    unsigned long int n = 1,  c = 1;
-
-    QSqlQuery qry;
-    QString nicon, nicon_mod;
-    qry.prepare("SELECT prac_a FROM Practice_icons");
-    if (!qry.exec()) qDebug() << qry.lastError().text();
-    while(qry.next()) { nicon = qry.value(0).toString(); }
-
-    while ( n <= 21 ) {
-        if ( n == 21 ) {
-            nicon_mod = QString::number(n-1);
-            break;
-        }
-        else if ( isok <= c ) {
-            nicon_mod = QString::number(n);
-            break;
-        }
-        c = c + 5;
-        n++;
-    }
-
-    qry.prepare("UPDATE Practice_icons SET prac_a='"+nicon_mod+"' WHERE prac_a='"+nicon+"'");
-    if (!qry.exec()) qDebug() << qry.lastError().text();
-
-    conn.Closedb();
-}
-
-void Prac_a::closeEvent( QCloseEvent* event )
-{
-    save_data();
+void Prac_a::closeEvent( QCloseEvent* event ) {
 
     if(this->isVisible()){
         event->ignore();
         this->hide();
      }
-
-    scr_total =  QString::number(total);
-    scr_easy =  QString::number(easy.size());
-    scr_ling = QString::number(learning.size());
-    scr_learnt = QString::number(learnt.size());
-    scr_hard = QString::number(difficult.size());
+    int_easy =  easy.size();
+    int_ling = learning.size();
+    int_learnt = learnt.size();
+    int_hard = difficult.size();
 
     Practice * mPractice;
     mPractice = new Practice(this);
     if(items < 1){
-        mPractice->score_info(scr_total, scr_easy, scr_ling, scr_hard);
+        mPractice->score_info(total, int_easy, int_ling, int_hard);
     }
     else{
-        mPractice->score_info(scr_total, scr_easy, scr_ling, scr_hard);
+        mPractice->score_info(total, int_easy, int_ling, int_hard);
     }
     mPractice->show();
 }

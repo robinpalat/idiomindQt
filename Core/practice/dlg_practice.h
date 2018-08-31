@@ -1,4 +1,4 @@
-#ifndef DLG_PRACTICE_H
+﻿#ifndef DLG_PRACTICE_H
 #define DLG_PRACTICE_H
 
 #include <QDialog>
@@ -21,9 +21,23 @@ public:
 
 public:
     void load_data();
+    void save_data();
     QString tpc;
     QString get_tpc();
-    void score_info(QString total, QString easy, QString ling, QString hard);
+    void score_info(unsigned long int total,
+                    unsigned long int easy,
+                    unsigned long int ling,
+                    unsigned long int hard);
+
+    unsigned long int int_total, int_easy, int_ling, int_hard;
+    unsigned short int pos, total, round, ok_count = 0, no_count = 0;
+    unsigned long int items;
+
+    std::vector< QString > words;
+    std::map<QString,QString> pair_words;
+
+
+
 
 private slots:
     void on_pushButton_clicked();
@@ -34,6 +48,7 @@ private slots:
 private:
     Ui::Practice *ui;
     Prac_a * mPrac_a;
+    Database conn;
 };
 
 #endif // DLG_PRACTICE_H
