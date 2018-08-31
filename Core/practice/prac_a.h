@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <QFileSystemWatcher>
+#include <QMediaPlayer>
 
 #include "Classes/adds_clicklabel.h"
 #include "Core/vars_statics.h"
@@ -62,6 +63,7 @@ private slots:
 
 private:
     Ui::Prac_a *ui;
+    QMediaPlayer * player;
 };
 
 #endif // PRAC_A_H

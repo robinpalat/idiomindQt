@@ -12,9 +12,6 @@
 
 using namespace std;
 
-
-
-
 Vwr::Vwr(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Vwr)
@@ -28,9 +25,8 @@ Vwr::Vwr(QWidget *parent) :
     ui->label_image->setScaledContents( true );
 
     //ui->pushButton_2->setIcon(QIcon(ivar::DS+"/images/listen.png"));
-
+    player = new QMediaPlayer(this);
 }
-
 
 void Vwr::load_array(QString trgt_ind, QString list_sel)
 {
@@ -71,7 +67,6 @@ void Vwr::load_array(QString trgt_ind, QString list_sel)
     conn.Closedb();
 }
 
-
 void Vwr::setLabelText(QString trgt)
 {
     Database conn;
@@ -93,7 +88,6 @@ void Vwr::setLabelText(QString trgt)
             exmp = qry.value(2).toString();
         }
     }
-
     if (type == "2") {
         std::string s = wrds.toStdString();
         std::string::size_type prev_pos = 0, pos = 0;
@@ -119,7 +113,6 @@ void Vwr::setLabelText(QString trgt)
             }
             prev_pos = ++pos;
         }
-
     }
 
     if (type == "1") {
@@ -196,16 +189,12 @@ void Vwr::setLabelText(QString trgt)
     conn.Closedb();
 }
 
+Vwr::~Vwr() {
 
-Vwr::~Vwr()
-{
     delete ui;
 }
 
-
-
-void Vwr::on_pushButton_next_clicked()
-{
+void Vwr::on_pushButton_next_clicked() {
     pos++;
     if (pos>items) pos = 0;
     trgt = arr[pos];
@@ -214,9 +203,8 @@ void Vwr::on_pushButton_next_clicked()
 
 }
 
+void Vwr::on_pushButton_prev_clicked() {
 
-void Vwr::on_pushButton_prev_clicked()
-{
     checkpos = pos;
     checkpos--;
     if (checkpos<0) {pos = items;}
@@ -226,9 +214,8 @@ void Vwr::on_pushButton_prev_clicked()
     setLabelText(trgt);
 }
 
+void Vwr::on_label_image_clicked() {
 
-void Vwr::on_label_image_clicked()
-{
     //setConnect_lABEL_IMAGE();
     mDlg_ImageView = new Dlg_ImageView(this);
     mDlg_ImageView->load_image(trgt);
@@ -237,8 +224,8 @@ void Vwr::on_label_image_clicked()
 
 
 
-void Vwr::on_label_note_clicked()
-{
+void Vwr::on_label_note_clicked() {
+
     //setConnect_lABEL_IMAGE();
     ui->label_note->hide();
     //ui->pushButton_noteSave->show();
@@ -265,20 +252,20 @@ void Vwr::on_label_note_clicked()
 //    event->accept();
 //}
 
-void Vwr::on_label_srce_clicked(){
+void Vwr::on_label_srce_clicked() {
+
     on_label_trgt_clicked();
 }
 
-void Vwr::on_label_trgt_clicked()
-{
-    Audioplayer listen;
-    listen.play(trgt);
+void Vwr::on_label_trgt_clicked() {
 
+    Audioplayer path;
+    player->setMedia(QUrl::fromLocalFile(path.pathplay(trgt)));
+    player->play();
 }
 
 
-void Vwr::on_label_trgt_doubleClicked()
-{
+void Vwr::on_label_trgt_doubleClicked() {
 
         this->close();
         mDlg_editItem = new Dlg_editItem(this);
@@ -286,4 +273,3 @@ void Vwr::on_label_trgt_doubleClicked()
 
         mDlg_editItem->show();
 }
-

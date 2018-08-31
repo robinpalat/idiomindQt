@@ -20,8 +20,8 @@
    <string>Practice</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../res.qrc">
-    <normaloff>:/images/idiomind.png</normaloff>:/images/idiomind.png</iconset>
+   <iconset resource="../res.qrc">
+    <normaloff>:/Images/idiomind.png</normaloff>:/Images/idiomind.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
@@ -320,7 +320,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../res.qrc"/>
+  <include location="../res.qrc"/>
  </resources>
  <connections/>
 </ui>

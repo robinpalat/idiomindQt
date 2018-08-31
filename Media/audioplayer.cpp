@@ -6,10 +6,10 @@ Audioplayer::Audioplayer(QObject *parent) : QObject(parent)
 
 }
 
-void Audioplayer::play(QString clue) {
+QString Audioplayer::pathplay(QString clue) {
 
-    trgt = clue;
     Database conn;
+    trgt = clue;
 
     conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
     QSqlQuery qry;
@@ -28,19 +28,18 @@ void Audioplayer::play(QString clue) {
 
     QString trgt_mp1 = DC_tls+"audio/"+trgt.toLower()+".mp3";
     QString trgt_mp2 = DM_tl+tpc+"/"+cdid+".mp3";
-
-    QMediaPlayer player;
+    QString path;
 
     if(QFileInfo(trgt_mp1).exists()){
-        player.setMedia(QUrl::fromLocalFile(trgt_mp1));
-        player.play();
-        qDebug() << trgt_mp1 << trgt_mp2;
+        path = trgt_mp1;
     }
     else if(QFileInfo(trgt_mp2).exists()){
-        player.setMedia(QUrl::fromLocalFile(trgt_mp2));
-        player.play();
+        path = trgt_mp1;
+
     }
 
     qry.finish();
     conn.Closedb();
+
+    return path;
 }

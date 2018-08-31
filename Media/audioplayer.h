@@ -2,7 +2,6 @@
 #define AUDIOPLAYER_H
 
 #include <QObject>
-#include <QMediaPlayer>
 
 #include "Core/vars_statics.h"
 #include "Core/vars_session.h"
@@ -13,12 +12,20 @@ class Audioplayer : public QObject
 public:
     explicit Audioplayer(QObject *parent = nullptr);
 
-    void play(QString path);
+    QString pathplay(QString path);
     QString trgt, cdid;
 
 signals:
 
 public slots:
+
+
+public:
+
+
+
+
+
 
 private:
     //QMediaPlayer * player;

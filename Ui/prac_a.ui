@@ -20,8 +20,8 @@
    <string>Flashcards</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/images/idiomind.png</normaloff>:/images/idiomind.png</iconset>
+   <iconset resource="../res.qrc">
+    <normaloff>:/Images/idiomind.png</normaloff>:/Images/idiomind.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
@@ -229,6 +229,8 @@ color: rgb(40, 81, 0);</string>
    <header location="global">Classes/adds_clicklabel.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../res.qrc"/>
+ </resources>
  <connections/>
 </ui>

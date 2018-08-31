@@ -8,15 +8,14 @@
 #include <QDebug>
 #include <QSql>
 #include <QMessageBox>
+#include <QMediaPlayer>
 
 #include <iostream>
 #include <fstream>
 #include <string>
-
 #include <time.h>
 
 #include "Classes/adds_clicklabel.h"
-
 #include "dlg_imageview.h"
 #include "dlg_edititem.h"
 #include "vars_session.h"
@@ -88,6 +87,7 @@ private:
     Ui::Vwr *ui;
     Dlg_ImageView * mDlg_ImageView;
     Dlg_editItem * mDlg_editItem;
+    QMediaPlayer * player;
 };
 
 #endif // VWRDIALOG_H

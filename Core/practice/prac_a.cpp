@@ -6,6 +6,8 @@ Prac_a::Prac_a(QWidget *parent) : QWidget(parent), ui(new Ui::Prac_a) {
 
     ui->setupUi(this);
 
+    player = new QMediaPlayer(this);
+
     ui->pushButton_no->setIcon(QIcon(ivar::DS+"/images/no.png"));
     ui->pushButton_no->setText(tr("I did not know it"));
     ui->pushButton_ok->setIcon(QIcon(ivar::DS+"/images/yes.png"));
@@ -16,7 +18,6 @@ Prac_a::Prac_a(QWidget *parent) : QWidget(parent), ui(new Ui::Prac_a) {
 Prac_a::~Prac_a() {
     delete ui;
 }
-
 
 void Prac_a::load_data(QString tpc) {
 
@@ -65,7 +66,6 @@ void Prac_a::load_data(QString tpc) {
     round = 1;
     cuestion_card();
 }
-
 
 /* ------------------------------------------------ (3) */
 void Prac_a::setLabelText_cuest(QString trgt) {
@@ -120,7 +120,6 @@ void Prac_a::on_pushButton_ok_clicked() { // si / next
     cuestion_card();
 }
 
-
 void Prac_a::on_pushButton_no_clicked() { // no / next
 
     if (cuest == false ) pos++;
@@ -137,12 +136,10 @@ void Prac_a::on_pushButton_no_clicked() { // no / next
     cuestion_card();
 }
 
+void Prac_a::on_pushButton_answer_clicked() {
 
-void Prac_a::on_pushButton_answer_clicked()
-{
     answer_card();
 }
-
 
 /* ------------------------------------------------ (2) */
 void Prac_a::cuestion_card() {
@@ -173,7 +170,6 @@ void Prac_a::cuestion_card() {
         cuest = false;
         setLabelText_cuest(trgt);
     }
-
 }
 
 void Prac_a::answer_card() {
@@ -184,7 +180,6 @@ void Prac_a::answer_card() {
     pos++;
 
 }
-
 
 void Prac_a::save_data() {
 
@@ -217,10 +212,8 @@ void Prac_a::save_data() {
     qry.prepare("UPDATE Practice_icons SET prac_a='"+nicon_mod+"' WHERE prac_a='"+nicon+"'");
     if (!qry.exec()) qDebug() << qry.lastError().text();
 
-
     conn.Closedb();
 }
-
 
 void Prac_a::closeEvent( QCloseEvent* event )
 {
@@ -248,10 +241,11 @@ void Prac_a::closeEvent( QCloseEvent* event )
     mPractice->show();
 }
 
-void Prac_a::on_label_trgt_clicked()
-{
-    Audioplayer listen;
-    listen.play(trgt);
+void Prac_a::on_label_trgt_clicked() {
+
+    Audioplayer path;
+    player->setMedia(QUrl::fromLocalFile(path.pathplay(trgt)));
+    player->play();
 
 }
 
