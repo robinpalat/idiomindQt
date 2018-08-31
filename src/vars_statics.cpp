@@ -20,16 +20,33 @@ namespace ivar {
     QString Username = user_name();
 
     QString Home = QDir::homePath();
-    QString DT = "/tmp/.idiomind-"+Username;
-    QString DS = "/usr/share/idiomind";
-    QString DS_a = "/usr/share/idiomind/addons";
-    QString DM = Home+"/.idiomind";
-    QString DM_t = Home+"/.idiomind/topics";
-    QString DC = Home+"/.config/idiomind/";
-    QString DC_a =  Home+"/.config/idiomind/addons";
-    QString DC_d =  Home+"/.config/idiomind/addons/dict/enables";
 
+
+#if (defined (_WIN32) || defined (_WIN64))
+    QString DT = Home+"/AppData/Local/Temp/.idiomind-"+Username;
+    QString DS = "C:/Program Files/Idiomind";
+    QString DS_a = "C:/Program Files/Idiomind/addons";
+    QString DM = Home+"/AppData/Local/Idiomind";
+    QString DM_t = Home+"/AppData/Local/Idiomind/Topics";
+    QString DC = Home+"/AppData/Local/Idiomind/Config/";
+    QString DC_a =  Home+"AppData/Local/Idiomind/Config/addons";
+    QString DC_d =  Home+"AppData/Local/Idiomind/Config/addons/dict/enables";
+    QString FILE_mn = Home+"/AppData/Local/Idiomind/Config/tpc";
+#endif
+
+
+#if (defined (LINUX) || defined (__linux__))
+    QString DT = "/tmp/.idiomind-"+Username+"/";
+    QString DS = "/usr/share/idiomind/";
+    QString DS_a = "/usr/share/idiomind/addons/";
+    QString DM = Home+"/.idiomind/";
+    QString DM_t = Home+"/.idiomind/topics/";
+    QString DC = Home+"/.config/idiomind/";
+    QString DC_a =  Home+"/.config/idiomind/addons/";
+    QString DC_d =  Home+"/.config/idiomind/addons/dict/enables/";
     QString FILE_mn = Home+"/.config/idiomind/tpc";
+#endif
+
 
     QString slangs[47][47] = {
 
@@ -44,8 +61,7 @@ namespace ivar {
         "sk","sl","so","fi","sv","vi","tr","el","be","bg",
         "kk","mk","mn","ru","sr","uk","uz","ka","hy","iw",
         "ml","ko","zh-HK","zh-CN","zh-TW","ja" }
-  };
-
+    };
 
 }
 

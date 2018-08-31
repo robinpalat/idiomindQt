@@ -122,6 +122,7 @@ QMAKE_CXXFLAGS += -std=gnu++14
 RESOURCES += \
     res.qrc
 
+
 #target.path = $${PREFIX}/bin
 #desktop.path = $${PREFIX}/share/applications
 #desktop.files += qwit.desktop

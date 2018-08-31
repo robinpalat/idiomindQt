@@ -17,6 +17,7 @@
 
 extern QString tpc;
 extern QString FILE_mn;
+extern QString config_db;
 
 extern QString tlng;
 extern QString slng;

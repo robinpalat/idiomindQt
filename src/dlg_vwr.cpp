@@ -274,6 +274,8 @@ void Vwr::on_label_srce_clicked(){
 
 void Vwr::on_label_trgt_clicked()
 {
+    Database conn;
+    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
     QSqlQuery qry;
     qry.prepare("select * from "+Source_LANG+" where trgt=(:trgt_val)");
     qry.bindValue(":trgt_val", trgt);
@@ -301,6 +303,8 @@ void Vwr::on_label_trgt_clicked()
         player->setMedia(QUrl::fromLocalFile(trgt_mp2));
         player->play();
     }
+
+    conn.Closedb();
 }
 
 

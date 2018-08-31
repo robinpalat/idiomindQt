@@ -166,8 +166,8 @@ void item_list::on_list_learning_doubleClicked(const QModelIndex &index)
 
 void item_list::on_list_learnt_doubleClicked(const QModelIndex &index)
 {
-    QString trgt=ui->list_learnt->model()->data(index).toString();
 
+    QString trgt=ui->list_learnt->model()->data(index).toString();
 
     if (trgt == "") {
         load_data();

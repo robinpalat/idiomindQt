@@ -29,7 +29,7 @@ QString user_name() {
 QString get_tlng(){
 
     Database conn;
-    conn.Opendb(Home+"/.config/idiomind/config");
+    conn.Opendb(config_db);
     QSqlQuery qry;
 
     qry.prepare("select tlng from lang");
@@ -44,7 +44,7 @@ QString get_tlng(){
 
 QString get_slng(){
     Database conn;
-    conn.Opendb(Home+"/.config/idiomind/config");
+    conn.Opendb(config_db);
     QSqlQuery qry;
 
     qry.prepare("select slng from lang");
@@ -59,7 +59,6 @@ QString get_slng(){
 
 QString mn(){
     QString Home = QDir::homePath();
-    QString FILE_mn = Home+"/.config/idiomind/tpc";
       QFile file(FILE_mn);
       QString line;
       if (file.open(QIODevice::ReadOnly)) {
@@ -67,7 +66,9 @@ QString mn(){
           while (!in.atEnd()) line = in.readLine();
           file.close();
       }
+      qDebug() << line;
       return line;
+
 }
 
 QString  get_LANG(QString LANG) {
@@ -129,21 +130,41 @@ QString  get_LANG(QString LANG) {
 
 
 QString Home = QDir::homePath();
-QString FILE_mn = Home+"/.config/idiomind/tpc";
+
+
+#if (defined (_WIN32) || defined (_WIN64))
+    QString FILE_mn = Home+"/AppData/Local/Idiomind/Config/tpc";
+    QString config_db = Home+"/AppData/Local/Idiomind/Config/config";
+#endif
+
+#if (defined (LINUX) || defined (__linux__))
+    QString FILE_mn = Home+"/.config/idiomind/tpc";
+    QString config_db = Home+"/.config/idiomind/config";
+#endif
+
 
 QString tpc = mn();
-
 QString tlng = get_tlng();
 QString slng = get_slng();
 QString Source_LANG =  "Source_"+get_LANG(slng);
 
-QString DM_tl = Home+"/.idiomind/topics/"+tlng;
-QString DM_tlt = Home+"/.idiomind/topics/"+tlng+"/"+tpc+"/";
-QString DC_tlt = Home+"/.idiomind/topics/"+tlng+"/"+tpc+"/.conf";
-QString DC_tls = Home+"/.idiomind/topics/"+tlng+"/.share/";
-QString FILE_shrdb = Home+"/.idiomind/topics/"+tlng+"/data/config";
-QString FILE_tlngdb = Home+"/.idiomind/topics/"+tlng+"/data/"+tlng+".db";
-QString FILE_tpcdb = Home+"/.idiomind/topics/"+tlng+"/"+tpc+"/.conf/tpcdb";
 
+#if (defined (_WIN32) || defined (_WIN64))
+    QString DM_tl = Home+"/AppData/Local/Idiomind/Topics/"+tlng;
+    QString DM_tlt = DM_tl+"/"+tpc+"/";
+    QString DC_tlt = DM_tl+"/"+tpc+"/.conf/";
+    QString DC_tls = DM_tl+"/.share/";
+    QString FILE_shrdb = DC_tls+"/data/config";
+    QString FILE_tlngdb = DC_tls+"/data/"+tlng+".db";
+    QString FILE_tpcdb =  DC_tlt+"tpcdb";
+#endif
 
-
+#if (defined (LINUX) || defined (__linux__))
+    QString DM_tl = Home+"/.idiomind/topics/"+tlng+"/";
+    QString DM_tlt = Home+"/.idiomind/topics/"+tlng+"/"+tpc+"/";
+    QString DC_tlt = Home+"/.idiomind/topics/"+tlng+"/"+tpc+"/.conf/";
+    QString DC_tls = Home+"/.idiomind/topics/"+tlng+"/.share/";
+    QString FILE_shrdb = Home+"/.idiomind/topics/"+tlng+"/data/config";
+    QString FILE_tlngdb = Home+"/.idiomind/topics/"+tlng+"/data/"+tlng+".db";
+    QString FILE_tpcdb = Home+"/.idiomind/topics/"+tlng+"/"+tpc+"/.conf/tpcdb";
+#endif
