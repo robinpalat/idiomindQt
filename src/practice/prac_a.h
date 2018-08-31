@@ -38,7 +38,7 @@ public:
     QString tpc, trgt, srce, type;
     QString scr_total, scr_learnt, scr_easy, scr_ling, scr_hard;
     bool cuest;
-    unsigned short int pos, total, round;
+    unsigned short int pos, total, round, ok_count = 0, no_count = 0;
     unsigned long int items;
 
     std::vector< QString > words;
@@ -54,6 +54,8 @@ private slots:
     void closeEvent(QCloseEvent * event);
 
     void on_pushButton_no_clicked();
+
+    void on_pushButton_answer_clicked();
 
 private:
     Ui::Prac_a *ui;

@@ -8,6 +8,8 @@ Prac_a::Prac_a(QWidget *parent) : QWidget(parent), ui(new Ui::Prac_a) {
 
     ui->pushButton_no->setIcon(QIcon(ivar::DS+"/images/no.png"));
     ui->pushButton_no->setText(tr("I did not know it"));
+    ui->pushButton_ok->setIcon(QIcon(ivar::DS+"/images/yes.png"));
+    ui->pushButton_ok->setText(tr("I Knew it"));
 }
 
 
@@ -56,6 +58,8 @@ void Prac_a::load_data(QString tpc) {
     qry.finish();
     conn.Closedb();
 
+    ok_count = 0;
+    no_count = 0;
     items = total;
     pos = 0;
     round = 1;
@@ -77,10 +81,7 @@ void Prac_a::setLabelText_cuest(QString trgt) {
     ui->label_trgt->setText(trgt);
     ui->label_srce->setText("");
 
-    ui->pushButton_ok->setIcon(QIcon::fromTheme(""));
-    ui->pushButton_ok->setText(tr("Show Answer"));
-    ui->pushButton_no->hide();
-
+    ui->pushButton_answer->show();
 }
 
 void Prac_a::setLabelText_answer(QString trgt) {
@@ -98,39 +99,48 @@ void Prac_a::setLabelText_answer(QString trgt) {
     ui->label_trgt->setText(trgt);
     ui->label_srce->setText(srce);
 
-    ui->pushButton_no->show();
-    ui->pushButton_ok->setIcon(QIcon(ivar::DS+"/images/yes.png"));
-    ui->pushButton_ok->setText(tr("I Knew it"));
+    ui->pushButton_answer->hide();
 }
 
 /* ------------------------------------------------ (1) */
 void Prac_a::on_pushButton_ok_clicked() { // si / next
 
-    if (cuest == true) {
+    if (cuest == false) pos++;
+
         if (round == 1) {
             easy.push_back(trgt);
         }
         else if (round == 2) {
             learnt.push_back(trgt);
         }
-        cuestion_card();
-    }
-    else if (cuest == false) {
-         answer_card();
-    }
+
+     ok_count++;
+     ui->pushButton_ok->setText(tr("I Knew it (")+QString::number(ok_count)+")");
+
+    cuestion_card();
 }
 
 
 void Prac_a::on_pushButton_no_clicked() { // no / next
-    if (cuest == true) {
+
+    if (cuest == false ) pos++;
+
         if (round == 1) {
             learning.push_back(trgt);
         }
         else if (round == 2) {
             difficult.push_back(trgt);
         }
-        cuestion_card();
-    }
+    no_count++;
+
+    ui->pushButton_no->setText(tr("I did not know it (")+QString::number(no_count)+")");
+    cuestion_card();
+}
+
+
+void Prac_a::on_pushButton_answer_clicked()
+{
+    answer_card();
 }
 
 
@@ -237,4 +247,5 @@ void Prac_a::closeEvent( QCloseEvent* event )
     }
     mPractice->show();
 }
+
 
