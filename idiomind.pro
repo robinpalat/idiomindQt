@@ -121,7 +121,7 @@ QMAKE_CXXFLAGS += -std=gnu++14
 DESTDIR = build/target/
 OBJECTS_DIR = build/obj/
 MOC_DIR = build/moc/
-unix:UI_DIR = build/ui
+UI_DIR = build/ui
 RCC_DIR = build/rcc/
 RESOURCES += res.qrc
 

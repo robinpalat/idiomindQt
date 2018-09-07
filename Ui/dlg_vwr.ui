@@ -23,8 +23,14 @@
    <string/>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>images/logo.png</normaloff>images/logo.png</iconset>
+   <iconset resource="../res.qrc">
+    <normaloff>:/Images/idiomind.png</normaloff>:/Images/idiomind.png</iconset>
+  </property>
+  <property name="whatsThis">
+   <string notr="true"/>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <property name="leftMargin">
@@ -654,6 +660,8 @@ border-color: rgb(255, 255, 255);</string>
   <tabstop>pushButton_prev</tabstop>
   <tabstop>tableWidget_wrdsList</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../res.qrc"/>
+ </resources>
  <connections/>
 </ui>
