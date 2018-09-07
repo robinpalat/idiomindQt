@@ -42,9 +42,9 @@ SOURCES += \
     Classes/adds_clicklabel.cpp \
     Core/dlg_add.cpp \
     Core/practice/dlg_practice.cpp \
-    Core/practice/prac_a.cpp \
     Media/database.cpp \
-    Media/audioplayer.cpp
+    Media/audioplayer.cpp \
+    Core/practice/pract1.cpp
 
 HEADERS += \
         Core/item_list.h \
@@ -64,9 +64,9 @@ HEADERS += \
     Classes/adds_clicklabel.h \
     Core/dlg_add.h \
     Core/practice/dlg_practice.h \
-    Core/practice/prac_a.h \
     Media/database.h \
-    Media/audioplayer.h
+    Media/audioplayer.h \
+    Core/practice/pract1.h
 
 FORMS += \
         Ui/item_list.ui \
@@ -81,7 +81,7 @@ FORMS += \
     Ui/mainwindow.ui \
     Ui/dlg_add.ui \
     Ui/dlg_practice.ui \
-    Ui/prac_a.ui
+    Ui/pract1.ui
 
 DISTFILES += \
     android/AndroidManifest.xml \

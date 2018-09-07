@@ -1,5 +1,5 @@
-﻿#include "prac_a.h"
-#include "build/ui/ui_prac_a.h"
+﻿#include "pract1.h"
+#include "build/ui/ui_pract1.h"
 #include "dlg_practice.h"
 
 Prac_a::Prac_a(QWidget *parent) : QWidget(parent), ui(new Ui::Prac_a) {

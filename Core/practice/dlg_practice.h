@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QTableWidget>
 
-#include "Core/practice/prac_a.h"
+#include "Core/practice/pract1.h"
 #include "Media/database.h"
 
 namespace Ui {
@@ -20,7 +20,7 @@ public:
     ~Practice();
 
 public:
-    QString tpc, active_pract;
+    QString tpc, active_pract, nicon, nicon_mod;
     QString get_tpc();
     Database conn;
     void load_data();
@@ -38,15 +38,14 @@ public:
 
     std::vector< QString > words;
     std::map<QString,QString> pair_words;
-    std::map<QString,QString> pair_practs;
 
-    QString pracs[5] = {tr("Flashcards"),tr("Multiple-choice"),
+
+    std::map<QString,QString> img_pair_practs;
+
+    QString practs[5] = {tr("Flashcards"),tr("Multiple-choice"),
                         tr("Recognize Pronunciation"),
                         tr("Images"),tr("Listen and Writing Sentences")};
 
-    QString pracs_nicons[5] = {"a","b","c","d","e"};
-
-    QString imgs[5] = {};
 
 
 private slots:
