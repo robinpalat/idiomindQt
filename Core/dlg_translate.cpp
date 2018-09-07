@@ -34,7 +34,7 @@ void Translate::load_data() {
 
     tpc = get_tpc();
 
-    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
     this->setWindowTitle("Idiomind - "+tpc);
@@ -162,7 +162,7 @@ void Translate::save_data() {
 
     this->setWindowTitle("Idiomind - "+tpc);
 
-    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
     trans_check_items.clear();
@@ -201,7 +201,7 @@ void Translate::on_pushButton_save_trans_clicked()
 
 void Translate::on_checkBox_verifiedtrans_stateChanged(int arg1) {
 
-    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
     if (arg1==0 && current_lang_is_already_verified == true) {

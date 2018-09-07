@@ -25,7 +25,6 @@ void Prac_a::load_data(std::map<QString, QString> &tmp_pair_words,
     words = tmp_words;
     pair_words = tmp_pair_words;
     total = words.size();
-    qDebug() << total;
     ok_count = 0;
     no_count = 0;
     items = total;
@@ -163,10 +162,10 @@ void Prac_a::closeEvent( QCloseEvent* event ) {
     Practice * mPractice;
     mPractice = new Practice(this);
     if(items < 1){
-        mPractice->score_info(total, int_easy, int_ling, int_hard);
+        mPractice->score_info(total, int_easy, int_ling, int_hard, "pract1");
     }
     else{
-        mPractice->score_info(total, int_easy, int_ling, int_hard);
+        mPractice->score_info(total, int_easy, int_ling, int_hard, "pract1");
     }
     mPractice->show();
 }

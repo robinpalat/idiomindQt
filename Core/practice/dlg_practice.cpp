@@ -35,14 +35,16 @@ Practice::~Practice() {
 
 QString Practice::get_tpc() {
     Global mGlobal;
-    return  mGlobal.get_textline(ivar::FILE_mn);
+    return mGlobal.get_textline(ivar::FILE_mn);
 }
 
 void Practice::score_info(unsigned long int total,
                           unsigned long int easy,
                           unsigned long int ling,
-                          unsigned long int hard) {
+                          unsigned long int hard,
+                          QString active_pract) {
 
+    active_pract = active_pract;
     int_total = total;
     int_easy = easy;
     int_ling = ling;
@@ -71,8 +73,7 @@ void Practice::score_info(unsigned long int total,
         n++;
     }
 
-    qDebug() << nicon_mod;
-    img_pair_practs["pract1"]=nicon_mod;
+    img_pair_practs[active_pract]=nicon_mod;
 
     ui->widget_score->show();
     ui->label_score_total->setText(str_total);
@@ -81,12 +82,19 @@ void Practice::score_info(unsigned long int total,
     ui->label_score_ling->setText(str_ling);
     ui->label_score_hard->setText(str_hard);
 
+    QSqlDatabase db = Database::instance().getConnection(tpc);
+    QSqlQuery qry(db);
+
+    qry.prepare("UPDATE Practice_icons SET "+active_pract+"='"+nicon_mod+"'");
+    if (!qry.exec()) qDebug() << qry.lastError().text();
+    qry.finish();
+
     load_data();
 }
 
 void Practice::startt() {
 
-    QSqlDatabase db =   Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
     for( int n = 1; n < 6; n = n + 1 ) {
@@ -143,13 +151,14 @@ void Practice::on_pushButton_clicked() {
 
 }
 
-void Practice::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item) {
+void Practice::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item) { // item->text();
 
     this->hide();
 
-    active_pract = "pract1";
+    active_pract = "pract"+QString::number(item->row()+1);
+    // qDebug() << active_pract;
 
-    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
     qry.prepare("select list from learning");
@@ -183,7 +192,7 @@ void Practice::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item) {
 
     qry.finish();
 
-    if (active_pract=="pract1") {
+    if (active_pract == "pract1") {
 
         mPrac_a = new Prac_a();
         mPrac_a->load_data(pair_words,words);
@@ -195,34 +204,7 @@ void Practice::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item) {
 void Practice::save_data() {
 
     // ------------------------------icons stats
-    unsigned long int isok = 100*int_easy/total;
-    unsigned long int n = 1,  c = 1;
 
-    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    QSqlQuery qry(db);
-
-    QString nicon, nicon_mod;
-    qry.prepare("SELECT pract1 FROM Practice_icons");
-    if (!qry.exec()) qDebug() << qry.lastError().text();
-    while(qry.next()) { nicon = qry.value(0).toString(); }
-
-    while ( n <= 21 ) {
-        if ( n == 21 ) {
-            nicon_mod = QString::number(n-1);
-            break;
-        }
-        else if ( isok <= c ) {
-            nicon_mod = QString::number(n);
-            break;
-        }
-        c = c + 5;
-        n++;
-    }
-
-    qry.prepare("UPDATE Practice_icons SET pract1='"+nicon_mod+"' WHERE pract1='"+nicon+"'");
-    if (!qry.exec()) qDebug() << qry.lastError().text();
-
-    qry.finish();
 }
 
 void Practice::closeEvent(QCloseEvent * event)

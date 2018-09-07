@@ -30,7 +30,8 @@ public:
     void score_info(unsigned long int total,
                     unsigned long int easy,
                     unsigned long int ling,
-                    unsigned long int hard);
+                    unsigned long int hard,
+                    QString active_pract);
 
     unsigned long int int_total, int_easy, int_ling, int_hard;
     unsigned short int pos, total, round, ok_count = 0, no_count = 0;

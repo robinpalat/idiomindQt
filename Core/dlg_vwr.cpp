@@ -32,7 +32,7 @@ void Vwr::load_array(QString trgt_ind, QString list_sel)
 {
     QString t, s;
 
-    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
     trgt = trgt_ind;
@@ -67,7 +67,7 @@ void Vwr::load_array(QString trgt_ind, QString list_sel)
 
 void Vwr::setLabelText(QString trgt)
 {
-    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
     qry.prepare("select * from "+Source_LANG+" where trgt=(:trgt_val)");

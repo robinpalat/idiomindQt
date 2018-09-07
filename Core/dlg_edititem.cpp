@@ -32,7 +32,7 @@ void Dlg_editItem::load_data(QString trgt_ind, QString list_sel)
 {
     trgt = trgt_ind;
     list = list_sel;
-    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(tpc);
 
     QString t, s;
     QSqlQuery qry(db);
@@ -72,7 +72,7 @@ void Dlg_editItem::fill_data(QString trgt)
     ui->plainTextEdit_note->clear();
     ui->checkBox_editItem_mark->setChecked(false);
 
-    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
     QString trgt_qry = trgt.replace("'", "''");
     qry.prepare("select * from "+Source_LANG+" where trgt='"+trgt_qry+"'");
@@ -116,7 +116,7 @@ void Dlg_editItem::fill_data(QString trgt)
 
 void Dlg_editItem::save_data() {
 
-    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
     QString trgt_mod, srce_mod, note_mod,

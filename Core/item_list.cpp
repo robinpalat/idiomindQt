@@ -75,10 +75,7 @@ void item_list::load_data() {
     ui->label_tpc_name->setText(tpc);
     this->setWindowTitle("Idiomind - "+tpc);
 
-
-    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
-
-
+    QSqlDatabase db = Database::instance().getConnection(tpc);
 
      // Tab 2
     QSqlQuery qry_a(db);
@@ -217,7 +214,7 @@ void item_list::closeEvent(QCloseEvent * event)
     // Save data
     tpc = get_tpc();
 
-    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
     for(std::vector<QString>::iterator chkd = checked_items.begin(); chkd != checked_items.end(); ++chkd) {
@@ -268,7 +265,7 @@ void item_list::on_pushButton_tabmanage_delete_clicked()
 
     if (msgBox.clickedButton() == deleteButton) {
 
-        QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+        QSqlDatabase db = Database::instance().getConnection(tpc);
         QSqlQuery qry(db);
 
         qry.prepare("DELETE FROM topics WHERE list = ?");

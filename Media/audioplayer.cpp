@@ -11,8 +11,9 @@ QString Audioplayer::pathplay(QString clue) {
     Database conn;
     trgt = clue;
 
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    QSqlQuery qry;
+    QSqlDatabase db = Database::instance().getConnection(tpc);
+    QSqlQuery qry(db);
+
     qry.prepare("select * from "+Source_LANG+" where trgt=(:trgt_val)");
     qry.bindValue(":trgt_val", trgt);
 
@@ -39,7 +40,6 @@ QString Audioplayer::pathplay(QString clue) {
     }
 
     qry.finish();
-    conn.Closedb();
 
     return path;
 }

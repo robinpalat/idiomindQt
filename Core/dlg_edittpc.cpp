@@ -47,7 +47,7 @@ void EditTpc::delete_item() {
 
     QString trgt = ui->tableWidget_edit->item(ui->tableWidget_edit->currentRow(), 0)->text();
 
-    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
     qry.prepare("DELETE FROM "+Source_LANG+" WHERE trgt = ?");
@@ -91,7 +91,7 @@ void EditTpc::load_data() {
     tpc = get_tpc();
     this->setWindowTitle("Idiomind - "+tpc);
 
-    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
     qry.prepare("select trgt from "+Source_LANG+"");
@@ -125,7 +125,7 @@ void EditTpc::save_data() {
 
     this->setWindowTitle("Idiomind - "+tpc);
 
-    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(tpc);
 
     edittpc_check_items.clear();
     QAbstractItemModel *model = ui->tableWidget_edit->model();
@@ -146,7 +146,9 @@ void EditTpc::save_data() {
     QString* arraytrgt = &edittpc_check_items[0];
 
     int n = 0;
-    for(std::vector<QString>::iterator it = edittpc_load_items.begin(); it != edittpc_load_items.end(); ++it) {
+    for(std::vector<QString>::iterator it = edittpc_load_items.begin();
+        it != edittpc_load_items.end(); ++it) {
+
         if (*it != arraytrgt[n]) {
             QSqlQuery qry(db);
             qry.prepare("update "+Source_LANG+" set trgt='"+arraytrgt[n]+"' where trgt='"+*it+"'");
