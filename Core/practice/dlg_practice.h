@@ -20,10 +20,13 @@ public:
     ~Practice();
 
 public:
+    QString tpc, active_pract;
+    QString get_tpc();
+    Database conn;
     void load_data();
     void save_data();
-    QString tpc;
-    QString get_tpc();
+    void startt();
+
     void score_info(unsigned long int total,
                     unsigned long int easy,
                     unsigned long int ling,
@@ -35,8 +38,15 @@ public:
 
     std::vector< QString > words;
     std::map<QString,QString> pair_words;
+    std::map<QString,QString> pair_practs;
 
+    QString pracs[5] = {tr("Flashcards"),tr("Multiple-choice"),
+                        tr("Recognize Pronunciation"),
+                        tr("Images"),tr("Listen and Writing Sentences")};
 
+    QString pracs_nicons[5] = {"a","b","c","d","e"};
+
+    QString imgs[5] = {};
 
 
 private slots:
@@ -45,10 +55,11 @@ private slots:
 
     void on_tableWidget_itemDoubleClicked(QTableWidgetItem *item);
 
+
 private:
     Ui::Practice *ui;
     Prac_a * mPrac_a;
-    Database conn;
+
 };
 
 #endif // DLG_PRACTICE_H

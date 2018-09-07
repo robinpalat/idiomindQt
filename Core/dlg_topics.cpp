@@ -1,5 +1,5 @@
 #include "dlg_topics.h"
-#include "ui_dlg_topics.h"
+#include "build/ui/ui_dlg_topics.h"
 #include "vars_statics.h"
 #include <qdebug.h>
 #include "vars_session.h"

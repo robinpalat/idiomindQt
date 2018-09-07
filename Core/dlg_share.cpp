@@ -1,5 +1,5 @@
 #include "dlg_share.h"
-#include "ui_dlg_share.h"
+#include "build/ui/ui_dlg_share.h"
 #include "vars_statics.h"
 #include "vars_session.h"
 
@@ -30,23 +30,6 @@ QString Share::get_tpc() {
 void Share::load_data() {
 
     tpc = get_tpc();
-
-    // db
-//    QSqlDatabase mydb;
-//    mydb.setDatabaseName(ivar::DM_tl+"/"+tpc+"/.conf/tpcdb");
-//    mydb=QSqlDatabase::addDatabase("QSQLITE");
-//    mydb.setDatabaseName(ivar::DM_tl+"/"+tpc+"/.conf/tpcdb");
-//    if (!mydb.open()) qDebug()<<("Failed to open the database");
-
-//    QSqlQueryModel * tab2_modal=new QSqlQueryModel();
-//    QSqlQuery* qry_b=new QSqlQuery(mydb);
-//    qry_b->prepare("select list from learnt");
-//    qry_b->exec();
-//    tab2_modal->setQuery(*qry_b);
-
-//    mydb.close();
-//    mydb = QSqlDatabase();
-//    mydb.removeDatabase(QSqlDatabase::defaultConnection);
 
     // load note
     QFile file(DM_tl+"/"+tpc+"/.conf/note");

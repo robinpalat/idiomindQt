@@ -118,9 +118,12 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 QMAKE_CXXFLAGS += -std=gnu++14
 
-
-RESOURCES += \
-    res.qrc
+DESTDIR = build/target/
+OBJECTS_DIR = build/obj/
+MOC_DIR = build/moc/
+unix:UI_DIR = build/ui
+RCC_DIR = build/rcc/
+RESOURCES += res.qrc
 
 
 #target.path = $${PREFIX}/bin

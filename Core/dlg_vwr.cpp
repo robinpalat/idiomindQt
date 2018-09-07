@@ -1,5 +1,5 @@
 #include "dlg_vwr.h"
-#include "ui_dlg_vwr.h"
+#include "build/ui/ui_dlg_vwr.h"
 #include "vars_statics.h"
 
 #include <QSqlQuery>
@@ -32,9 +32,8 @@ void Vwr::load_array(QString trgt_ind, QString list_sel)
 {
     QString t, s;
 
-    Database conn;
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    QSqlQuery qry;
+    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlQuery qry(db);
 
     trgt = trgt_ind;
     list = list_sel;
@@ -64,14 +63,13 @@ void Vwr::load_array(QString trgt_ind, QString list_sel)
    }
 
     qry.finish();
-    conn.Closedb();
 }
 
 void Vwr::setLabelText(QString trgt)
 {
-    Database conn;
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    QSqlQuery qry;
+    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlQuery qry(db);
+
     qry.prepare("select * from "+Source_LANG+" where trgt=(:trgt_val)");
     qry.bindValue(":trgt_val", trgt);
 
@@ -186,7 +184,6 @@ void Vwr::setLabelText(QString trgt)
     }
 
     qry.finish();
-    conn.Closedb();
 }
 
 Vwr::~Vwr() {

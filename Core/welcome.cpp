@@ -1,5 +1,5 @@
 #include "welcome.h"
-#include "ui_welcome.h"
+#include "build/ui/ui_welcome.h"
 
 #include "vars_statics.h"
 #include "vars_session.h"

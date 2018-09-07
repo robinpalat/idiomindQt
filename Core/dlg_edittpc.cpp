@@ -1,5 +1,5 @@
 #include "dlg_edittpc.h"
-#include "ui_dlg_edittpc.h"
+#include "build/ui/ui_dlg_edittpc.h"
 #include <QMenu>
 
 EditTpc::EditTpc(QWidget *parent) :
@@ -47,9 +47,8 @@ void EditTpc::delete_item() {
 
     QString trgt = ui->tableWidget_edit->item(ui->tableWidget_edit->currentRow(), 0)->text();
 
-    Database conn;
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    QSqlQuery qry;
+    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlQuery qry(db);
 
     qry.prepare("DELETE FROM "+Source_LANG+" WHERE trgt = ?");
     qry.addBindValue(trgt);
@@ -69,9 +68,8 @@ void EditTpc::delete_item() {
     qry.prepare("DELETE FROM words  WHERE list = ?");
     qry.addBindValue(trgt);
     if (!qry.exec()) qDebug() << qry.lastError().text();
-    qry.finish();
 
-    conn.Closedb();
+    qry.finish();
 
     load_data();
 }
@@ -93,21 +91,20 @@ void EditTpc::load_data() {
     tpc = get_tpc();
     this->setWindowTitle("Idiomind - "+tpc);
 
-    Database conn;
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlQuery qry(db);
 
-    QSqlQuery qry_a;
-    qry_a.prepare("select trgt from "+Source_LANG+"");
+    qry.prepare("select trgt from "+Source_LANG+"");
 
     ui->tableWidget_edit->setColumnCount(1);
     ui->tableWidget_edit->setRowCount(0);
 
     edittpc_check_items.clear();
 
-    if (qry_a.exec( )) {
-        while(qry_a.next()) {
+    if (qry.exec( )) {
+        while(qry.next()) {
 
-            QString trgt = qry_a.value(0).toString();
+            QString trgt = qry.value(0).toString();
             edittpc_load_items.push_back(trgt);
 
             ui->tableWidget_edit->insertRow(ui->tableWidget_edit->rowCount());
@@ -119,8 +116,7 @@ void EditTpc::load_data() {
 
     ui->tableWidget_edit->setColumnWidth(0, 500);
 
-    qry_a.finish();
-    conn.Closedb();
+    qry.finish();
 
 }
 
@@ -129,8 +125,7 @@ void EditTpc::save_data() {
 
     this->setWindowTitle("Idiomind - "+tpc);
 
-    Database conn;
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
 
     edittpc_check_items.clear();
     QAbstractItemModel *model = ui->tableWidget_edit->model();
@@ -153,7 +148,7 @@ void EditTpc::save_data() {
     int n = 0;
     for(std::vector<QString>::iterator it = edittpc_load_items.begin(); it != edittpc_load_items.end(); ++it) {
         if (*it != arraytrgt[n]) {
-            QSqlQuery qry;
+            QSqlQuery qry(db);
             qry.prepare("update "+Source_LANG+" set trgt='"+arraytrgt[n]+"' where trgt='"+*it+"'");
             qry.exec();
             qry.prepare("update learning set list='"+arraytrgt[n]+"' where list='"+*it+"'");
@@ -170,8 +165,6 @@ void EditTpc::save_data() {
         }
         n++;
     }
-
-    conn.Closedb();
 }
 
 

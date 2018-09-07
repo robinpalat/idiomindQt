@@ -67,6 +67,7 @@ public:
 
 public:
     QSqlQueryModel * modal=new QSqlQueryModel();
+    Database conn;
 
 
 private slots:

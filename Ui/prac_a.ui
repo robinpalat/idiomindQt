@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>609</width>
-    <height>352</height>
+    <width>707</width>
+    <height>403</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -193,11 +193,12 @@ color: rgb(77, 51, 0);</string>
        <property name="minimumSize">
         <size>
          <width>80</width>
-         <height>25</height>
+         <height>32</height>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(247, 247, 227);</string>
+        <string notr="true">background-color: rgb(247, 247, 227);
+color: rgb(75, 75, 6);</string>
        </property>
        <property name="text">
         <string>Show Answer</string>

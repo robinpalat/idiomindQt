@@ -3,7 +3,7 @@
 #include <QCloseEvent>
 
 #include "dlg_add.h"
-#include "ui_dlg_add.h"
+#include "build/ui/ui_dlg_add.h"
 #include "vars_statics.h"
 #include "vars_session.h"
 

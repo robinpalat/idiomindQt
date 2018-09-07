@@ -58,6 +58,7 @@ QString get_slng(){
 }
 
 QString mn(){
+
     QString Home = QDir::homePath();
       QFile file(FILE_mn);
       QString line;
@@ -66,12 +67,11 @@ QString mn(){
           while (!in.atEnd()) line = in.readLine();
           file.close();
       }
-      qDebug() << line;
       return line;
-
 }
 
 QString  get_LANG(QString LANG) {
+
     std::map<QString,QString>  smaplangs;
     std::map<QString,QString>::iterator  it;
     smaplangs["Afrikaans"]="af";

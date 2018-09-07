@@ -1,5 +1,5 @@
 #include "item_list.h"
-#include "ui_item_list.h"
+#include "build/ui/ui_item_list.h"
 #include "vars_statics.h"
 
 
@@ -16,9 +16,7 @@
 #include <QFileInfo>
 
 
-item_list::item_list(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::item_list)
+item_list::item_list(QWidget *parent) : QDialog(parent), ui(new Ui::item_list)
 {
 
     ui->setupUi(this);
@@ -43,6 +41,7 @@ item_list::item_list(QWidget *parent) :
 
 void item_list::fileChangedEvent(const QString & path)
 {
+    qDebug() << path;
     load_data();
 }
 
@@ -76,11 +75,13 @@ void item_list::load_data() {
     ui->label_tpc_name->setText(tpc);
     this->setWindowTitle("Idiomind - "+tpc);
 
-    Database conn;
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
+
+    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+
+
 
      // Tab 2
-    QSqlQuery qry_a;
+    QSqlQuery qry_a(db);
     qry_a.prepare("select list from learning");
     ui->list_learning->setColumnCount(2);
     ui->list_learning->setRowCount(0);
@@ -101,27 +102,27 @@ void item_list::load_data() {
 
     // Tab 2
     QSqlQueryModel * tab2_modal=new QSqlQueryModel();
-    QSqlQuery * qry_b=new QSqlQuery();
+
     //QSqlQuery qry_b;
-    qry_b->prepare("select list from learnt");
-    qry_b->exec();
-    tab2_modal->setQuery(*qry_b);
+    qry_a.prepare("select list from learnt");
+    qry_a.exec();
+    tab2_modal->setQuery(qry_a);
 
     ui->list_learnt->setModel(tab2_modal);
 
     numberOfRows = 0;
-    if(qry_b->last())
+    if(qry_a.last())
     {
-        numberOfRows =  qry_b->at() + 1;
-        qry_b->first();
-        qry_b->previous();
+        numberOfRows =  qry_a.at() + 1;
+        qry_a.first();
+        qry_a.previous();
     }
 
     ui->tabWidget->setTabText(1, "Learnt (" +QString::number(numberOfRows)+ ")");
 
     qry_a.finish();
-    qry_b->finish();
-    conn.Closedb();
+
+
 
     // load note
     QFile file(DM_tl+"/"+tpc+"/.conf/note");
@@ -216,9 +217,8 @@ void item_list::closeEvent(QCloseEvent * event)
     // Save data
     tpc = get_tpc();
 
-    Database conn;
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    QSqlQuery qry;
+    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlQuery qry(db);
 
     for(std::vector<QString>::iterator chkd = checked_items.begin(); chkd != checked_items.end(); ++chkd) {
        QString checked = *chkd;
@@ -231,7 +231,6 @@ void item_list::closeEvent(QCloseEvent * event)
     }
 
     qry.finish();
-    conn.Closedb();
 
     // save note
     QString text = ui->textEdit->toHtml();
@@ -269,9 +268,8 @@ void item_list::on_pushButton_tabmanage_delete_clicked()
 
     if (msgBox.clickedButton() == deleteButton) {
 
-        Database conn;
-        conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
-        QSqlQuery qry;
+        QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+        QSqlQuery qry(db);
 
         qry.prepare("DELETE FROM topics WHERE list = ?");
         qry.addBindValue(tpc);
@@ -284,7 +282,7 @@ void item_list::on_pushButton_tabmanage_delete_clicked()
             if (!qry.exec()) qDebug() << qry.lastError().text();
         }
         qry.finish();
-        conn.Closedb();
+
 
     } else if (msgBox.clickedButton() == cancelButton) {
         return;

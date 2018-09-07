@@ -1,7 +1,7 @@
 #include <QCloseEvent>
 
 #include "dlg_practice.h"
-#include "ui_dlg_practice.h"
+#include "build/ui/ui_dlg_practice.h"
 #include "Core/vars_statics.h"
 #include "Core/vars_session.h"
 
@@ -22,12 +22,36 @@ Practice::Practice(QWidget *parent) :
     verticalHeader->setDefaultSectionSize(68);
     //ui->tableWidget->setStyleSheet("QTableWidget::item { margin-right: 20px }");
 
-    load_data();
+    startt();
 
+
+    load_data();
 }
 
-Practice::~Practice()
-{
+
+void Practice::startt() {
+//    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
+//    QSqlQuery qry;
+//    QString img;
+//    for( int n = 1; n < 6; n = n + 1 ) {
+//        qry.prepare("SELECT * FROM Practice_icons");
+//        if (qry.exec( )) {
+//            while(qry.next()) {
+//                pair_practs["prac_a"]=qry.value(0).toString();
+//                pair_practs["prac_b"]=qry.value(1).toString();
+//                pair_practs["prac_c"]=qry.value(2).toString();
+//                pair_practs["prac_d"]=qry.value(3).toString();
+//                pair_practs["prac_e"]=qry.value(4).toString();
+//            }
+//        }
+//    }
+// qDebug() << pair_practs["prac_"+pracs_nicons[1]];
+////qry.finish();
+//conn.Closedb();
+}
+
+Practice::~Practice() {
+
     delete ui;
 }
 
@@ -51,6 +75,28 @@ void Practice::score_info(unsigned long int total,
     //str_learnt = QString::number(learnt.size());
     QString str_hard = QString::number(hard);
 
+
+    unsigned long int isok = 100*int_easy/total;
+    unsigned long int n = 1,  c = 1;
+    QString nicon, nicon_mod;
+
+    while ( n <= 21 ) {
+        if ( n == 21 ) {
+            nicon_mod = QString::number(n-1);
+            break;
+        }
+        else if ( isok <= c ) {
+            nicon_mod = QString::number(n);
+            break;
+        }
+        c = c + 5;
+        n++;
+    }
+
+
+    pair_practs[active_pract]=nicon_mod;
+
+
     ui->widget_score->show();
     ui->label_score_total->setText(str_total);
     ui->label_score_learnt->setText(str_easy);
@@ -61,28 +107,17 @@ void Practice::score_info(unsigned long int total,
 
 void Practice::load_data() {
 
+
+
     tpc = get_tpc();
 
     this->setWindowTitle(tr("Practice - ")+tpc);
 
-    QString pracs[5] = {tr("Flashcards"),tr("Multiple-choice"),
-                        tr("Recognize Pronunciation"),
-                        tr("Images"),tr("Listen and Writing Sentences")};
-    QString pracs_nicons[5] = {"a","b","c","d","e"};
-
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    QSqlQuery qry;
-
-    QString img;
     for( int n = 1; n < 6; n = n + 1 ) {
 
             ui->tableWidget->insertRow(ui->tableWidget->rowCount());
 
-            qry.prepare("SELECT prac_"+pracs_nicons[n-1]+" FROM Practice_icons");
-            if (qry.exec( )) {
-                while(qry.next()) {img = qry.value(0).toString();}
-            }
-            QString imgPath = ivar::DS+"/images/practice/"+img+".png";
+            QString imgPath = ivar::DS+"/images/practice/"+imgs[n]+".png";
             QImage *img = new QImage(imgPath);
             QTableWidgetItem *thumbnail = new QTableWidgetItem;
             thumbnail->setData(Qt::DecorationRole, QPixmap::fromImage(*img));
@@ -91,40 +126,36 @@ void Practice::load_data() {
             ui->tableWidget->setItem(ui->tableWidget->rowCount()-1 , 1, new QTableWidgetItem(pracs[n-1]));
         }
 
-    qry.finish();
-    conn.Closedb();
-}
-
-
-void Practice::closeEvent(QCloseEvent * event)
-{
-    if(this->isVisible()){
-        event->ignore();
-        this->hide();
-    }
-}
-
-void Practice::on_pushButton_clicked()
-{
 
 }
 
-void Practice::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item)
-{
+
+void Practice::on_pushButton_clicked() {
+
+
+
+}
+
+void Practice::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item) {
+
     this->hide();
 
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    QSqlQuery qry_a;
-    qry_a.prepare("select list from learning");
-    QSqlQuery qry;
+    active_pract = "pract_a";
+
+    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlQuery qry(db);
+
+    qry.prepare("select list from learning");
+
     QString trgt, srce, type;
 
     total = 0;
-    if (qry_a.exec( )) {
+    if (qry.exec( )) {
 
-        while(qry_a.next()) {
-            trgt = qry_a.value(0).toString();
+        while(qry.next()) {
+            trgt = qry.value(0).toString();
 
+            QSqlQuery qry(db);
             qry.prepare("select * from "+Source_LANG+" where trgt=(:trgt_val)");
             qry.bindValue(":trgt_val", trgt);
 
@@ -143,13 +174,14 @@ void Practice::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item)
         }
     }
 
-    qry_a.finish();
     qry.finish();
-    conn.Closedb();
 
-    mPrac_a = new Prac_a();
-    mPrac_a->load_data(pair_words,words);
-    mPrac_a->show();
+    if (active_pract=="pract_a") {
+
+        mPrac_a = new Prac_a();
+        mPrac_a->load_data(pair_words,words);
+        mPrac_a->show();
+    }
 }
 
 
@@ -159,8 +191,9 @@ void Practice::save_data() {
     unsigned long int isok = 100*int_easy/total;
     unsigned long int n = 1,  c = 1;
 
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
-    QSqlQuery qry;
+    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlQuery qry(db);
+
     QString nicon, nicon_mod;
     qry.prepare("SELECT prac_a FROM Practice_icons");
     if (!qry.exec()) qDebug() << qry.lastError().text();
@@ -183,5 +216,13 @@ void Practice::save_data() {
     if (!qry.exec()) qDebug() << qry.lastError().text();
 
     qry.finish();
-    conn.Closedb();
+}
+
+void Practice::closeEvent(QCloseEvent * event)
+{
+    if(this->isVisible()){
+        event->ignore();
+        this->hide();
+    }
+    save_data();
 }

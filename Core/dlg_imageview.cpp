@@ -1,5 +1,5 @@
 #include "dlg_imageview.h"
-#include "ui_dlg_imageview.h"
+#include "build/ui/ui_dlg_imageview.h"
 
 Dlg_ImageView::Dlg_ImageView(QWidget *parent) :
     QDialog(parent),

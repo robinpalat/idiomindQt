@@ -1,5 +1,5 @@
 ﻿#include "prac_a.h"
-#include "ui_prac_a.h"
+#include "build/ui/ui_prac_a.h"
 #include "dlg_practice.h"
 
 Prac_a::Prac_a(QWidget *parent) : QWidget(parent), ui(new Ui::Prac_a) {
@@ -25,6 +25,7 @@ void Prac_a::load_data(std::map<QString, QString> &tmp_pair_words,
     words = tmp_words;
     pair_words = tmp_pair_words;
     total = words.size();
+    qDebug() << total;
     ok_count = 0;
     no_count = 0;
     items = total;

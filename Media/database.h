@@ -11,21 +11,21 @@
 class Database : public QObject
 {
     Q_OBJECT
-public:
-    explicit Database(QObject *parent = nullptr);
-
-signals:
-
-public slots:
 
 public:
+    static Database& instance();
+    QSqlDatabase getConnection(QString dbpath);
+    ~Database();
+     Database();
+    void closeConnections();
+    void closeConnection();
 
     QSqlDatabase mdb;
 
-    bool Opendb(QString db) {
+    bool Opendb(QString dbpath) {
 
-        mdb=QSqlDatabase::addDatabase("QSQLITE");
-        mdb.setDatabaseName(db);
+        mdb = QSqlDatabase::addDatabase("QSQLITE");
+        mdb.setDatabaseName(dbpath);
         if (!mdb.open()) {
             qDebug()<<("Failed to open the database");
             return false;
@@ -46,6 +46,11 @@ public:
             qDebug() << "Failed to close the databse";
         }
     }
+
+private:
+
+    QMutex lock;
+    QHash<QThread*, QSqlDatabase> connections;
 
 };
 

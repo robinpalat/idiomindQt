@@ -1,5 +1,5 @@
 #include "dlg_edititem.h"
-#include "ui_dlg_edititem.h"
+#include "build/ui/ui_dlg_edititem.h"
 #include "dlg_vwr.h"
 
 #include <QMessageBox>
@@ -32,11 +32,10 @@ void Dlg_editItem::load_data(QString trgt_ind, QString list_sel)
 {
     trgt = trgt_ind;
     list = list_sel;
-    Database conn;
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
 
     QString t, s;
-    QSqlQuery qry;
+    QSqlQuery qry(db);
     qry.prepare("select list from '"+list+"'");
 
    if (qry.exec()) {
@@ -59,7 +58,6 @@ void Dlg_editItem::load_data(QString trgt_ind, QString list_sel)
    }
    else {
      QMessageBox::critical(this, tr("Error"), qry.lastError().text());
-     conn.Closedb();
    }
     qry.finish();
 }
@@ -74,7 +72,8 @@ void Dlg_editItem::fill_data(QString trgt)
     ui->plainTextEdit_note->clear();
     ui->checkBox_editItem_mark->setChecked(false);
 
-    QSqlQuery qry;
+    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlQuery qry(db);
     QString trgt_qry = trgt.replace("'", "''");
     qry.prepare("select * from "+Source_LANG+" where trgt='"+trgt_qry+"'");
 
@@ -117,8 +116,8 @@ void Dlg_editItem::fill_data(QString trgt)
 
 void Dlg_editItem::save_data() {
 
-    Database conn;
-    conn.Opendb(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlDatabase db = Database::instance().getConnection(DM_tl+"/"+tpc+"/.conf/tpcdb");
+    QSqlQuery qry(db);
 
     QString trgt_mod, srce_mod, note_mod,
             defn_mod, exmp_mod, mark_mod;
@@ -134,44 +133,37 @@ void Dlg_editItem::save_data() {
     else mark_mod = "TRUE";
 
     if (trgt_mod!=trgt) {
-        QSqlQuery qry;
         qry.prepare("update "+Source_LANG+" set trgt='"+trgt_mod+"' where trgt='"+trgt+"'");
         qry.exec();
-        QSqlQuery qry2;
-        qry2.prepare("update '"+list+"' set list='"+trgt_mod+"' where list='"+trgt+"'");
-        qry2.exec();
+        qry.prepare("update '"+list+"' set list='"+trgt_mod+"' where list='"+trgt+"'");
+        qry.exec();
 
         if (type == "1") {
-            QSqlQuery qry;
             qry.prepare("update words set list='"+trgt_mod+"' where list='"+trgt+"'");
             qry.exec();
         }
         else if (type == "2") {
-            QSqlQuery qry;
             qry.prepare("update sentences set list='"+trgt_mod+"' where list='"+trgt+"'");
             qry.exec();
         }
     }
 
     if (srce_mod!=srce) {
-        QSqlQuery qry;
         qry.prepare("update "+Source_LANG+" set srce='"+srce_mod+"' where trgt='"+trgt+"'");
         qry.exec();
     }
 
     if (exmp_mod != exmp || defn_mod != defn ||  note_mod != note) {
-        QSqlQuery qry;
         qry.prepare("update "+Source_LANG+" set exmp='"+exmp_mod+"', defn='"+defn_mod+"', note='"+note_mod+"' where trgt='"+trgt+"'");
         qry.exec();
     }
 
     if (mark_mod!=mark) {
-        QSqlQuery qry;
         qry.prepare("update "+Source_LANG+" set mark='"+mark_mod+"' where trgt='"+trgt+"'");
         qry.exec();
     }
 
-    conn.Closedb();
+    qry.finish();
     trgt = trgt_mod;
     load_data(trgt, list);
 }
