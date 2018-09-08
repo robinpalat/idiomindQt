@@ -3,7 +3,6 @@
 #include "vars_statics.h"
 #include <qdebug.h>
 #include "vars_session.h"
-#include "item_list.h"
 #include "icontray.h"
 
 #include <QCloseEvent>
@@ -90,8 +89,10 @@ void Topics::on_tableWidget_topics_cellDoubleClicked()
         stream << tpc;
     }
     this->hide();
-    item_list f;
-    f.show();
+
+//    mMainWindow = new MainWindow(this);
+//    mMainWindow->load_data();
+//    mMainWindow->show();
 }
 
 void Topics::on_pushButton_2_clicked()

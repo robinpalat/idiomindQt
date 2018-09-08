@@ -4,6 +4,7 @@
 #include <QDialog>
 
 #include "vars_session.h"
+//#include "mainwindow.h"
 
 namespace Ui {
 class Topics;
@@ -30,6 +31,7 @@ private slots:
 private:
     Ui::Topics *ui;
     Global *mGlobal;
+    //MainWindow * mMainWindow;
 
 
 public:
