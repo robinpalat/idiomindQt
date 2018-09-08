@@ -15,7 +15,7 @@
 
 #include <QFileSystemWatcher>
 
-#include "item_list.h"
+#include "mainwindow.h"
 #include "dlg_vwr.h"
 #include "dlg_topics.h"
 #include "vars_statics.h"
@@ -43,7 +43,7 @@ private:
     Vwr * mVwr;
     Topics * mTopics;
     QSystemTrayIcon * trayIcon;
-    item_list * mitem_list;
+    MainWindow * mMainWindow;
     QFileSystemWatcher * watcher;
 
 };

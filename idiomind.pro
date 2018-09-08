@@ -27,7 +27,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         Core/main.cpp \
         Core/icontray.cpp \
-        Core/item_list.cpp \
     Core/dlg_imageview.cpp \
     Core/dlg_vwr.cpp \
     Core/dlg_edititem.cpp \
@@ -44,10 +43,13 @@ SOURCES += \
     Core/practice/dlg_practice.cpp \
     Media/database.cpp \
     Media/audioplayer.cpp \
-    Core/practice/pract1.cpp
+    Core/practice/pract1.cpp \
+    Core/practice/pract2.cpp \
+    Core/practice/pract3.cpp \
+    Core/practice/pract4.cpp \
+    Core/practice/pract5.cpp
 
 HEADERS += \
-        Core/item_list.h \
     Core/icontray.h \
     Core/ui_item_list.h \
     Core/dlg_imageview.h \
@@ -66,10 +68,13 @@ HEADERS += \
     Core/practice/dlg_practice.h \
     Media/database.h \
     Media/audioplayer.h \
-    Core/practice/pract1.h
+    Core/practice/pract1.h \
+    Core/practice/pract2.h \
+    Core/practice/pract3.h \
+    Core/practice/pract4.h \
+    Core/practice/pract5.h
 
 FORMS += \
-        Ui/item_list.ui \
     Ui/dlg_imageview.ui \
     Ui/dlg_vwr.ui \
     Ui/dlg_edititem.ui \
@@ -81,7 +86,11 @@ FORMS += \
     Ui/mainwindow.ui \
     Ui/dlg_add.ui \
     Ui/dlg_practice.ui \
-    Ui/pract1.ui
+    Ui/pract1.ui \
+    Ui/pract2.ui \
+    Ui/pract3.ui \
+    Ui/pract4.ui \
+    Ui/pract5.ui
 
 DISTFILES += \
     android/AndroidManifest.xml \

@@ -154,18 +154,14 @@ void Prac_a::closeEvent( QCloseEvent* event ) {
         event->ignore();
         this->hide();
      }
-    int_easy =  easy.size();
-    int_ling = learning.size();
-    int_learnt = learnt.size();
-    int_hard = difficult.size();
 
     Practice * mPractice;
     mPractice = new Practice(this);
     if(items < 1){
-        mPractice->score_info(total, int_easy, int_ling, int_hard, "pract1");
+        mPractice->goBack_results(easy, learning, learnt, difficult, "pract1");
     }
     else{
-        mPractice->score_info(total, int_easy, int_ling, int_hard, "pract1");
+        mPractice->goBack_results(easy, learning, learnt, difficult, "pract1");
     }
     mPractice->show();
 }

@@ -34,8 +34,23 @@ Practice::~Practice() {
 }
 
 QString Practice::get_tpc() {
+
     Global mGlobal;
     return mGlobal.get_textline(ivar::FILE_mn);
+}
+
+void Practice::goBack_results(std::vector< QString > &items0,
+                       std::vector< QString > &items1,
+                       std::vector< QString > &items2,
+                       std::vector< QString > &items3,
+                        QString active_pract) {
+
+    int_easy = items0.size();
+    int_ling = items1.size();
+    int_lrnt = items2.size();
+    int_hard = items3.size();
+
+    score_info(int_easy, int_ling, int_lrnt, int_hard, active_pract);
 }
 
 void Practice::score_info(unsigned long int total,
@@ -55,10 +70,8 @@ void Practice::score_info(unsigned long int total,
     //str_learnt = QString::number(learnt.size());
     QString str_hard = QString::number(hard);
 
-
     unsigned long int isok = 100*int_easy/total;
     unsigned long int n = 1,  c = 1;
-
 
     while ( n <= 21 ) {
         if ( n == 21 ) {
@@ -118,10 +131,7 @@ void Practice::load_data() {
 
     tpc = get_tpc();
 
-
-
     this->setWindowTitle(tr("Practice - ")+tpc);
-
 
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
@@ -154,6 +164,11 @@ void Practice::on_pushButton_clicked() {
 void Practice::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item) { // item->text();
 
     this->hide();
+
+    items0.clear();
+    items1.clear();
+    items2.clear();
+    items3.clear();
 
     active_pract = "pract"+QString::number(item->row()+1);
     // qDebug() << active_pract;
@@ -197,6 +212,32 @@ void Practice::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item) { // ite
         mPrac_a = new Prac_a();
         mPrac_a->load_data(pair_words,words);
         mPrac_a->show();
+    }
+    else if (active_pract == "pract2") {
+
+        mPract2 = new Pract2();
+        //mPract2->load_data(pair_words,words);
+        mPract2->show();
+
+    }
+    else if (active_pract == "pract3") {
+
+        mPract3 = new Pract3();
+        //mPract2->load_data(pair_words,words);
+        mPract3->show();
+
+    }
+    else if (active_pract == "pract4") {
+
+        mPract4 = new Pract4();
+        //mPract2->load_data(pair_words,words);
+        mPract4->show();
+    }
+    else if (active_pract == "pract5") {
+
+        mPract5 = new Pract5();
+        //mPract2->load_data(pair_words,words);
+        mPract5->show();
     }
 }
 

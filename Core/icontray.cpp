@@ -7,7 +7,6 @@
 #include <QIcon>
 #include <QSql>
 #include "vars_statics.h"
-#include "item_list.h"
 #include "dlg_add.h"
 
 
@@ -107,9 +106,16 @@ void Icontray::show_index() {
 
 
 void Icontray::show_tpc() {
-    item_list mitem_list;
-    mitem_list.setModal(true);
-    mitem_list.exec();
+//    MainWindow mMainWindow;
+//    mMainWindow.load_data();
+//    mMainWindow.show();
+
+
+    mMainWindow = new MainWindow(this);
+
+    mMainWindow->load_data();
+
+    mMainWindow->show();
 }
 
 void Icontray::show_dlg_add() {

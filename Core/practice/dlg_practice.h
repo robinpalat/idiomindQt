@@ -5,6 +5,10 @@
 #include <QTableWidget>
 
 #include "Core/practice/pract1.h"
+#include "Core/practice/pract2.h"
+#include "Core/practice/pract3.h"
+#include "Core/practice/pract4.h"
+#include "Core/practice/pract5.h"
 #include "Media/database.h"
 
 namespace Ui {
@@ -27,17 +31,30 @@ public:
     void save_data();
     void startt();
 
+    void goBack_results(std::vector< QString > &items0,
+                        std::vector< QString > &items1,
+                        std::vector< QString > &items2,
+                        std::vector< QString > &items3,
+                        QString active_pract);
+
     void score_info(unsigned long int total,
                     unsigned long int easy,
                     unsigned long int ling,
                     unsigned long int hard,
                     QString active_pract);
 
-    unsigned long int int_total, int_easy, int_ling, int_hard;
+    unsigned long int int_total, int_easy, int_ling, int_lrnt, int_hard;
     unsigned short int pos, total, round, ok_count = 0, no_count = 0;
     unsigned long int items;
 
     std::vector< QString > words;
+
+    std::vector< QString > items0;
+    std::vector< QString > items1;
+    std::vector< QString > items2;
+    std::vector< QString > items3;
+
+
     std::map<QString,QString> pair_words;
 
 
@@ -59,6 +76,10 @@ private slots:
 private:
     Ui::Practice *ui;
     Prac_a * mPrac_a;
+    Pract2 * mPract2;
+    Pract3 * mPract3;
+    Pract4 * mPract4;
+    Pract5 * mPract5;
 
 };
 
