@@ -26,8 +26,8 @@
    <string>Add New</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/images/idiomind.png</normaloff>:/images/idiomind.png</iconset>
+   <iconset resource="../res.qrc">
+    <normaloff>:/Images/idiomind.png</normaloff>:/Images/idiomind.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <property name="leftMargin">
@@ -232,11 +232,21 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>20</width>
-         <height>10</height>
+         <width>6</width>
+         <height>6</height>
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="Line" name="line">
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_add">
