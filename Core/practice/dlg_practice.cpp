@@ -50,6 +50,17 @@ void Practice::goBack_results(std::vector< QString > &items0,
     int_lrnt = items2.size();
     int_hard = items3.size();
 
+
+//    sort(begin(b), end(b));
+//    auto iter = remove_if(begin(a), end(a),
+//                          [](auto x) {
+//                              return binary_search(begin(b), end(b), x);
+//                          });
+    // Now [begin(a), iter) defines a new range, and you can erase them however
+    // you see fit, based on the type of a.
+
+
+
     score_info(int_easy, int_ling, int_lrnt, int_hard, active_pract);
 }
 
@@ -176,36 +187,56 @@ void Practice::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item) { // ite
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
-    qry.prepare("select list from learning");
-
-    QString trgt, srce, type;
-
-    total = 0;
-    if (qry.exec( )) {
-
-        while(qry.next()) {
-            trgt = qry.value(0).toString();
-
-            QSqlQuery qry(db);
-            qry.prepare("select * from "+Source_LANG+" where trgt=(:trgt_val)");
-            qry.bindValue(":trgt_val", trgt);
-
-            if (qry.exec( )) {
-                while(qry.next()) {
-                    type = "2";
-                    srce = qry.value(1).toString();
-                    type = qry.value(13).toString();
-                }
-            }
-            if (trgt != "" && srce != "" && type == "1") {
-                words.push_back(trgt);
-                pair_words[trgt]=srce;
-                total ++;
-            }
-        }
+    if (img_pair_practs["pract1"] == "21") {
+        qry.prepare("SELECT list FROM learning");
+    }
+    else if ( img_pair_practs["pract1"] == "0" ) {
+        qry.prepare("SELECT list FROM learning");
+    }
+    else {
+        qry.prepare("SELECT items_0 FROM "+active_pract+"");
     }
 
-    qry.finish();
+        QString trgt, srce, type;
+
+        total = 0;
+        if (qry.exec( )) {
+
+            while(qry.next()) {
+                trgt = qry.value(0).toString();
+
+
+                QSqlQuery qry(db);
+                qry.prepare("SELECT * FROM "+Source_LANG+" WHERE trgt=(:trgt_val)");
+                qry.bindValue(":trgt_val", trgt);
+
+                if (qry.exec( )) {
+                    while(qry.next()) {
+                        type = "2";
+                        srce = qry.value(1).toString();
+                        type = qry.value(13).toString();
+                    }
+                }
+                if (trgt != "" && srce != "" && type == "1") {
+
+                    if (img_pair_practs["pract1"] == "0") {
+                        //qry.prepare("INSERT INTO "+active_pract+" (items_0) VALUES (?)");
+
+                        qry.exec("INSERT INTO "+active_pract+" (items_0) VALUES (?)");
+                        qry.addBindValue(trgt);
+                        qDebug() << trgt;
+
+                    }
+                    words.push_back(trgt);
+                    pair_words[trgt]=srce;
+                    total ++;
+                }
+            }
+        }
+
+        db.commit();
+        qry.finish();
+
 
     if (active_pract == "pract1") {
 

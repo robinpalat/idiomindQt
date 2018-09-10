@@ -32,6 +32,7 @@ namespace ivar {
     QString DC_a =  Home+"AppData/Local/Idiomind/Config/addons";
     QString DC_d =  Home+"AppData/Local/Idiomind/Config/addons/dict/enables";
     QString FILE_mn = Home+"/AppData/Local/Idiomind/Config/tpc";
+    QString FILE_conf = Home+"/AppData/Local/Idiomind/Config/config.cfg";
 #endif
 
 
@@ -45,6 +46,7 @@ namespace ivar {
     QString DC_a =  Home+"/.config/idiomind/addons/";
     QString DC_d =  Home+"/.config/idiomind/addons/dict/enables/";
     QString FILE_mn = Home+"/.config/idiomind/tpc";
+    QString FILE_conf = Home+"/.config/idiomind/config.cfg";
 #endif
 
 

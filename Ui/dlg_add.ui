@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>450</width>
+    <width>464</width>
     <height>140</height>
    </rect>
   </property>
@@ -84,6 +84,9 @@
            <height>26</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(74, 74, 74);</string>
+         </property>
         </widget>
        </item>
       </layout>
@@ -109,12 +112,18 @@
       <widget class="QPushButton" name="pushButton_srce">
        <property name="minimumSize">
         <size>
-         <width>60</width>
+         <width>40</width>
          <height>0</height>
         </size>
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -122,12 +131,18 @@
       <widget class="QPushButton" name="pushButton_clip">
        <property name="minimumSize">
         <size>
-         <width>60</width>
+         <width>40</width>
          <height>0</height>
         </size>
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -135,12 +150,18 @@
       <widget class="QPushButton" name="pushButton_image">
        <property name="minimumSize">
         <size>
-         <width>60</width>
+         <width>40</width>
          <height>0</height>
         </size>
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -148,12 +169,37 @@
       <widget class="QPushButton" name="pushButton_audio">
        <property name="minimumSize">
         <size>
-         <width>60</width>
+         <width>40</width>
          <height>0</height>
         </size>
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_list">
+       <property name="minimumSize">
+        <size>
+         <width>40</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -161,14 +207,36 @@
       <widget class="QPushButton" name="pushButton_more">
        <property name="minimumSize">
         <size>
-         <width>60</width>
+         <width>30</width>
          <height>0</height>
         </size>
        </property>
        <property name="text">
         <string/>
        </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
       </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>10</height>
+        </size>
+       </property>
+      </spacer>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_add">
@@ -178,11 +246,22 @@
          <height>0</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(74, 74, 74);
+border-color: rgb(122, 122, 122);
+border-bottom-color: rgb(129, 129, 129);</string>
+       </property>
        <property name="text">
-        <string/>
+        <string>Add</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
        </property>
        <property name="default">
-        <bool>true</bool>
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
        </property>
       </widget>
      </item>

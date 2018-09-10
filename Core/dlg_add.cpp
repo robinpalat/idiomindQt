@@ -13,12 +13,13 @@ Add::Add(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->pushButton_add->setIcon(QIcon::fromTheme("list-add"));
-    ui->pushButton_more->setIcon(QIcon::fromTheme("document-edit"));
-    ui->pushButton_audio->setIcon(QIcon::fromTheme("audio-x-generic"));
-    ui->pushButton_image->setIcon(QIcon::fromTheme("insert-image"));
-    ui->pushButton_clip->setIcon(QIcon::fromTheme("edit-paste"));
-    ui->pushButton_srce->setIcon(QIcon::fromTheme("config-language"));
+    //ui->pushButton_add->setIcon(QIcon("/home/robin/Downloads/icons8-plus-16.png"));
+    ui->pushButton_more->setIcon(QIcon(ivar::DS+"/images/add_more.png"));
+    ui->pushButton_list->setIcon(QIcon(ivar::DS+"/images/add_list.png"));
+    ui->pushButton_audio->setIcon(QIcon(ivar::DS+"/images/add_audio.png"));
+    ui->pushButton_image->setIcon(QIcon(ivar::DS+"/images/add_image.png"));
+    ui->pushButton_clip->setIcon(QIcon(ivar::DS+"/images/add_clipboard.png"));
+    ui->pushButton_srce->setIcon(QIcon(ivar::DS+"/images/add_translation.png"));
     ui->lineEdit_srce->hide(); field_srce = false;
 
     load_data();

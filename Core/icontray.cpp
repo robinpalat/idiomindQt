@@ -1,4 +1,4 @@
-#include "icontray.h"
+﻿#include "icontray.h"
 #include <string>
 #include <iostream>
 #include <QMessageBox>
@@ -48,6 +48,9 @@ void Icontray::icontray() {
     QAction * viewTopic = new QAction(tpc, this);
 
     QAction * viewTopics = new QAction(tr("Index"), this);
+
+    QAction * options = new QAction(tr("Options"), this);
+    QAction * about = new QAction(tr("About"), this);
     QAction * quitAction = new QAction(tr("Salir"), this);
 
     connect(play_, SIGNAL(triggered()), this, SLOT(show_tpc()));
@@ -88,6 +91,8 @@ void Icontray::icontray() {
     menu->addSeparator();
     menu->addAction(viewTopics);
     menu->addSeparator();
+    menu->addAction(options);
+    menu->addAction(about);
     menu->addAction(quitAction);
 
     trayIcon->setContextMenu(menu);
@@ -106,15 +111,9 @@ void Icontray::show_index() {
 
 
 void Icontray::show_tpc() {
-//    MainWindow mMainWindow;
-//    mMainWindow.load_data();
-//    mMainWindow.show();
-
 
     mMainWindow = new MainWindow(this);
-
     mMainWindow->load_data();
-
     mMainWindow->show();
 }
 
@@ -126,24 +125,24 @@ void Icontray::show_dlg_add() {
 
 void Icontray::iconActivated(QSystemTrayIcon::ActivationReason reason)
 {
-//    item_list tpcs;
+    mMainWindow = new MainWindow(this);
 
-//    switch (reason){
-//    case QSystemTrayIcon::DoubleClick:
-//        qDebug() << "[[[[[[[[  ** ]]]]]]] ";
-//    case QSystemTrayIcon::Trigger:
+    switch (reason){
+    case QSystemTrayIcon::DoubleClick:
+        qDebug() << "[[[[[[[[  ** ]]]]]]] ";
+    case QSystemTrayIcon::Trigger:
 
-//            if(!this->isVisible()){
-//                tpcs.show();
-//            } else {
-//                tpcs.hide();
-//            }
+            if(!this->isVisible()){
+                mMainWindow->show();
+            } else {
+                mMainWindow->show();
+            }
 
-//        break;
-//    case QSystemTrayIcon::Context:
-//    //case QSystemTrayIcon::DoubleClick:
+        break;
+    case QSystemTrayIcon::Context:
+    //case QSystemTrayIcon::DoubleClick:
 
-//    default:
-//        break;
-//    }
+    default:
+        break;
+    }
 }

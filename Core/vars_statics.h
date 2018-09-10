@@ -28,6 +28,7 @@ namespace ivar {
     extern QString DC_d;
 
      extern QString FILE_mn;
+     extern QString FILE_conf;
 
     extern QString slangs[47][47];
 }
