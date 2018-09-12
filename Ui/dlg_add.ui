@@ -239,16 +239,6 @@
       </spacer>
      </item>
      <item>
-      <widget class="Line" name="line">
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="pushButton_add">
        <property name="minimumSize">
         <size>
@@ -258,8 +248,11 @@
        </property>
        <property name="styleSheet">
         <string notr="true">color: rgb(74, 74, 74);
-border-color: rgb(122, 122, 122);
-border-bottom-color: rgb(129, 129, 129);</string>
+alternate-background-color: rgb(209, 209, 209);
+border-color: rgb(127, 127, 127);
+background-color: rgb(225, 225, 225);
+selection-color: rgb(207, 207, 207);
+</string>
        </property>
        <property name="text">
         <string>Add</string>

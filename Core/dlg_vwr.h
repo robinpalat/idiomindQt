@@ -9,6 +9,7 @@
 #include <QSql>
 #include <QMessageBox>
 #include <QMediaPlayer>
+#include <QMenu>
 
 #include <iostream>
 #include <fstream>
@@ -82,6 +83,8 @@ private slots:
     //void closeEvent( QCloseEvent* event );
 
     //void on_pushButton_2_clicked();
+    void closeEvent(QCloseEvent * event);
+    void customMenuRequested(QPoint pos);
 
 
 private:

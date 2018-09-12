@@ -5,18 +5,26 @@
 #include <QSqlQuery>
 #include <QPixmap>
 #include <QCloseEvent>
+#include <QGraphicsOpacityEffect>
+#include <QPropertyAnimation>
 
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <QTimer>
 
 using namespace std;
+
+
 
 Vwr::Vwr(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Vwr)
 {
     ui->setupUi(this);
+
+    QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
+    restoreGeometry(settings.value("dlgviewer").toByteArray());
 
     ui->tableWidget_wrdsList->setColumnCount(2);
     ui->tableWidget_wrdsList->setColumnWidth(0, 255);
@@ -25,6 +33,11 @@ Vwr::Vwr(QWidget *parent) :
     ui->label_image->setScaledContents( true );
 
     //ui->pushButton_2->setIcon(QIcon(ivar::DS+"/images/listen.png"));
+
+    this->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(this, SIGNAL(customContextMenuRequested(QPoint)),
+              SLOT(customMenuRequested(QPoint)));
+
     player = new QMediaPlayer(this);
 }
 
@@ -65,8 +78,23 @@ void Vwr::load_array(QString trgt_ind, QString list_sel)
     qry.finish();
 }
 
-void Vwr::setLabelText(QString trgt)
-{
+
+//        font = self.font()
+//        font.setPixelSize(self.height() * 0.8)
+//        self.setFont(font)
+
+
+
+
+void Vwr::setLabelText(QString trgt){
+
+    ui->label_srce->setText(" ");
+    ui->label_trgt->setText(" ");
+
+    ui->widget_sizelimit->hide();
+
+    QTimer::singleShot(100, ui->widget_sizelimit, &QWidget::show);
+
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
@@ -149,8 +177,25 @@ void Vwr::setLabelText(QString trgt)
         ui->label_exmp->show();
         ui->label_defn->show();
 
-        ui->label_trgt->setText(trgt); // label dialog
-        ui->label_srce->setText("<font color='#494949'>"+srce+"</font>"); // label dialog
+        //ui->label_trgt->setText(trgt);
+
+//        QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect();
+//        ui->label_trgt->setGraphicsEffect(effect);
+//        QPropertyAnimation *anim = new QPropertyAnimation(effect,"opacity");
+//        anim->setDuration(500);
+//        anim->setStartValue(0.0);
+//        anim->setEndValue(1.0);
+//        anim->setEasingCurve(QEasingCurve::OutQuad);
+//        connect(anim, &QPropertyAnimation::finished, [=]()
+//        {
+//            ui->label_trgt->setText(trgt);
+//        });
+
+//        anim->start(QAbstractAnimation::KeepWhenStopped);
+
+        ui->label_trgt->setText(trgt);
+
+        QTimer::singleShot(1000, [&](){ ui->label_srce->setText("<font color='#494949'>"+srce+"</font>");});
 
         ui->label_exmp->setText(exmp);
         ui->label_defn->setText(defn);
@@ -179,8 +224,25 @@ void Vwr::setLabelText(QString trgt)
         ui->label_exmp->hide();
         ui->label_defn->hide();
 
-        ui->label_trgt->setText(grmr); // label dialog
-        ui->label_srce->setText("<font color='#494949'>"+srce+"</font>"); // label dialog
+//        ui->label_trgt->setText(grmr);
+
+//        QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect();
+//        ui->label_trgt->setGraphicsEffect(effect);
+//        QPropertyAnimation *anim = new QPropertyAnimation(effect,"opacity");
+//        anim->setDuration(500);
+//        anim->setStartValue(0.0);
+//        anim->setEndValue(1.0);
+//        anim->setEasingCurve(QEasingCurve::OutQuad);
+//        connect(anim, &QPropertyAnimation::finished, [=]()
+//        {
+//            ui->label_trgt->setText(grmr);
+//        });
+//        anim->start(QAbstractAnimation::KeepWhenStopped);
+
+        ui->label_trgt->setText(grmr);
+
+
+        QTimer::singleShot(1000, [&](){ ui->label_srce->setText("<font color='#494949'>"+srce+"</font>");});
     }
 
     qry.finish();
@@ -242,12 +304,11 @@ void Vwr::on_label_note_clicked() {
 //}
 
 
-//void Vwr::closeEvent( QCloseEvent* event )
-//{
-//    Vwr conn;
-//    emit conn.connClose();
-//    event->accept();
-//}
+void Vwr::closeEvent( QCloseEvent* event )
+{
+    QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
+    settings.setValue("dlgviewer", saveGeometry());
+}
 
 void Vwr::on_label_srce_clicked() {
 
@@ -269,4 +330,23 @@ void Vwr::on_label_trgt_doubleClicked() {
         mDlg_editItem->load_data(trgt, list);
 
         mDlg_editItem->show();
+}
+
+void Vwr::customMenuRequested(QPoint pos) {
+
+  QMenu* menu = new QMenu(this);
+  const QIcon delIcon = QIcon::fromTheme ("delete-record", QIcon(QIcon::fromTheme("edit-delete")));
+  QAction* delAction = new QAction(delIcon, tr("&Mark item"), this);
+  delAction->setShortcuts (QKeySequence::Delete);
+  connect (delAction, &QAction::triggered, this, &Vwr::on_label_srce_clicked);
+  menu->addAction(delAction);
+
+  const QIcon editIcon = QIcon::fromTheme ("delete-record", QIcon(ivar::DS+"/images/add_more.png"));
+  QAction* editaction = new QAction(editIcon, tr("&Edit"), this);
+
+  //delAction->setShortcuts (QKeySequence::Delete);
+  connect (editaction, &QAction::triggered, this, &Vwr::on_label_trgt_doubleClicked);
+  menu->addAction(editaction);
+
+  menu->popup(this->mapToGlobal(pos));
 }

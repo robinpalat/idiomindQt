@@ -10,7 +10,7 @@ Prac_a::Prac_a(QWidget *parent) : QWidget(parent), ui(new Ui::Prac_a) {
     ui->setupUi(this);
 
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
-    restoreGeometry(settings.value("mainWindowGeometry").toByteArray());
+    restoreGeometry(settings.value("dlgpract1").toByteArray());
 
     player = new QMediaPlayer(this);
 
@@ -157,7 +157,7 @@ void Prac_a::answer_card() {
 void Prac_a::closeEvent( QCloseEvent* event ) {
 
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
-    settings.setValue("mainWindowGeometry", saveGeometry());
+    settings.setValue("dlgpract1", saveGeometry());
 
     if(this->isVisible()){
         event->ignore();

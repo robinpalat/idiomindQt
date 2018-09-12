@@ -205,7 +205,11 @@ void Dlg_editItem::closeEvent( QCloseEvent* event )
 {
     save_data();
 
-    this->close();
+    if(this->isVisible()){
+        event->ignore();
+        this->hide();
+    }
+
     Vwr * mVwr;
     mVwr = new Vwr(this);
     mVwr->load_array(trgt, list);

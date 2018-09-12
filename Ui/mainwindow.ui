@@ -433,90 +433,169 @@ selection-background-color: rgb(255, 255, 255);</string>
          <attribute name="title">
           <string>Manage</string>
          </attribute>
-         <widget class="QGroupBox" name="groupBox">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>-8</y>
-            <width>532</width>
-            <height>484</height>
-           </rect>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>532</width>
-            <height>484</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>532</width>
-            <height>484</height>
-           </size>
-          </property>
-          <property name="title">
-           <string/>
-          </property>
-          <layout class="QFormLayout" name="formLayout_2">
-           <item row="0" column="0" colspan="2">
-            <layout class="QVBoxLayout" name="verticalLayout_8">
+         <layout class="QFormLayout" name="formLayout">
+          <item row="0" column="0">
+           <widget class="QWidget" name="widget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>532</width>
+              <height>484</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>532</width>
+              <height>484</height>
+             </size>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_5">
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_9">
+              <layout class="QVBoxLayout" name="verticalLayout_8">
                <item>
-                <widget class="QLabel" name="label_tpc_name">
-                 <property name="font">
-                  <font>
-                   <pointsize>16</pointsize>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Topic Name</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="verticalSpacer_2">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>6</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="QLabel" name="label_tabmanage_info">
-                 <property name="text">
-                  <string>Topic info</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="verticalSpacer_3">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>25</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_4">
-               <item>
-                <layout class="QVBoxLayout" name="verticalLayout_10">
+                <layout class="QVBoxLayout" name="verticalLayout_9">
                  <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_5">
+                  <widget class="QLabel" name="label_tpc_name">
+                   <property name="font">
+                    <font>
+                     <pointsize>16</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Topic Name</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_2">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>6</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_tabmanage_info">
+                   <property name="text">
+                    <string>Topic info</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_3">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>25</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_4">
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_10">
                    <item>
-                    <widget class="QLabel" name="label_5">
+                    <widget class="QPushButton" name="pushButton_tabmanage_markas">
+                     <property name="minimumSize">
+                      <size>
+                       <width>250</width>
+                       <height>26</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>26</height>
+                      </size>
+                     </property>
+                     <property name="sizeIncrement">
+                      <size>
+                       <width>350</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string>Mark as Learned</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_5">
+                     <item>
+                      <widget class="QLabel" name="label_5">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>26</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>26</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>Rename</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="lineEdit_tabmanage_rename">
+                       <property name="minimumSize">
+                        <size>
+                         <width>350</width>
+                         <height>26</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>350</width>
+                         <height>26</height>
+                        </size>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <spacer name="verticalSpacer_4">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>400</width>
+                       <height>26</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_3">
+                   <item>
+                    <widget class="QPushButton" name="pushButton_tabmanage_share">
                      <property name="minimumSize">
                       <size>
                        <width>0</width>
@@ -530,161 +609,126 @@ selection-background-color: rgb(255, 255, 255);</string>
                       </size>
                      </property>
                      <property name="text">
-                      <string>Rename</string>
+                      <string>Share</string>
                      </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     <property name="flat">
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_tabmanage_rename">
+                    <widget class="QPushButton" name="pushButton_tabmanage_trans">
                      <property name="minimumSize">
                       <size>
-                       <width>350</width>
+                       <width>0</width>
                        <height>26</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>350</width>
+                       <width>16777215</width>
                        <height>26</height>
                       </size>
+                     </property>
+                     <property name="text">
+                      <string>Translate</string>
+                     </property>
+                     <property name="flat">
+                      <bool>false</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pushButton_tabmanage_delete">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>26</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>26</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string>Delete</string>
                      </property>
                     </widget>
                    </item>
                   </layout>
                  </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_4">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_2">
                  <item>
-                  <widget class="QPushButton" name="pushButton_tabmanage_markas">
-                   <property name="minimumSize">
-                    <size>
-                     <width>250</width>
-                     <height>26</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>26</height>
-                    </size>
-                   </property>
-                   <property name="sizeIncrement">
-                    <size>
-                     <width>350</width>
-                     <height>0</height>
-                    </size>
-                   </property>
+                  <widget class="QCheckBox" name="checkBox_restart">
                    <property name="text">
-                    <string>Mark as Learned</string>
+                    <string>Auto checked items</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <spacer name="verticalSpacer_4">
-                   <property name="orientation">
-                    <enum>Qt::Vertical</enum>
+                  <widget class="QCheckBox" name="checkBox_restart_2">
+                   <property name="text">
+                    <string>Restar status</string>
                    </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>400</width>
-                     <height>26</height>
-                    </size>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="checkBox_removall">
+                   <property name="text">
+                    <string>Remove all contents</string>
                    </property>
-                  </spacer>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="checkBox_reverse">
+                   <property name="text">
+                    <string>Reverse items order</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="checkBox_wordview">
+                   <property name="text">
+                    <string>Show sentences in word view</string>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_3">
+                <layout class="QHBoxLayout" name="horizontalLayout_7">
                  <item>
-                  <widget class="QPushButton" name="pushButton_tabmanage_edit">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>26</height>
-                    </size>
-                   </property>
+                  <widget class="QComboBox" name="comboBox_backups">
                    <property name="maximumSize">
                     <size>
-                     <width>16777215</width>
-                     <height>26</height>
+                     <width>100</width>
+                     <height>16777215</height>
                     </size>
-                   </property>
-                   <property name="text">
-                    <string>Edit</string>
-                   </property>
-                   <property name="flat">
-                    <bool>false</bool>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_tabmanage_share">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>26</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>26</height>
-                    </size>
-                   </property>
+                  <widget class="QLabel" name="label">
                    <property name="text">
-                    <string>Share</string>
+                    <string>Restore from backup</string>
                    </property>
-                   <property name="flat">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="pushButton_tabmanage_trans">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>26</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>26</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string>Translate</string>
-                   </property>
-                   <property name="flat">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="pushButton_tabmanage_delete">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>26</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>26</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string>Delete</string>
+                   <property name="alignment">
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                    </property>
                   </widget>
                  </item>
@@ -692,10 +736,23 @@ selection-background-color: rgb(255, 255, 255);</string>
                </item>
               </layout>
              </item>
+             <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>94</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
             </layout>
-           </item>
-          </layout>
-         </widget>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </widget>
       </item>
@@ -733,7 +790,7 @@ selection-background-color: rgb(255, 255, 255);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>100</width>
+            <width>80</width>
             <height>26</height>
            </size>
           </property>
@@ -758,7 +815,7 @@ selection-background-color: rgb(255, 255, 255);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>100</width>
+            <width>80</width>
             <height>26</height>
            </size>
           </property>
@@ -783,7 +840,7 @@ selection-background-color: rgb(255, 255, 255);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>100</width>
+            <width>80</width>
             <height>26</height>
            </size>
           </property>
