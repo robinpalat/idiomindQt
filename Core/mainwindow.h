@@ -73,7 +73,6 @@ private slots:
     void on_pushButton_close_clicked();
 
     void on_pushButton_tabmanage_delete_clicked();
-    void on_pushButton_tabmanage_edit_clicked();
     void on_pushButton_tabmanage_trans_clicked();
     void on_pushButton_tabmanage_share_clicked();
     void on_pushButton_tabmanage_markas_clicked();

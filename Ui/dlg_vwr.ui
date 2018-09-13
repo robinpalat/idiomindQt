@@ -3,7 +3,7 @@
  <class>Vwr</class>
  <widget class="QDialog" name="Vwr">
   <property name="windowModality">
-   <enum>Qt::ApplicationModal</enum>
+   <enum>Qt::WindowModal</enum>
   </property>
   <property name="geometry">
    <rect>
@@ -215,8 +215,8 @@ selection-color: rgb(33, 33, 33);</string>
                     <widget class="ClickableLabel" name="label_image">
                      <property name="minimumSize">
                       <size>
-                       <width>120</width>
-                       <height>110</height>
+                       <width>20</width>
+                       <height>20</height>
                       </size>
                      </property>
                      <property name="maximumSize">

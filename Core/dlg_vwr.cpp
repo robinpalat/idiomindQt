@@ -12,6 +12,7 @@
 #include <sstream>
 #include <vector>
 #include <QTimer>
+#include <QPainter>
 
 using namespace std;
 
@@ -36,8 +37,6 @@ Vwr::Vwr(QWidget *parent) :
     ui->tableWidget_wrdsList->setColumnWidth(1, 255);
 
     ui->label_image->setScaledContents( true );
-
-    //ui->pushButton_2->setIcon(QIcon(ivar::DS+"/images/listen.png"));
 
     this->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(this, SIGNAL(customContextMenuRequested(QPoint)),
@@ -66,6 +65,7 @@ void Vwr::white_dark() {
         ui->label_note->setStyleSheet("color: #EAEAEA;");
         ui->label_exmp->setStyleSheet("color: #C1C1C1;");
         ui->label_defn->setStyleSheet("color: #EAEAEA;");
+        ui->label_image->setStyleSheet("QLabel {border: 2px solid '#4A4A4A';border-radius: 6px;padding: 0px 0px 0px 0px;}");
     }
     else  {
 
@@ -78,6 +78,7 @@ void Vwr::white_dark() {
         ui->label_note->setStyleSheet("color: #2D2D2D;");
         ui->label_exmp->setStyleSheet("color: #676767;");
         ui->label_defn->setStyleSheet("color: #2D2D2D;");
+        ui->label_image->setStyleSheet("QLabel {border: 2px solid '#E6E6E6';border-radius: 6px;padding: 0px 0px 0px 0px;}");
     }
 }
 
@@ -122,8 +123,6 @@ void Vwr::load_array(QString trgt_ind, QString list_sel)
 //        font = self.font()
 //        font.setPixelSize(self.height() * 0.8)
 //        self.setFont(font)
-
-
 
 
 void Vwr::setLabelText(QString trgt){
@@ -184,8 +183,6 @@ void Vwr::setLabelText(QString trgt){
     if (type == "1") {
 
         QString userimg=DM_tl+"/.share/images/"+trgt.toLower()+"-1.jpg";
-        //ui->label_image->setStyleSheet("QLabel {border: 1px solid '#BDBDBD';border-radius: 4px;padding: 0px 0px 0px 0px;}");
-        //ui->label_image->setMargin(3);
 
         if(QFileInfo(userimg).exists()){
             ui->label_image->show();
@@ -322,7 +319,6 @@ void Vwr::on_label_image_clicked() {
 }
 
 
-
 void Vwr::on_label_note_clicked() {
 
     //setConnect_lABEL_IMAGE();
@@ -332,18 +328,6 @@ void Vwr::on_label_note_clicked() {
 }
 
 
-//void Vwr::on_pushButton_edit_clicked()
-//{
-//    Vwr conn;
-//    conn.connClose();
-//    this->close();
-//    mDlg_editItem = new Dlg_editItem(this);
-//    mDlg_editItem->load_data(trgt, list);
-
-//    mDlg_editItem->show();
-//}
-
-
 void Vwr::closeEvent( QCloseEvent* event )
 {
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
@@ -351,10 +335,10 @@ void Vwr::closeEvent( QCloseEvent* event )
     settings.setValue("darkviewer", dark);
 }
 
-void Vwr::on_label_srce_clicked() {
+//void Vwr::on_label_srce_clicked() {
 
-    on_label_trgt_clicked();
-}
+//    on_label_trgt_clicked();
+//}
 
 void Vwr::on_label_trgt_clicked() {
 
@@ -364,7 +348,7 @@ void Vwr::on_label_trgt_clicked() {
 }
 
 
-void Vwr::on_label_trgt_doubleClicked() {
+void Vwr::on_edit() {
 
         this->close();
         mDlg_editItem = new Dlg_editItem(this);
@@ -376,23 +360,21 @@ void Vwr::on_label_trgt_doubleClicked() {
 void Vwr::customMenuRequested(QPoint pos) {
 
   QMenu* menu = new QMenu(this);
+
   const QIcon delIcon = QIcon::fromTheme ("delete-record", QIcon(QIcon::fromTheme("edit-delete")));
   QAction* delAction = new QAction(delIcon, tr("&Mark item"), this);
   delAction->setShortcuts (QKeySequence::Delete);
-  connect (delAction, &QAction::triggered, this, &Vwr::on_label_srce_clicked);
+  connect (delAction, &QAction::triggered, this, &Vwr::on_edit);
   menu->addAction(delAction);
 
   const QIcon editIcon = QIcon::fromTheme ("delete-record", QIcon(ivar::DS+"/images/add_more.png"));
   QAction* editaction = new QAction(editIcon, tr("&Edit"), this);
-
-  //delAction->setShortcuts (QKeySequence::Delete);
-  connect (editaction, &QAction::triggered, this, &Vwr::on_label_trgt_doubleClicked);
+  connect (editaction, &QAction::triggered, this, &Vwr::on_edit);
   menu->addAction(editaction);
+
 
   const QIcon darkIcon = QIcon::fromTheme ("delete-record", QIcon(ivar::DS+"/images/add_more.png"));
   QAction* darkaction = new QAction(darkIcon, tr("&Dark"), this);
-
-  //delAction->setShortcuts (QKeySequence::Delete);
   connect (darkaction, &QAction::triggered, this, &Vwr::change_white_dark);
   menu->addAction(darkaction);
 

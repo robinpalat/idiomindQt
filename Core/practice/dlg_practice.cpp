@@ -45,21 +45,28 @@ void Practice::goBack_results(std::vector< QString > &items0,
                        std::vector< QString > &items3,
                         QString active_pract) {
 
+    QSqlDatabase db = Database::instance().getConnection(tpc);
+    QSqlQuery qry(db);
+
     int_easy = items0.size();
     int_ling = items1.size();
     int_lrnt = items2.size();
     int_hard = items3.size();
 
-
-//    sort(begin(b), end(b));
-//    auto iter = remove_if(begin(a), end(a),
-//                          [](auto x) {
-//                              return binary_search(begin(b), end(b), x);
-//                          });
-    // Now [begin(a), iter) defines a new range, and you can erase them however
-    // you see fit, based on the type of a.
+    qry.exec("DELETE * FROM "+active_pract+" WHERE items_0");
+    for ( auto it = items3.begin(); it != items3.end(); ++it  ) {
+        QString f = *it;
+        qry.exec("INSERT INTO "+active_pract+" VALUES ("+f+")");
 
 
+        //qry.addBindValue(f); **********
+    }
+    for ( auto it = items2.begin(); it != items2.end(); ++it  ) {
+        qry.exec("INSERT INTO "+active_pract+" (items_0) VALUES (?)");
+        qry.addBindValue(*it);
+    }
+    db.commit();
+    qry.finish();
 
     score_info(int_easy, int_ling, int_lrnt, int_hard, active_pract);
 }
@@ -174,27 +181,86 @@ void Practice::on_pushButton_clicked() {
 
 void Practice::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item) { // item->text();
 
-    this->hide();
-
     items0.clear();
     items1.clear();
     items2.clear();
     items3.clear();
 
     active_pract = "pract"+QString::number(item->row()+1);
-    // qDebug() << active_pract;
 
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
-    if (img_pair_practs["pract1"] == "21") {
-        qry.prepare("SELECT list FROM learning");
+    if (img_pair_practs["pract1"] == "21") { // if the quiz is concluded --------------
+        QMessageBox msgBox;
+        msgBox.setText(tr("Practice Completed"));
+        msgBox.setWindowTitle(tr("Practice Completed"));
+        msgBox.setIcon(QMessageBox::Information);
+        QPushButton *restartButton = msgBox.addButton(tr("Restart"), QMessageBox::ActionRole);
+        QPushButton *okButton = msgBox.addButton(tr("Ok"), QMessageBox::ActionRole);
+        msgBox.setDefaultButton(okButton);
+        msgBox.exec();
+
+        if (msgBox.clickedButton() == restartButton) {
+            qry.exec("DELETE * FROM "+active_pract+" WHERE items_0");
+            //qry.exec("UPDATE Practice_icons SET "+active_pract+"='0'");
+            qry.prepare("SELECT list FROM learning");
+
+            QString trgt, srce, type;
+            if (qry.exec( )) {
+
+                while(qry.next()) {
+                    trgt = qry.value(0).toString();
+
+                    QSqlQuery qry(db);
+                    qry.prepare("SELECT * FROM "+Source_LANG+" WHERE trgt=(:trgt_val)");
+                    qry.bindValue(":trgt_val", trgt);
+
+                    if (qry.exec( )) {
+                        while(qry.next()) {
+                            type = "2";
+                            srce = qry.value(1).toString();
+                            type = qry.value(13).toString();
+                        }
+                    }
+                    if (trgt != "" && srce != "" && type == "1") {
+                        items0.push_back(trgt);
+                    }
+                }
+            }
+            db.commit();
+            qry.finish();
+
+            QSqlDatabase db = Database::instance().getConnection(tpc);
+            QSqlQuery qry(db);
+
+            db.transaction();
+            for ( auto it = items0.begin(); it != items0.end(); ++it  ) {
+                QString trgt = *it;
+                qry.exec("insert into '"+active_pract+"' values ('"+trgt+"')");
+            }
+            db.commit();
+
+            qry.finish();
+            items0.clear();
+            img_pair_practs[active_pract]="0";
+            load_data();
+
+            return;
+        }
+        else if (msgBox.clickedButton() == okButton) {
+
+            return;
+        }
     }
-    else if ( img_pair_practs["pract1"] == "0" ) {
-        qry.prepare("SELECT list FROM learning");
+    else if (img_pair_practs["pract1"] == "0") { // if the quiz is not started --------------
+        this->hide();
+        qry.prepare("SELECT items_0 FROM "+active_pract+"");
     }
     else {
-        qry.prepare("SELECT items_0 FROM "+active_pract+"");
+        qry.prepare("SELECT items_0 FROM "+active_pract+""); // if the quiz is started --------------
+
+        this->hide();
     }
 
         QString trgt, srce, type;
@@ -204,7 +270,6 @@ void Practice::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item) { // ite
 
             while(qry.next()) {
                 trgt = qry.value(0).toString();
-
 
                 QSqlQuery qry(db);
                 qry.prepare("SELECT * FROM "+Source_LANG+" WHERE trgt=(:trgt_val)");
@@ -219,14 +284,6 @@ void Practice::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item) { // ite
                 }
                 if (trgt != "" && srce != "" && type == "1") {
 
-                    if (img_pair_practs["pract1"] == "0") {
-                        //qry.prepare("INSERT INTO "+active_pract+" (items_0) VALUES (?)");
-
-                        qry.exec("INSERT INTO "+active_pract+" (items_0) VALUES (?)");
-                        qry.addBindValue(trgt);
-                        qDebug() << trgt;
-
-                    }
                     words.push_back(trgt);
                     pair_words[trgt]=srce;
                     total ++;

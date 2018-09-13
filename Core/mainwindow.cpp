@@ -306,15 +306,15 @@ void MainWindow::on_pushButton_tabmanage_share_clicked()
 //}
 
 
-void MainWindow::on_pushButton_tabmanage_edit_clicked()
-{
-    mEditTpc = new EditTpc(this);
+//void MainWindow::on_pushButton_tabmanage_edit_clicked()
+//{
+//    mEditTpc = new EditTpc(this);
 
-    //mShare->load_array(trgt, "learnt");
+//    //mShare->load_array(trgt, "learnt");
 
-    mEditTpc->show();
+//    mEditTpc->show();
 
-}
+//}
 
 
 void MainWindow::on_pushButton_tabmanage_markas_clicked()
