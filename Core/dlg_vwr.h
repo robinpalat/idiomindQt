@@ -51,12 +51,14 @@ public:
     unsigned long int pos = 0, items =0;
     int temp;
     int numberOfRows = 0, checkpos;
-    bool loaded;
+    bool loaded, dark;
     std::vector< QString > arr;
     QString trgt, srce, list, grmr, cdid,
     wrds, type, note, defn, exmp;
     void load_array(QString, QString);
     void sleepcp(int milliseconds);
+    void white_dark();
+    void change_white_dark();
 
 
 public:

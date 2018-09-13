@@ -26,6 +26,11 @@ Vwr::Vwr(QWidget *parent) :
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
     restoreGeometry(settings.value("dlgviewer").toByteArray());
 
+    dark = settings.value("darkviewer").toBool();
+    white_dark();
+
+    qDebug() << settings.value("darkviewer").toBool();
+
     ui->tableWidget_wrdsList->setColumnCount(2);
     ui->tableWidget_wrdsList->setColumnWidth(0, 255);
     ui->tableWidget_wrdsList->setColumnWidth(1, 255);
@@ -39,6 +44,41 @@ Vwr::Vwr(QWidget *parent) :
               SLOT(customMenuRequested(QPoint)));
 
     player = new QMediaPlayer(this);
+}
+
+void Vwr::change_white_dark() {
+
+    if (dark == false) dark = true;
+    else dark = false;
+    white_dark();
+}
+
+void Vwr::white_dark() {
+
+    if (dark == true) {
+
+        ui->widget->setStyleSheet("background-color: rgb(55, 55, 55);");
+        ui->widget_2->setStyleSheet("background-color: rgb(55, 55, 55);");
+        ui->pushButton_next->setStyleSheet("color: rgb(200, 200, 200);border-radius: 5px;border-width: 0px;background-color: #424242;");
+        ui->pushButton_prev->setStyleSheet("color: rgb(200, 200, 200);border-radius: 5px;border-width: 0px;background-color: #424242;");
+        ui->label_trgt->setStyleSheet("color: #EAEAEA;");
+        ui->label_srce->setStyleSheet("color: #C1C1C1;");
+        ui->label_note->setStyleSheet("color: #EAEAEA;");
+        ui->label_exmp->setStyleSheet("color: #C1C1C1;");
+        ui->label_defn->setStyleSheet("color: #EAEAEA;");
+    }
+    else  {
+
+        ui->widget->setStyleSheet("background-color: rgb(255, 255, 255);");
+        ui->widget_2->setStyleSheet("background-color: rgb(255, 255, 255);");
+        ui->pushButton_next->setStyleSheet("color: rgb(70, 70, 70);border-radius: 5px;border-width: 0px;background-color: #f8f8f8;");
+        ui->pushButton_prev->setStyleSheet("color: rgb(70, 70, 70);border-radius: 5px;border-width: 0px;background-color: #f8f8f8;");
+        ui->label_trgt->setStyleSheet("color: #2D2D2D;");
+        ui->label_srce->setStyleSheet("color: #676767;");
+        ui->label_note->setStyleSheet("color: #2D2D2D;");
+        ui->label_exmp->setStyleSheet("color: #676767;");
+        ui->label_defn->setStyleSheet("color: #2D2D2D;");
+    }
 }
 
 void Vwr::load_array(QString trgt_ind, QString list_sel)
@@ -195,7 +235,7 @@ void Vwr::setLabelText(QString trgt){
 
         ui->label_trgt->setText(trgt);
 
-        QTimer::singleShot(1000, [&](){ ui->label_srce->setText("<font color='#494949'>"+srce+"</font>");});
+        QTimer::singleShot(1000, [&](){ ui->label_srce->setText(srce);});
 
         ui->label_exmp->setText(exmp);
         ui->label_defn->setText(defn);
@@ -242,7 +282,7 @@ void Vwr::setLabelText(QString trgt){
         ui->label_trgt->setText(grmr);
 
 
-        QTimer::singleShot(1000, [&](){ ui->label_srce->setText("<font color='#494949'>"+srce+"</font>");});
+        QTimer::singleShot(1000, [&](){ ui->label_srce->setText(srce);});
     }
 
     qry.finish();
@@ -308,6 +348,7 @@ void Vwr::closeEvent( QCloseEvent* event )
 {
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
     settings.setValue("dlgviewer", saveGeometry());
+    settings.setValue("darkviewer", dark);
 }
 
 void Vwr::on_label_srce_clicked() {
@@ -347,6 +388,13 @@ void Vwr::customMenuRequested(QPoint pos) {
   //delAction->setShortcuts (QKeySequence::Delete);
   connect (editaction, &QAction::triggered, this, &Vwr::on_label_trgt_doubleClicked);
   menu->addAction(editaction);
+
+  const QIcon darkIcon = QIcon::fromTheme ("delete-record", QIcon(ivar::DS+"/images/add_more.png"));
+  QAction* darkaction = new QAction(darkIcon, tr("&Dark"), this);
+
+  //delAction->setShortcuts (QKeySequence::Delete);
+  connect (darkaction, &QAction::triggered, this, &Vwr::change_white_dark);
+  menu->addAction(darkaction);
 
   menu->popup(this->mapToGlobal(pos));
 }

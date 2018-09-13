@@ -63,7 +63,7 @@
       </sizepolicy>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
+      <string notr="true"/>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <property name="spacing">
@@ -126,7 +126,7 @@ selection-color: rgb(33, 33, 33);</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
+         <string notr="true"/>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <property name="spacing">
@@ -153,7 +153,7 @@ selection-color: rgb(33, 33, 33);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(255, 255, 255);</string>
+            <string notr="true"/>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <property name="spacing">

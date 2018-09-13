@@ -13,7 +13,7 @@ Add::Add(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //ui->pushButton_add->setIcon(QIcon("/home/robin/Downloads/icons8-plus-16.png"));
+    ui->pushButton_add->setIcon(QIcon(ivar::DS+"/images/add.png"));
     ui->pushButton_more->setIcon(QIcon(ivar::DS+"/images/add_more.png"));
     ui->pushButton_list->setIcon(QIcon(ivar::DS+"/images/add_list.png"));
     ui->pushButton_audio->setIcon(QIcon(ivar::DS+"/images/add_audio.png"));

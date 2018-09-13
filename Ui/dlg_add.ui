@@ -19,7 +19,7 @@
   <property name="maximumSize">
    <size>
     <width>464</width>
-    <height>140</height>
+    <height>142</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -43,55 +43,101 @@
     <number>6</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="../res.qrc">:/Images/nw.png</pixmap>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QLineEdit" name="lineEdit_trgt">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>26</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lineEdit_srce">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>26</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="comboBox">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>26</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(74, 74, 74);</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>100</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>100</height>
+      </size>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="../res.qrc">:/Images/nw.png</pixmap>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>6</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLineEdit" name="lineEdit_trgt">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>26</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEdit_srce">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>26</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboBox">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>26</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(74, 74, 74);
+color: rgb(123, 123, 123);</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
@@ -112,8 +158,14 @@
       <widget class="QPushButton" name="pushButton_srce">
        <property name="minimumSize">
         <size>
-         <width>40</width>
+         <width>25</width>
          <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>25</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="text">
@@ -131,8 +183,14 @@
       <widget class="QPushButton" name="pushButton_clip">
        <property name="minimumSize">
         <size>
-         <width>40</width>
+         <width>25</width>
          <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>25</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="text">
@@ -150,8 +208,14 @@
       <widget class="QPushButton" name="pushButton_image">
        <property name="minimumSize">
         <size>
-         <width>40</width>
+         <width>25</width>
          <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>25</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="text">
@@ -169,8 +233,14 @@
       <widget class="QPushButton" name="pushButton_audio">
        <property name="minimumSize">
         <size>
-         <width>40</width>
+         <width>25</width>
          <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>25</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="text">
@@ -188,8 +258,14 @@
       <widget class="QPushButton" name="pushButton_list">
        <property name="minimumSize">
         <size>
-         <width>40</width>
+         <width>25</width>
          <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>25</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="text">
@@ -207,8 +283,14 @@
       <widget class="QPushButton" name="pushButton_more">
        <property name="minimumSize">
         <size>
-         <width>30</width>
+         <width>25</width>
          <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>25</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="text">
@@ -223,39 +305,30 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>6</width>
-         <height>6</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
       <widget class="QPushButton" name="pushButton_add">
        <property name="minimumSize">
         <size>
-         <width>60</width>
+         <width>80</width>
          <height>0</height>
         </size>
        </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(74, 74, 74);
-alternate-background-color: rgb(209, 209, 209);
-border-color: rgb(127, 127, 127);
-background-color: rgb(225, 225, 225);
-selection-color: rgb(207, 207, 207);
-</string>
+        <string notr="true"/>
        </property>
        <property name="text">
-        <string>Add</string>
+        <string/>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
        <property name="autoDefault">
         <bool>false</bool>
@@ -264,7 +337,7 @@ selection-color: rgb(207, 207, 207);
         <bool>false</bool>
        </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
      </item>
