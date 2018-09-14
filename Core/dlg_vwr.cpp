@@ -30,8 +30,6 @@ Vwr::Vwr(QWidget *parent) :
     dark = settings.value("darkviewer").toBool();
     white_dark();
 
-    qDebug() << settings.value("darkviewer").toBool();
-
     ui->tableWidget_wrdsList->setColumnCount(2);
     ui->tableWidget_wrdsList->setColumnWidth(0, 255);
     ui->tableWidget_wrdsList->setColumnWidth(1, 255);
@@ -80,6 +78,8 @@ void Vwr::white_dark() {
         ui->label_defn->setStyleSheet("color: #2D2D2D;");
         ui->label_image->setStyleSheet("QLabel {border: 2px solid '#E6E6E6';border-radius: 6px;padding: 0px 0px 0px 0px;}");
     }
+
+    word_list(wrds);
 }
 
 void Vwr::load_array(QString trgt_ind, QString list_sel)
@@ -125,6 +125,33 @@ void Vwr::load_array(QString trgt_ind, QString list_sel)
 //        self.setFont(font)
 
 
+void Vwr::word_list(QString wrds){
+    std::string s = wrds.toStdString();
+    std::string::size_type prev_pos = 0, pos = 0;
+    bool lo = false;
+    ui->tableWidget_wrdsList->setRowCount(0);
+    while( (pos = s.find('_', pos)) != std::string::npos )
+    {
+        std::string substring( s.substr(prev_pos, pos-prev_pos) );
+        if (lo==false) {
+            ui->tableWidget_wrdsList->insertRow(ui->tableWidget_wrdsList->rowCount());
+
+            QTableWidgetItem * abocada = new QTableWidgetItem( QString::fromStdString(substring));
+            if (dark==true) abocada->setTextColor("#AFAFAF"); else abocada->setTextColor("#676767");
+            ui->tableWidget_wrdsList->setItem(ui->tableWidget_wrdsList->rowCount() -1, 0, abocada);
+            lo=true;
+        }
+        else {
+            QTableWidgetItem * abocado = new QTableWidgetItem( QString::fromStdString(substring));
+            if (dark==true) abocado->setTextColor("#868686"); else abocado->setTextColor("#8E8E8E");
+            //ui->tableWidget_wrdsList->setStyleSheet("QTableWidget::item:selected{background-color:'#FFFFFF'};");
+            ui->tableWidget_wrdsList->setItem(ui->tableWidget_wrdsList->rowCount() -1, 1, abocado);
+            lo=false;
+        }
+        prev_pos = ++pos;
+    }
+}
+
 void Vwr::setLabelText(QString trgt){
 
     ui->label_srce->setText(" ");
@@ -140,7 +167,6 @@ void Vwr::setLabelText(QString trgt){
     qry.prepare("select * from "+Source_LANG+" where trgt=(:trgt_val)");
     qry.bindValue(":trgt_val", trgt);
 
-    QString grmr, wrds, type;
     if (qry.exec( )) {
         while(qry.next()) {
             srce = qry.value(1).toString();
@@ -154,30 +180,7 @@ void Vwr::setLabelText(QString trgt){
         }
     }
     if (type == "2") {
-        std::string s = wrds.toStdString();
-        std::string::size_type prev_pos = 0, pos = 0;
-        bool lo = false;
-        ui->tableWidget_wrdsList->setRowCount(0);
-        while( (pos = s.find('_', pos)) != std::string::npos )
-        {
-            std::string substring( s.substr(prev_pos, pos-prev_pos) );
-            if (lo==false) {
-                ui->tableWidget_wrdsList->insertRow(ui->tableWidget_wrdsList->rowCount());
-                ui->tableWidget_wrdsList->setItem(ui->tableWidget_wrdsList->rowCount() -1, 0,
-                                                  new QTableWidgetItem( QString::fromStdString(substring)));
-                lo=true;
-            }
-            else {
-                QTableWidgetItem * abocado = new QTableWidgetItem( QString::fromStdString(substring));
-                abocado->setTextColor("#5F5F5F");
-
-                //ui->tableWidget_wrdsList->setStyleSheet("QTableWidget::item:selected{background-color:'#FFFFFF'};");
-
-                ui->tableWidget_wrdsList->setItem(ui->tableWidget_wrdsList->rowCount() -1, 1, abocado);
-                lo=false;
-            }
-            prev_pos = ++pos;
-        }
+        word_list(wrds);
     }
 
     if (type == "1") {

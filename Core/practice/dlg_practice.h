@@ -27,38 +27,35 @@ public:
     QString tpc, active_pract, nicon, nicon_mod;
     QString get_tpc();
     Database conn;
-    void load_data();
+    void show_icons_stats();
     void save_data();
-    void startt();
+    void get_icons_stats();
+    void starting_a_pract(QString pract);
+    void practice_is_21_0(QString active_pract);
 
-    void goBack_results(std::vector< QString > &items0,
-                        std::vector< QString > &items1,
-                        std::vector< QString > &items2,
-                        std::vector< QString > &items3,
+    void go_back_results(unsigned short int count_total,
+                        std::vector< QString > &list_easy,
+                        std::vector< QString > &list_learnt,
+                        std::vector< QString > &list_learning,
+                        std::vector< QString > &list_difficult,
                         QString active_pract);
 
-    void score_info(unsigned long int total,
-                    unsigned long int easy,
-                    unsigned long int ling,
-                    unsigned long int hard,
-                    QString active_pract);
+    void calc_score_data(QString active_pract);
 
-    unsigned long int int_total, int_easy, int_ling, int_lrnt, int_hard;
-    unsigned short int pos, total, round, ok_count = 0, no_count = 0;
+    unsigned long int size_easy, size_lrnt, size_ling, size_hard;
+    unsigned short int count_pos, count_total, count_round, count_ok = 0, count_no = 0;
     unsigned long int items;
 
-    std::vector< QString > words;
 
-    std::vector< QString > items0;
-    std::vector< QString > items1;
-    std::vector< QString > items2;
-    std::vector< QString > items3;
+    std::vector< QString > list_total;
+    std::vector< QString > list_easy;
+    std::vector< QString > list_learnt;
+    std::vector< QString > list_learning;
+    std::vector< QString > list_difficult;
+    std::vector< QString > list_words;
 
-
-    std::map<QString,QString> pair_words;
-
-
-    std::map<QString,QString> img_pair_practs;
+    std::map<QString,QString> list_pair_words;
+    std::map<QString,QString> list_pair_icon_practs;
 
     QString practs[5] = {tr("Flashcards"),tr("Multiple-choice"),
                         tr("Recognize Pronunciation"),
@@ -67,7 +64,7 @@ public:
 
 
 private slots:
-    void on_pushButton_clicked();
+    void on_pushButton_restart_clicked();
     void closeEvent(QCloseEvent * event);
 
     void on_tableWidget_itemDoubleClicked(QTableWidgetItem *item);

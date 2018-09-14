@@ -21,6 +21,7 @@ Add::Add(QWidget *parent) :
     ui->pushButton_clip->setIcon(QIcon(ivar::DS+"/images/add_clipboard.png"));
     ui->pushButton_srce->setIcon(QIcon(ivar::DS+"/images/add_translation.png"));
     ui->lineEdit_srce->hide(); field_srce = false;
+    setWindowFlag(Qt::WindowStaysOnTopHint);
 
     load_data();
 }

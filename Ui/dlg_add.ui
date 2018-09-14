@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>464</width>
-    <height>140</height>
+    <height>142</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -129,8 +129,10 @@
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">color: rgb(74, 74, 74);
-color: rgb(123, 123, 123);</string>
+           <string notr="true">color: rgb(115, 115, 115);</string>
+          </property>
+          <property name="frame">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -141,6 +143,12 @@ color: rgb(123, 123, 123);</string>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="rightMargin">
+      <number>6</number>
+     </property>
+     <property name="bottomMargin">
+      <number>6</number>
+     </property>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
@@ -158,7 +166,7 @@ color: rgb(123, 123, 123);</string>
       <widget class="QPushButton" name="pushButton_srce">
        <property name="minimumSize">
         <size>
-         <width>25</width>
+         <width>40</width>
          <height>0</height>
         </size>
        </property>
@@ -183,7 +191,7 @@ color: rgb(123, 123, 123);</string>
       <widget class="QPushButton" name="pushButton_clip">
        <property name="minimumSize">
         <size>
-         <width>25</width>
+         <width>40</width>
          <height>0</height>
         </size>
        </property>
@@ -208,7 +216,7 @@ color: rgb(123, 123, 123);</string>
       <widget class="QPushButton" name="pushButton_image">
        <property name="minimumSize">
         <size>
-         <width>25</width>
+         <width>40</width>
          <height>0</height>
         </size>
        </property>
@@ -233,7 +241,7 @@ color: rgb(123, 123, 123);</string>
       <widget class="QPushButton" name="pushButton_audio">
        <property name="minimumSize">
         <size>
-         <width>25</width>
+         <width>40</width>
          <height>0</height>
         </size>
        </property>
@@ -258,7 +266,7 @@ color: rgb(123, 123, 123);</string>
       <widget class="QPushButton" name="pushButton_list">
        <property name="minimumSize">
         <size>
-         <width>25</width>
+         <width>40</width>
          <height>0</height>
         </size>
        </property>
@@ -283,7 +291,7 @@ color: rgb(123, 123, 123);</string>
       <widget class="QPushButton" name="pushButton_more">
        <property name="minimumSize">
         <size>
-         <width>25</width>
+         <width>40</width>
          <height>0</height>
         </size>
        </property>
@@ -308,7 +316,7 @@ color: rgb(123, 123, 123);</string>
       <widget class="QPushButton" name="pushButton_add">
        <property name="minimumSize">
         <size>
-         <width>80</width>
+         <width>40</width>
          <height>0</height>
         </size>
        </property>

@@ -33,29 +33,28 @@ public:
 public:
     //void load_data(QString tpc);
     QString get_tpc();
-    void setLabelText_cuest(QString trgt);
-    void setLabelText_answer(QString trgt);
+    void set_text_cuestion_card(QString trgt);
+    void set_text_answer_card(QString trgt);
     void cuestion_card();
     void answer_card();
     void save_data();
     QString tpc, trgt, srce, type;
-    unsigned long int int_total, int_learnt, int_easy, int_ling, int_hard;
+    unsigned long int size_easy, size_learnt, size_ling, size_hard;
     bool cuest;
-    unsigned short int pos, round, ok_count = 0, no_count = 0;
-    unsigned long int items, total;
+    unsigned short int count_total, count_items, count_pos, count_round, count_ok = 0, count_no = 0;
+    //unsigned long int count_items;
 
-    std::vector< QString > words;
-    std::vector< QString > learning;
-    std::vector< QString > learnt;
-    std::vector< QString > easy;
-    std::vector< QString > difficult;
-    std::map<QString,QString> pair_words;
-    std::map<QString,QString>::iterator it;
+    std::vector< QString > list_easy;
+    std::vector< QString > list_learnt;
+    std::vector< QString > list_learning;
+    std::vector< QString > list_difficult;
+
+    std::vector< QString > list_words;
+    std::map<QString,QString> list_pair_words;
 
 
-    void load_data(std::map<QString, QString> &tmp_pair_words,
-                   std::vector< QString > &tmp_words);
-
+    void load_data(std::map<QString, QString> &tmp_list_pair_words,
+                   std::vector< QString > &tmp_list_words);
 
 
 private slots:

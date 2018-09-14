@@ -67,6 +67,8 @@ public:
     string int_array_to_string(string int_array[], int size_of_array);
     void setConnect_lABEL_IMAGE();
 
+    void word_list(QString wrds);
+
 
 public:
     QSqlQueryModel * modal=new QSqlQueryModel();

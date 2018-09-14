@@ -25,22 +25,65 @@ Prac_a::~Prac_a() {
     delete ui;
 }
 
-void Prac_a::load_data(std::map<QString, QString> &tmp_pair_words,
-                       std::vector< QString > &tmp_words) {
 
-    words = tmp_words;
-    pair_words = tmp_pair_words;
-    total = words.size();
-    ok_count = 0;
-    no_count = 0;
-    items = total;
-    pos = 0;
-    round = 1;
+void Prac_a::load_data(std::map<QString, QString> &tmp_list_pair_words,
+                       std::vector< QString > &tmp_list_words) {
+
+    list_words = tmp_list_words;
+    list_pair_words = tmp_list_pair_words;
+    count_ok = 0;
+    count_no = 0;
+    count_items = list_words.size();
+    count_total = count_items;
+    count_pos = 0;
+    count_round = 1;
     cuestion_card();
+
+}
+
+/* ------------------------------------------------ (2) */
+void Prac_a::cuestion_card() {
+
+    if (count_pos == count_items) {
+        if (count_round == 1) {
+            count_round=2;
+            count_pos=0;
+            list_words.clear();
+            list_words = list_learning;
+            count_items = list_words.size();
+        }
+        else if (count_round == 2) {
+            count_round=3;
+            count_pos=0;
+            list_words.clear();
+            list_words = list_difficult;
+            count_items = list_words.size();
+        }
+    }
+
+    if (count_round == 3 || count_items < 1) {
+
+        this->close();
+    }
+    else {
+        trgt = list_words[count_pos];
+        cuest = false;
+        set_text_cuestion_card(trgt);
+    }
+}
+
+
+void Prac_a::answer_card() {
+
+    trgt = list_words[count_pos];
+    cuest = true;
+    set_text_answer_card(trgt);
+    count_pos++;
+
 }
 
 /* ------------------------------------------------ (3) */
-void Prac_a::setLabelText_cuest(QString trgt) {
+void Prac_a::set_text_cuestion_card(QString trgt) {
 
     QFont font_trgt = ui->label_trgt->font();
     font_trgt.setPointSize(28);
@@ -56,9 +99,9 @@ void Prac_a::setLabelText_cuest(QString trgt) {
     ui->pushButton_answer->show();
 }
 
-void Prac_a::setLabelText_answer(QString trgt) {
+void Prac_a::set_text_answer_card(QString trgt) {
 
-    srce = pair_words[trgt];
+    srce = list_pair_words[trgt];
 
     QFont font_trgt = ui->label_trgt->font();
     font_trgt.setPointSize(16);
@@ -77,80 +120,42 @@ void Prac_a::setLabelText_answer(QString trgt) {
 /* ------------------------------------------------ (1) */
 void Prac_a::on_pushButton_ok_clicked() { // si / next
 
-    if (cuest == false) pos++;
+    if (cuest == false) count_pos++;
 
-        if (round == 1) {
-            easy.push_back(trgt);
+        if (count_round == 1) {
+            list_easy.push_back(trgt);
         }
-        else if (round == 2) {
-            learnt.push_back(trgt);
+        else if (count_round == 2) {
+            list_learnt.push_back(trgt);
         }
 
-     ok_count++;
-     ui->pushButton_ok->setText(tr("I Knew it (")+QString::number(ok_count)+")");
+     count_ok++;
+     ui->pushButton_ok->setText(tr("I Knew it (")+QString::number(count_ok)+")");
 
     cuestion_card();
 }
+
 
 void Prac_a::on_pushButton_no_clicked() { // no / next
 
-    if (cuest == false ) pos++;
+    if (cuest == false ) count_pos++;
 
-        if (round == 1) {
-            learning.push_back(trgt);
+        if (count_round == 1) {
+            list_learning.push_back(trgt);
         }
-        else if (round == 2) {
-            difficult.push_back(trgt);
+        else if (count_round == 2) {
+            list_difficult.push_back(trgt);
         }
-    no_count++;
+    count_no++;
 
-    ui->pushButton_no->setText(tr("I did not know it (")+QString::number(no_count)+")");
+    ui->pushButton_no->setText(tr("I did not know it (")+QString::number(count_no)+")");
     cuestion_card();
 }
+
 
 void Prac_a::on_pushButton_answer_clicked() {
 
     answer_card();
-}
-
-/* ------------------------------------------------ (2) */
-void Prac_a::cuestion_card() {
-
-    if (pos == items) {
-        if (round == 1) {
-            round=2;
-            pos=0;
-            words.clear();
-            words = learning;
-            items = words.size();
-        }
-        else if (round == 2) {
-            round=3;
-            pos=0;
-            words.clear();
-            words = difficult;
-            items = words.size();
-        }
-    }
-
-    if (round == 3 || items < 1) {
-
-        this->close();
-    }
-    else {
-        trgt = words[pos];
-        cuest = false;
-        setLabelText_cuest(trgt);
-    }
-}
-
-void Prac_a::answer_card() {
-
-    trgt = words[pos];
-    cuest = true;
-    setLabelText_answer(trgt);
-    pos++;
-
 }
 
 
@@ -166,14 +171,20 @@ void Prac_a::closeEvent( QCloseEvent* event ) {
 
     Practice * mPractice;
     mPractice = new Practice(this);
-    if(items < 1){
-        mPractice->goBack_results(easy, learning, learnt, difficult, "pract1");
+
+    if(count_items < 1){
+        mPractice->go_back_results(count_total, list_easy,
+                                   list_learnt, list_learning,
+                                   list_difficult, "pract1");
     }
     else{
-        mPractice->goBack_results(easy, learning, learnt, difficult, "pract1");
+        mPractice->go_back_results(count_total, list_easy,
+                                   list_learnt, list_learning,
+                                   list_difficult, "pract1");
     }
     mPractice->show();
 }
+
 
 void Prac_a::on_label_trgt_clicked() {
 
