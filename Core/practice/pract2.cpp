@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <random>
 
+
+
 Pract2::Pract2(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Pract2)
@@ -17,17 +19,25 @@ Pract2::Pract2(QWidget *parent) :
     restoreGeometry(settings.value("dlgPract2").toByteArray());
 
     player = new QMediaPlayer(this);
+
+    QFont font_trgt = ui->label_trgt->font();
+    font_trgt.setPointSize(28);
+    ui->label_trgt->setFont(font_trgt);
+
     ui->pushButton_no->setIcon(QIcon(ivar::DS+"/images/no.png"));
     ui->pushButton_ok->setIcon(QIcon(ivar::DS+"/images/yes.png"));
 
-    ui->tableWidget->setColumnCount(2);
-    ui->tableWidget->setColumnWidth(0, 285);
-    ui->tableWidget->setColumnWidth(1, 285);
+    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
 
+    ui->tableWidget->setColumnCount(2);
+    ui->tableWidget->setStyleSheet("QTableWidget::item { padding: 10px }");
+    ui->tableWidget->setStyleSheet("QTableWidget::item { padding: 10px }");
+
+    ui->pushButton_ok->setEnabled(false);
 }
 
-Pract2::~Pract2()
-{
+
+Pract2::~Pract2() {
     delete ui;
 }
 
@@ -35,8 +45,36 @@ Pract2::~Pract2()
 void Pract2::load_data(std::map<QString, QString> &tmp_list_pair_words,
                        std::vector< QString > &tmp_list_words) {
 
+    QString trgt, srce, type;
+    QSqlDatabase db = Database::instance().getConnection(tpc);
+    QSqlQuery qry(db);
+    qry.prepare("SELECT list FROM words");
+
+    if (qry.exec( )) {
+        while(qry.next()) {
+            trgt = qry.value(0).toString();
+            QSqlQuery qry(db);
+            qry.prepare("SELECT * FROM "+Source_LANG+" WHERE trgt=(:trgt_val)");
+            qry.bindValue(":trgt_val", trgt);
+            qry.exec( );
+            qry.next();
+            type = "2";
+            srce = qry.value(1).toString();
+            type = qry.value(13).toString();
+
+            if (trgt != "" && srce != "" && type == "1") {
+                list_pair_words_words[trgt]=srce;
+                list_words_words.push_back(trgt);
+            }
+        }
+    }
+
     list_words = tmp_list_words;
     list_pair_words = tmp_list_pair_words;
+    list_easy.clear();
+    list_learnt.clear();
+    list_learning.clear();
+    list_difficult.clear();
     count_ok = 0;
     count_no = 0;
     count_items = list_words.size();
@@ -58,14 +96,13 @@ void Pract2::cuestion_card() {
             count_items = list_words.size();
         }
         else if (count_round == 2) {
+            list_words.clear();
             count_round=3;
-            count_pos=0;
             count_items = 0;
         }
     }
-
     if (count_round == 3 || count_items < 1) {
-
+        list_words.clear();
         this->close();
     }
     else {
@@ -78,49 +115,42 @@ void Pract2::cuestion_card() {
 /* ------------------------------------------------ (3) */
 void Pract2::set_text_cuestion_card(QString trgt) {
 
-    QString tmp_trgt;
-    QFont font_trgt = ui->label_trgt->font();
-    font_trgt.setPointSize(28);
-    ui->label_trgt->setFont(font_trgt);
-
     ui->label_trgt->setText(trgt);
-
-    ui->tableWidget->setRowCount(0);
-
     list_shufle.clear();
+    list_shufle.push_back(list_pair_words[trgt]);
 
-    srce = list_pair_words[trgt];
-    list_shufle.push_back(srce);
-
-    unsigned tmp_count_pos = count_pos;
-    QString tmp_srce;
+    tmp_count_pos = count_pos;
+    QString tmp_srce, tmp_trgt;
     for (short unsigned n = 0; n < 7; n++) {
         tmp_count_pos++;
-        if (tmp_count_pos == count_items) {
-            tmp_count_pos = tmp_count_pos - 8;
+        if (tmp_count_pos >= count_items) {
+            if(tmp_count_pos > 7) {
+                tmp_count_pos = tmp_count_pos - 8;
+            }
         }
-        tmp_srce = list_pair_words[list_words[tmp_count_pos]];
+        tmp_trgt = list_words_words[tmp_count_pos];
+        tmp_srce = list_pair_words_words[tmp_trgt];
+
         list_shufle.push_back(tmp_srce);
     }
 
-    for (int unsigned long l = 0; l < list_shufle.size(); l++) {
-        int unsigned long r = l + rand() % (list_shufle.size() - l);
+    for (int unsigned long l = 0; l < 8; l++) {
+        int unsigned long r = l + rand() % (8 - l);
         swap(list_shufle[l], list_shufle[r]);
     }
 
-    bool twist = true;
+    twist = true;
+    ui->tableWidget->setRowCount(0);
     for ( auto it = list_shufle.begin(); it != list_shufle.end(); ++it  ) {
         if (twist == true) {
             ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-            srce = *it;
-            QTableWidgetItem * abocada = new QTableWidgetItem(srce);
-            ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, abocada);
+            QTableWidgetItem * a = new QTableWidgetItem(*it);
+            ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, a);
             twist = false;
         }
        else if (twist == false) {
-            srce = *it;
-            QTableWidgetItem * abocada2 = new QTableWidgetItem(srce);
-            ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 1, abocada2);
+            QTableWidgetItem * b = new QTableWidgetItem(*it);
+            ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 1, b);
             twist = true;
         }
     }
@@ -130,19 +160,26 @@ void Pract2::set_text_cuestion_card(QString trgt) {
 /* ------------------------------------------------ (1) */
 void Pract2::on_pushButton_ok_clicked() { // si / next
 
-    count_pos++;
-    count_ok++;
+    if (srce_cell == list_pair_words[trgt]) {
 
-        if (count_round == 1) {
-            list_easy.push_back(trgt);
-        }
-        else if (count_round == 2) {
-            list_learnt.push_back(trgt);
-        }
+        count_pos++;
+        count_ok++;
 
-     ui->pushButton_ok->setText(tr("I Knew it (")+QString::number(count_ok)+")");
+            if (count_round == 1) {
+                list_easy.push_back(trgt);
+            }
+            else if (count_round == 2) {
+                list_learnt.push_back(trgt);
+            }
 
-    cuestion_card();
+         ui->pushButton_ok->setText(tr("I Knew it (")+QString::number(count_ok)+")");
+         cuestion_card();
+    }
+    else {
+        on_pushButton_no_clicked();
+    }
+    ui->pushButton_ok->setEnabled(false);
+    srce_cell = "";
 }
 
 
@@ -157,7 +194,6 @@ void Pract2::on_pushButton_no_clicked() { // no / next
         else if (count_round == 2) {
             list_difficult.push_back(trgt);
         }
-
 
     ui->pushButton_no->setText(tr("I did not know it (")+QString::number(count_no)+")");
     cuestion_card();
@@ -174,13 +210,11 @@ void Pract2::closeEvent( QCloseEvent* event ) {
         this->hide();
      }
 
-    Practice * mPractice;
-    mPractice = new Practice(this);
-
-    mPractice->go_back_results(count_quiz, list_easy, list_learning,
+    Practice dlg;
+    dlg.go_back_results(count_quiz, list_easy, list_learning,
                                 list_difficult, "Pract2");
-
-    mPractice->show();
+    dlg.setModal(true);
+    dlg.exec();
 }
 
 
@@ -189,5 +223,20 @@ void Pract2::on_label_trgt_clicked() {
     Audioplayer path;
     player->setMedia(QUrl::fromLocalFile(path.pathplay(trgt)));
     player->play();
+}
 
+
+void Pract2::resizeEvent(QResizeEvent *event) {
+
+    ui->tableWidget->setColumnWidth(0, ui->widget_2->width()/2-1);
+    ui->tableWidget->setColumnWidth(1, ui->widget_2->width()/2-1);
+    QHeaderView *verticalHeader = ui->tableWidget->verticalHeader();
+    verticalHeader->setSectionResizeMode(QHeaderView::Fixed);
+    verticalHeader->setDefaultSectionSize(ui->widget_2->height()/4);
+}
+
+void Pract2::on_tableWidget_cellClicked(int row, int column)
+{
+    srce_cell = ui->tableWidget->item(row, column)->text();
+    ui->pushButton_ok->setEnabled(true);
 }

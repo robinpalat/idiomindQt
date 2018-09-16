@@ -17,6 +17,7 @@
 #include "Media/database.h"
 #include "Media/audioplayer.h"
 
+
 namespace Ui {
 class Pract2;
 }
@@ -35,21 +36,23 @@ public:
     void set_text_cuestion_card(QString trgt);
     void cuestion_card();
     void save_data();
-    QString tpc, trgt, srce, type;
+    QString tpc, trgt, srce, type, srce_cell;
     unsigned long int size_easy, size_learnt, size_ling, size_hard;
-    bool cuest;
-    unsigned short int count_quiz, count_total, count_items, count_pos, count_round, count_ok = 0, count_no = 0;
+    bool twist;
+    unsigned short int count_quiz, count_total, count_items, count_pos, count_round, count_ok = 0, count_no = 0, tmp_count_pos;
     //unsigned long int count_items;
 
     std::vector< QString > list_easy;
     std::vector< QString > list_learnt;
     std::vector< QString > list_learning;
     std::vector< QString > list_difficult;
-    std::vector< QString > list_srces;
+    //std::vector< QString > list_srces;
     std::vector< QString > list_shufle;
 
     std::vector< QString > list_words;
+    std::vector< QString > list_words_words;
     std::map<QString,QString> list_pair_words;
+    std::map<QString,QString> list_pair_words_words;
 
     void load_data(std::map<QString, QString> &tmp_list_pair_words,
                    std::vector< QString > &tmp_list_words);
@@ -58,10 +61,13 @@ public:
 private slots:
     void on_pushButton_ok_clicked();
     void closeEvent(QCloseEvent * event);
+    void resizeEvent(QResizeEvent *event);
 
     void on_pushButton_no_clicked();
 
     void on_label_trgt_clicked();
+
+    void on_tableWidget_cellClicked(int row, int column);
 
 private:
     Ui::Pract2 *ui;

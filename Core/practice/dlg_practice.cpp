@@ -6,10 +6,8 @@
 #include "Core/vars_session.h"
 
 
-Practice::Practice(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Practice)
-{
+Practice::Practice(QWidget *parent) : QDialog(parent), ui(new Ui::Practice) {
+
     ui->setupUi(this);
 
     ui->widget_final->hide();
@@ -104,7 +102,7 @@ void Practice::starting_a_pract(QString pract) {
         msgBox.exec();
 
         if (msgBox.clickedButton() == restartButton) {
-            practice_is_21_0(active_pract);
+            qry.exec("UPDATE Practice_stats SET "+active_pract+"_icon='0'");
             list_pair_icon_practs[active_pract]="0";
             show_icons_stats();
         }
@@ -183,9 +181,10 @@ void Practice::practice_is_21_0(QString active_pract) {
 
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
-    db.transaction();
 
-    qry.exec("DELETE * FROM "+active_pract+" WHERE items_0");
+    if (!qry.exec("DELETE FROM "+active_pract+" WHERE items_0")) qDebug() << qry.lastError().text();
+
+    db.transaction();
     qry.prepare("SELECT list FROM learning");
 
     count_session = 0;

@@ -56,14 +56,12 @@ void Prac_a::cuestion_card() {
             count_items = 0;
         }
     }
-
     if (count_round == 3 || count_items < 1) {
-
         this->close();
     }
     else {
-        trgt = list_words[count_pos];
         cuest = false;
+        trgt = list_words[count_pos];
         set_text_cuestion_card(trgt);
     }
 }
@@ -165,11 +163,11 @@ void Prac_a::closeEvent( QCloseEvent* event ) {
         this->hide();
      }
 
-    Practice * mPractice;
-    mPractice = new Practice(this);
-    mPractice->go_back_results(count_quiz, list_easy, list_learning,
+    Practice dlg;
+    dlg.go_back_results(count_quiz, list_easy, list_learning,
                                 list_difficult, "Pract1");
-    mPractice->show();
+    dlg.setModal(true);
+    dlg.exec();
 }
 
 
@@ -178,5 +176,4 @@ void Prac_a::on_label_trgt_clicked() {
     Audioplayer path;
     player->setMedia(QUrl::fromLocalFile(path.pathplay(trgt)));
     player->play();
-
 }

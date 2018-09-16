@@ -11,6 +11,7 @@
 #include "Core/practice/pract5.h"
 #include "Media/database.h"
 
+
 namespace Ui {
 class Practice;
 }
@@ -18,6 +19,9 @@ class Practice;
 class Practice : public QDialog
 {
     Q_OBJECT
+
+    friend class Pract2;
+
 
 public:
     explicit Practice(QWidget *parent = nullptr);
@@ -46,7 +50,6 @@ public:
     count_round, count_ok = 0, count_no = 0;
     unsigned long int items;
     unsigned count_session, count_quiz, count_learnt;
-
 
     std::vector< QString > list_total;
     std::vector< QString > list_easy;
@@ -77,7 +80,6 @@ private:
     Pract3 * mPract3;
     Pract4 * mPract4;
     Pract5 * mPract5;
-
 };
 
 #endif // DLG_PRACTICE_H

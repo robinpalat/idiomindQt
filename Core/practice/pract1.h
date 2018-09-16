@@ -50,6 +50,7 @@ public:
     std::vector< QString > list_learning;
     std::vector< QString > list_difficult;
 
+
     std::vector< QString > list_words;
     std::map<QString,QString> list_pair_words;
 

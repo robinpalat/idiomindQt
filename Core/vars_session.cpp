@@ -70,7 +70,7 @@ QString mn(){
       return line;
 }
 
-QString  get_LANG(QString LANG) {
+QString get_LANG(QString LANG) {
 
     std::map<QString,QString>  smaplangs;
     std::map<QString,QString>::iterator  it;
