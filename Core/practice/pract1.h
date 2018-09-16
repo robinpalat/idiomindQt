@@ -41,7 +41,8 @@ public:
     QString tpc, trgt, srce, type;
     unsigned long int size_easy, size_learnt, size_ling, size_hard;
     bool cuest;
-    unsigned short int count_total, count_items, count_pos, count_round, count_ok = 0, count_no = 0;
+    unsigned short int count_quiz, count_items, count_pos, count_round, count_ok = 0, count_no = 0;
+
     //unsigned long int count_items;
 
     std::vector< QString > list_easy;
@@ -51,7 +52,6 @@ public:
 
     std::vector< QString > list_words;
     std::map<QString,QString> list_pair_words;
-
 
     void load_data(std::map<QString, QString> &tmp_list_pair_words,
                    std::vector< QString > &tmp_list_words);

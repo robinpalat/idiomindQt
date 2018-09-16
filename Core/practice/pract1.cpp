@@ -10,7 +10,7 @@ Prac_a::Prac_a(QWidget *parent) : QWidget(parent), ui(new Ui::Prac_a) {
     ui->setupUi(this);
 
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
-    restoreGeometry(settings.value("dlgpract1").toByteArray());
+    restoreGeometry(settings.value("dlgPract1").toByteArray());
 
     player = new QMediaPlayer(this);
 
@@ -34,11 +34,10 @@ void Prac_a::load_data(std::map<QString, QString> &tmp_list_pair_words,
     count_ok = 0;
     count_no = 0;
     count_items = list_words.size();
-    count_total = count_items;
+    count_quiz = count_items;
     count_pos = 0;
     count_round = 1;
     cuestion_card();
-
 }
 
 /* ------------------------------------------------ (2) */
@@ -54,10 +53,7 @@ void Prac_a::cuestion_card() {
         }
         else if (count_round == 2) {
             count_round=3;
-            count_pos=0;
-            list_words.clear();
-            list_words = list_difficult;
-            count_items = list_words.size();
+            count_items = 0;
         }
     }
 
@@ -162,7 +158,7 @@ void Prac_a::on_pushButton_answer_clicked() {
 void Prac_a::closeEvent( QCloseEvent* event ) {
 
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
-    settings.setValue("dlgpract1", saveGeometry());
+    settings.setValue("dlgPract1", saveGeometry());
 
     if(this->isVisible()){
         event->ignore();
@@ -171,17 +167,8 @@ void Prac_a::closeEvent( QCloseEvent* event ) {
 
     Practice * mPractice;
     mPractice = new Practice(this);
-
-    if(count_items < 1){
-        mPractice->go_back_results(count_total, list_easy,
-                                   list_learnt, list_learning,
-                                   list_difficult, "pract1");
-    }
-    else{
-        mPractice->go_back_results(count_total, list_easy,
-                                   list_learnt, list_learning,
-                                   list_difficult, "pract1");
-    }
+    mPractice->go_back_results(count_quiz, list_easy, list_learning,
+                                list_difficult, "Pract1");
     mPractice->show();
 }
 

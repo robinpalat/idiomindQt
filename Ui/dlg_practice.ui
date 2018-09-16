@@ -167,7 +167,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Easy</string>
+             <string>Learnt</string>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
@@ -178,7 +178,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_score_easy">
+           <widget class="QLabel" name="label_score_learnt">
             <property name="minimumSize">
              <size>
               <width>25</width>
@@ -214,7 +214,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Learnt</string>
+             <string>Easy</string>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
@@ -225,7 +225,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_score_learnt">
+           <widget class="QLabel" name="label_score_easy">
             <property name="minimumSize">
              <size>
               <width>25</width>
@@ -363,8 +363,18 @@
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
          <widget class="QLabel" name="label_11">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>

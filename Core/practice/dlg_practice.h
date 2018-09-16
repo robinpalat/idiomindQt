@@ -33,9 +33,8 @@ public:
     void starting_a_pract(QString pract);
     void practice_is_21_0(QString active_pract);
 
-    void go_back_results(unsigned short int count_total,
+    void go_back_results(unsigned short int count_quiz,
                         std::vector< QString > &list_easy,
-                        std::vector< QString > &list_learnt,
                         std::vector< QString > &list_learning,
                         std::vector< QString > &list_difficult,
                         QString active_pract);
@@ -43,13 +42,14 @@ public:
     void calc_score_data(QString active_pract);
 
     unsigned long int size_easy, size_lrnt, size_ling, size_hard;
-    unsigned short int count_pos, count_total, count_round, count_ok = 0, count_no = 0;
+    unsigned short int count_pos,
+    count_round, count_ok = 0, count_no = 0;
     unsigned long int items;
+    unsigned count_session, count_quiz, count_learnt;
 
 
     std::vector< QString > list_total;
     std::vector< QString > list_easy;
-    std::vector< QString > list_learnt;
     std::vector< QString > list_learning;
     std::vector< QString > list_difficult;
     std::vector< QString > list_words;
