@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>707</width>
-    <height>403</height>
+    <width>450</width>
+    <height>302</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>450</width>
-    <height>0</height>
+    <height>302</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -207,6 +207,12 @@ color: rgb(75, 75, 6);</string>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_ok">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>80</width>

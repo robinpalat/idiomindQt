@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>594</width>
-    <height>380</height>
+    <width>520</width>
+    <height>363</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>520</width>
+    <height>360</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Multiple-choice</string>
@@ -17,11 +29,11 @@
    <iconset resource="../res.qrc">
     <normaloff>:/Images/idiomind.png</normaloff>:/Images/idiomind.png</iconset>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QGridLayout" name="gridLayout">
    <property name="topMargin">
     <number>0</number>
    </property>
-   <item>
+   <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QWidget" name="widget" native="true">
@@ -74,7 +86,7 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>0</width>
+         <width>500</width>
          <height>0</height>
         </size>
        </property>
@@ -101,7 +113,7 @@
           </property>
           <property name="font">
            <font>
-            <pointsize>14</pointsize>
+            <pointsize>13</pointsize>
            </font>
           </property>
           <property name="focusPolicy">
@@ -169,13 +181,19 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="pushButton_no">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
-         <width>0</width>
+         <width>80</width>
          <height>32</height>
         </size>
        </property>
@@ -192,7 +210,7 @@ color: rgb(77, 51, 0);</string>
       <widget class="QPushButton" name="pushButton_ok">
        <property name="minimumSize">
         <size>
-         <width>0</width>
+         <width>80</width>
          <height>32</height>
         </size>
        </property>

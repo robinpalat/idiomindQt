@@ -63,15 +63,13 @@ void Practice::get_icons_stats() {
 void Practice::show_icons_stats() {
 
     tpc = get_tpc();
-
     this->setWindowTitle(tr("Practice - ")+tpc);
 
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
 
     short unsigned n = 1;
-    for ( auto it = list_pair_icon_practs.begin(); it != list_pair_icon_practs.end(); ++it  )
-    {
+    for (auto it = list_pair_icon_practs.begin(); it != list_pair_icon_practs.end(); ++it) {
        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
        QString imgPath = ivar::DS+"/images/practice/"+it->second+".png";
        QImage *img = new QImage(imgPath);
@@ -114,7 +112,7 @@ void Practice::starting_a_pract(QString pract) {
 
         qry.prepare("SELECT items_0 FROM "+active_pract+""); // if the quiz is started --------------
 
-        QString trgt, srce, type;
+        QString trgt, srce, type, cdid, img, aud;
         unsigned short count_check = 0;
 
         if (qry.exec( )) { // itinerate over items0 in Practx
@@ -131,11 +129,41 @@ void Practice::starting_a_pract(QString pract) {
                 srce = qry.value(1).toString();
                 type = qry.value(13).toString();
 
-                if (trgt != "" && srce != "" && type == "1") {
-                    list_words.push_back(trgt);
-                    list_pair_words[trgt]=srce;
-                    count_check++;
-                }
+                if (trgt != "" && srce != "" ) {
+                    if (type == "1") {
+                        if (active_pract == "Pract1") {
+                            list_words.push_back(trgt);
+                            list_pair_words[trgt]=srce;
+                            count_check++;
+                        }
+                        else if (active_pract == "Pract2") {
+                            list_words.push_back(trgt);
+                            list_pair_words[trgt]=srce;
+                            count_check++;
+                        }
+                        else if (active_pract == "Pract3") {
+                            list_words.push_back(trgt);
+                            list_pair_words[trgt]=srce;
+                            count_check++;
+                        }
+                        else if (active_pract == "Pract4") {
+                            QString userimg1=DM_tl+"/.share/images/"+trgt.toLower()+"-1.jpg";
+                            QString userimg2=DM_tl+"/"+tpc+"/images/"+trgt.toLower()+".jpg";
+                            if(QFileInfo(userimg1).exists() || QFileInfo(userimg2).exists()){
+                                list_words.push_back(trgt);
+                                list_pair_words[trgt]=srce;
+                                count_check++;
+                            }
+                        }
+                    }
+                    else if (type == "2") {
+                        if (active_pract == "Pract5") {
+                            list_words.push_back(trgt);
+                            list_pair_words[trgt]=srce;
+                            count_check++;
+                        }
+                    }
+                }  
             }
         }
         if (count_check == 0) {
@@ -160,17 +188,17 @@ void Practice::starting_a_pract(QString pract) {
             }
             else if (active_pract == "Pract3") {
                 mPract3 = new Pract3();
-                //mPract2->load_data(pair_words,words);
+                mPract3->load_data(list_pair_words,list_words);
                 mPract3->show();
             }
             else if (active_pract == "Pract4") {
                 mPract4 = new Pract4();
-                //mPract2->load_data(pair_words,words);
+                mPract4->load_data(list_pair_words,list_words);
                 mPract4->show();
             }
             else if (active_pract == "Pract5") {
                 mPract5 = new Pract5();
-                //mPract2->load_data(pair_words,words);
+                mPract5->load_data(list_pair_words,list_words);
                 mPract5->show();
             }
         }
@@ -187,7 +215,8 @@ void Practice::practice_is_21_0(QString active_pract) {
     db.transaction();
     qry.prepare("SELECT list FROM learning");
 
-    count_session = 0;
+    unsigned short count_total_words= 0;
+    unsigned short count_total_sents= 0;
     QString trgt, srce, type;
     if (qry.exec( )) {
 
@@ -204,14 +233,21 @@ void Practice::practice_is_21_0(QString active_pract) {
                     type = qry.value(13).toString();
                 }
             }
-            if (trgt != "" && srce != "" && type == "1") {
-                list_total.push_back(trgt);
-                count_session++;
+            if (trgt != "" && srce != "") {
+
+                if (type == "1") {
+                    list_total.push_back(trgt);
+                    count_total_words++;
+                }
+                else if (type == "2") {
+                    list_total.push_back(trgt);
+                    count_total_sents++;
+                }
             }
         }
     }
 
-    if(count_session <= 0) {
+    if(count_total_words <= 0) {
         QMessageBox msgBox;
         msgBox.setText(tr("There are not enough items to practice"));
         msgBox.setWindowTitle(tr("Practice"));
@@ -221,10 +257,36 @@ void Practice::practice_is_21_0(QString active_pract) {
         msgBox.exec();
     }
     else {
+        count_session = 0;
         for ( auto it = list_total.begin(); it != list_total.end(); ++it  ) {
             QString trgt = *it;
-            qry.exec("INSERT INTO '"+active_pract+"' VALUES ('"+trgt+"')");
+
+            if (active_pract == "Pract1") {
+                qry.exec("INSERT INTO Pract1 VALUES ('"+trgt+"')");
+                 count_session++;
+            }
+            else if (active_pract == "Pract2") {
+                qry.exec("INSERT INTO Pract2 VALUES ('"+trgt+"')");
+                 count_session++;
+            }
+            else if (active_pract == "Pract3") {
+                qry.exec("INSERT INTO Pract3 VALUES ('"+trgt+"')");
+                 count_session++;
+            }
+            else if (active_pract == "Pract4") {
+                QString userimg1=DM_tl+"/.share/images/"+trgt.toLower()+"-1.jpg";
+                QString userimg2=DM_tl+"/"+tpc+"/images/"+trgt.toLower()+".jpg";
+                if(QFileInfo(userimg1).exists()|| QFileInfo(userimg2).exists()){
+                    qry.exec("INSERT INTO Pract4 VALUES ('"+trgt+"')");
+                     count_session++;
+                }
+            }
+            else if (active_pract == "Pract5") {
+                qry.exec("INSERT INTO Pract5 VALUES ('"+trgt+"')");
+                 count_session++;
+            }
         }
+
         qry.exec("UPDATE Practice_stats SET "+active_pract+"_sess='"+QString::number(count_session)+"'");
         qry.exec("UPDATE Practice_stats SET "+active_pract+"_icon='1'");
 
@@ -296,6 +358,7 @@ void Practice::calc_score_data(QString active_pract) {
         list_pair_icon_practs[active_pract]="21";
         qry.exec("UPDATE Practice_stats SET "+active_pract+"_icon='21'");
         qry.exec("UPDATE Practice_stats SET "+active_pract+"_sess='0'");
+        pract_complete = true;
     }
     else {
         unsigned long int isok = 100*count_learnt/count_session;
@@ -322,6 +385,7 @@ void Practice::calc_score_data(QString active_pract) {
         qry.prepare("UPDATE Practice_stats SET "+active_pract+"_icon='"+nicon_mod+"'");
         if (!qry.exec()) qDebug() << qry.lastError().text();
         list_pair_icon_practs[active_pract]=nicon_mod;
+        pract_complete = false;
     }
     qry.finish();
     show_icons_stats();

@@ -50,6 +50,7 @@ public:
     count_round, count_ok = 0, count_no = 0;
     unsigned long int items;
     unsigned count_session, count_quiz, count_learnt;
+    bool pract_complete;
 
     std::vector< QString > list_total;
     std::vector< QString > list_easy;

@@ -41,7 +41,8 @@ public:
     QString tpc, trgt, srce, type;
     unsigned long int size_easy, size_learnt, size_ling, size_hard;
     bool cuest;
-    unsigned short int count_quiz, count_items, count_pos, count_round, count_ok = 0, count_no = 0;
+    unsigned short int count_quiz, count_items,
+    count_pos, count_round, count_ok = 0, count_no = 0;
 
     //unsigned long int count_items;
 
@@ -60,12 +61,10 @@ public:
 
 private slots:
     void on_pushButton_ok_clicked();
-    void closeEvent(QCloseEvent * event);
-
     void on_pushButton_no_clicked();
-
     void on_pushButton_answer_clicked();
     void on_label_trgt_clicked();
+    void closeEvent(QCloseEvent * event);
 
 private:
     Ui::Prac_a *ui;

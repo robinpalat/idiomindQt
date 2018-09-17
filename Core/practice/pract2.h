@@ -39,7 +39,8 @@ public:
     QString tpc, trgt, srce, type, srce_cell;
     unsigned long int size_easy, size_learnt, size_ling, size_hard;
     bool twist;
-    unsigned short int count_quiz, count_total, count_items, count_pos, count_round, count_ok = 0, count_no = 0, tmp_count_pos;
+    unsigned short int count_quiz, count_total, count_items,
+    count_pos, count_round, count_ok = 0, count_no = 0, tmp_count_pos;
     //unsigned long int count_items;
 
     std::vector< QString > list_easy;
@@ -60,16 +61,12 @@ public:
 
 private slots:
     void on_pushButton_ok_clicked();
+    void on_pushButton_no_clicked();
+    void on_label_trgt_clicked();
+    void on_tableWidget_cellClicked(int row, int column);
+    void on_tableWidget_doubleClicked(const QModelIndex &index);
     void closeEvent(QCloseEvent * event);
     void resizeEvent(QResizeEvent *event);
-
-    void on_pushButton_no_clicked();
-
-    void on_label_trgt_clicked();
-
-    void on_tableWidget_cellClicked(int row, int column);
-
-    void on_tableWidget_doubleClicked(const QModelIndex &index);
 
 private:
     Ui::Pract2 *ui;
