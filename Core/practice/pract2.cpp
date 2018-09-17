@@ -33,7 +33,7 @@ Pract2::Pract2(QWidget *parent) :
     ui->tableWidget->setStyleSheet("QTableWidget::item { padding: 10px }");
     ui->tableWidget->setStyleSheet("QTableWidget::item { padding: 10px }");
 
-    ui->pushButton_ok->setEnabled(false);
+    //ui->pushButton_ok->setEnabled(false);
 }
 
 
@@ -178,7 +178,7 @@ void Pract2::on_pushButton_ok_clicked() { // si / next
     else {
         on_pushButton_no_clicked();
     }
-    ui->pushButton_ok->setEnabled(false);
+    //ui->pushButton_ok->setEnabled(false);
     srce_cell = "";
 }
 
@@ -238,5 +238,12 @@ void Pract2::resizeEvent(QResizeEvent *event) {
 void Pract2::on_tableWidget_cellClicked(int row, int column)
 {
     srce_cell = ui->tableWidget->item(row, column)->text();
-    ui->pushButton_ok->setEnabled(true);
+    on_pushButton_ok_clicked();
+    //ui->pushButton_ok->setEnabled(true);
+}
+
+void Pract2::on_tableWidget_doubleClicked(const QModelIndex &index)
+{
+//    srce_cell = ui->tableWidget->item(index)->text();
+//    ui->pushButton_ok->setEnabled(true);
 }

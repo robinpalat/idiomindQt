@@ -69,6 +69,8 @@ private slots:
 
     void on_tableWidget_cellClicked(int row, int column);
 
+    void on_tableWidget_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::Pract2 *ui;
     QMediaPlayer * player;
