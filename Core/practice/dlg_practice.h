@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QTableWidget>
+#include <QMediaPlayer>
 
 #include "Core/practice/pract1.h"
 #include "Core/practice/pract2.h"
@@ -81,6 +82,7 @@ private:
     Pract3 * mPract3;
     Pract4 * mPract4;
     Pract5 * mPract5;
+    QMediaPlayer * player;
 };
 
 #endif // DLG_PRACTICE_H

@@ -176,9 +176,10 @@ void Pract2::on_pushButton_ok_clicked() { // si / next
          cuestion_card();
     }
     else {
+        player->setMedia(QUrl::fromLocalFile(ivar::DS+"practice/no.mp3"));
+        player->play();
         on_pushButton_no_clicked();
     }
-    //ui->pushButton_ok->setEnabled(false);
     srce_cell = "";
 }
 

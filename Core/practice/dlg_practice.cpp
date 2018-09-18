@@ -22,6 +22,8 @@ Practice::Practice(QWidget *parent) : QDialog(parent), ui(new Ui::Practice) {
     //ui->tableWidget->setStyleSheet("QTableWidget::item { margin-right: 20px }");
     ui->verticalLayout_2->setSizeConstraint(QLayout::SetFixedSize);
 
+    player = new QMediaPlayer(this);
+
     get_icons_stats();
     show_icons_stats();
 }
@@ -205,12 +207,14 @@ void Practice::starting_a_pract(QString pract) {
      }
 }
 
+
 void Practice::practice_is_21_0(QString active_pract) {
 
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
-    if (!qry.exec("DELETE FROM "+active_pract+" WHERE items_0")) qDebug() << qry.lastError().text();
+    if (!qry.exec("DELETE FROM "+active_pract+" WHERE items_0"))
+        qDebug() << qry.lastError().text();
 
     db.transaction();
     qry.prepare("SELECT list FROM learning");
@@ -235,11 +239,11 @@ void Practice::practice_is_21_0(QString active_pract) {
             }
             if (trgt != "" && srce != "") {
 
-                if (type == "1") {
+                if (type == "1" && active_pract != "Pract5" ) {
                     list_total.push_back(trgt);
                     count_total_words++;
                 }
-                else if (type == "2") {
+                else if (type == "2" && active_pract == "Pract5") {
                     list_total.push_back(trgt);
                     count_total_sents++;
                 }
@@ -263,27 +267,31 @@ void Practice::practice_is_21_0(QString active_pract) {
 
             if (active_pract == "Pract1") {
                 qry.exec("INSERT INTO Pract1 VALUES ('"+trgt+"')");
-                 count_session++;
+                count_session++;
             }
             else if (active_pract == "Pract2") {
                 qry.exec("INSERT INTO Pract2 VALUES ('"+trgt+"')");
-                 count_session++;
+                count_session++;
             }
             else if (active_pract == "Pract3") {
-                qry.exec("INSERT INTO Pract3 VALUES ('"+trgt+"')");
-                 count_session++;
+                QString aud1=DM_tl+"/.share/audio/"+trgt.toLower()+".mp3";
+                QString aud2=DM_tl+"/"+tpc+"/"+trgt.toLower()+".mp3";
+                if(QFileInfo(aud1).exists()|| QFileInfo(aud2).exists()){
+                    qry.exec("INSERT INTO Pract3 VALUES ('"+trgt+"')");
+                    count_session++;
+                }
             }
             else if (active_pract == "Pract4") {
                 QString userimg1=DM_tl+"/.share/images/"+trgt.toLower()+"-1.jpg";
                 QString userimg2=DM_tl+"/"+tpc+"/images/"+trgt.toLower()+".jpg";
                 if(QFileInfo(userimg1).exists()|| QFileInfo(userimg2).exists()){
                     qry.exec("INSERT INTO Pract4 VALUES ('"+trgt+"')");
-                     count_session++;
+                    count_session++;
                 }
             }
             else if (active_pract == "Pract5") {
                 qry.exec("INSERT INTO Pract5 VALUES ('"+trgt+"')");
-                 count_session++;
+                count_session++;
             }
         }
 
@@ -352,6 +360,8 @@ void Practice::calc_score_data(QString active_pract) {
     QString str_count_learnt = QString::number(count_learnt);
 
     if(count_learnt >= count_session) {
+        player->setMedia(QUrl::fromLocalFile(ivar::DS+"practice/all.mp3"));
+        player->play();
         QString lbl = "Congratulations! You have completed a test of <big>"+QString::number(count_session)+"</big> words";
         ui->label_11->setText(lbl);
         ui->widget_final->show();
