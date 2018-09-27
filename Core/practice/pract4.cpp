@@ -142,7 +142,9 @@ void Pract4::closeEvent( QCloseEvent* event ) {
         event->ignore();
         this->hide();
      }
-
+    qDebug() << list_easy.size();
+    qDebug() << list_learning.size();
+    qDebug() << list_difficult.size();
     Practice dlg;
     dlg.go_back_results(count_quiz, list_easy, list_learning,
                                 list_difficult, "Pract4");

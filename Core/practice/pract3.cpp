@@ -131,6 +131,9 @@ void Pract3::closeEvent( QCloseEvent* event ) {
      }
 
     Practice dlg;
+    qDebug() << list_easy.size();
+    qDebug() << list_learning.size();
+    qDebug() << list_difficult.size();
     dlg.go_back_results(count_quiz, list_easy, list_learning,
                                 list_difficult, "Pract3");
     dlg.setModal(true);

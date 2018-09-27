@@ -251,7 +251,7 @@ void Practice::practice_is_21_0(QString active_pract) {
         }
     }
 
-    if(count_total_words <= 0) {
+    if(count_total_words <= 0 && count_total_sents <= 0) {
         QMessageBox msgBox;
         msgBox.setText(tr("There are not enough items to practice"));
         msgBox.setWindowTitle(tr("Practice"));
