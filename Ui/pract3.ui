@@ -165,6 +165,11 @@
          <height>32</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+        </font>
+       </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(255, 170, 127);
 color: rgb(77, 51, 0);</string>
@@ -182,6 +187,11 @@ color: rgb(77, 51, 0);</string>
          <height>32</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+        </font>
+       </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(247, 247, 227);
 color: rgb(75, 75, 6);</string>
@@ -198,6 +208,11 @@ color: rgb(75, 75, 6);</string>
          <width>80</width>
          <height>32</height>
         </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+        </font>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(170, 255, 127);
