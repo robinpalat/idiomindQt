@@ -175,7 +175,8 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>9</pointsize>
+         <family>DejaVu Sans</family>
+         <pointsize>8</pointsize>
         </font>
        </property>
        <property name="text">
@@ -196,7 +197,8 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>9</pointsize>
+         <family>DejaVu Sans</family>
+         <pointsize>8</pointsize>
         </font>
        </property>
        <property name="styleSheet">

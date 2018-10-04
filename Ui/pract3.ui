@@ -167,7 +167,8 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>9</pointsize>
+         <family>DejaVu Sans</family>
+         <pointsize>8</pointsize>
         </font>
        </property>
        <property name="styleSheet">
@@ -189,7 +190,8 @@ color: rgb(77, 51, 0);</string>
        </property>
        <property name="font">
         <font>
-         <pointsize>9</pointsize>
+         <family>DejaVu Sans</family>
+         <pointsize>8</pointsize>
         </font>
        </property>
        <property name="styleSheet">
@@ -211,7 +213,8 @@ color: rgb(75, 75, 6);</string>
        </property>
        <property name="font">
         <font>
-         <pointsize>9</pointsize>
+         <family>DejaVu Sans</family>
+         <pointsize>8</pointsize>
         </font>
        </property>
        <property name="styleSheet">
