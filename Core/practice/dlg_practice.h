@@ -4,6 +4,8 @@
 #include <QDialog>
 #include <QTableWidget>
 #include <QMediaPlayer>
+#include <QGraphicsOpacityEffect>
+#include <QPropertyAnimation>
 
 #include "Core/practice/pract1.h"
 #include "Core/practice/pract2.h"

@@ -81,6 +81,20 @@ void Pract3::set_text_cuestion_card(QString trgt) {
     trgt = hide_word(trgt.toStdString());
     ui->label_trgt->setText(trgt);
 
+
+    QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect();
+    ui->widget->setGraphicsEffect(effect);
+    QPropertyAnimation *anim = new QPropertyAnimation(effect,"opacity");
+    anim->setDuration(400);
+    anim->setStartValue(0.0);
+    anim->setEndValue(1.0);
+    anim->setEasingCurve(QEasingCurve::OutQuad);
+    connect(anim, &QPropertyAnimation::finished, [=]()
+    {
+        ui->widget->show();
+    });
+    anim->start(QAbstractAnimation::KeepWhenStopped);
+
     ui->label_srce->setText("");
     ui->pushButton_answer->show();
 }

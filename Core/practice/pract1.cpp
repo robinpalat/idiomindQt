@@ -1,9 +1,8 @@
 ﻿#include "pract1.h"
 #include "build/ui/ui_pract1.h"
 #include "dlg_practice.h"
-
-
 #include "Core/vars_statics.h"
+
 
 Prac_a::Prac_a(QWidget *parent) : QWidget(parent), ui(new Ui::Prac_a) {
 
@@ -89,6 +88,19 @@ void Prac_a::set_text_cuestion_card(QString trgt) {
 
     ui->label_trgt->setText(trgt);
     ui->label_srce->setText("");
+
+    QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect();
+    ui->widget->setGraphicsEffect(effect);
+    QPropertyAnimation *anim = new QPropertyAnimation(effect,"opacity");
+    anim->setDuration(400);
+    anim->setStartValue(0.0);
+    anim->setEndValue(1.0);
+    anim->setEasingCurve(QEasingCurve::OutQuad);
+    connect(anim, &QPropertyAnimation::finished, [=]()
+    {
+        ui->widget->show();
+    });
+    anim->start(QAbstractAnimation::KeepWhenStopped);
 
     ui->pushButton_answer->show();
 }

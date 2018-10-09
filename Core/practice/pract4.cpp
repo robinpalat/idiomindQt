@@ -88,11 +88,24 @@ void Pract4::set_text_cuestion_card(QString trgt) {
 
     }
 
-        trgt = "...";
-        ui->label_trgt->setText(trgt);
+    trgt = "...";
+    ui->label_trgt->setText(trgt);
 
-        ui->label_srce->setText("");
-        ui->pushButton_answer->show();
+    QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect();
+    ui->widget->setGraphicsEffect(effect);
+    QPropertyAnimation *anim = new QPropertyAnimation(effect,"opacity");
+    anim->setDuration(400);
+    anim->setStartValue(0.0);
+    anim->setEndValue(1.0);
+    anim->setEasingCurve(QEasingCurve::OutQuad);
+    connect(anim, &QPropertyAnimation::finished, [=]()
+    {
+        ui->widget->show();
+    });
+    anim->start(QAbstractAnimation::KeepWhenStopped);
+
+    ui->label_srce->setText("");
+    ui->pushButton_answer->show();
 }
 
 

@@ -157,9 +157,9 @@ void Vwr::setLabelText(QString trgt){
     ui->label_srce->setText(" ");
     ui->label_trgt->setText(" ");
 
-    ui->widget_sizelimit->hide();
+    //ui->widget_sizelimit->hide();
 
-    QTimer::singleShot(100, ui->widget_sizelimit, &QWidget::show);
+    //QTimer::singleShot(100, ui->widget_sizelimit, &QWidget::show);
 
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
@@ -217,29 +217,27 @@ void Vwr::setLabelText(QString trgt){
         ui->label_exmp->show();
         ui->label_defn->show();
 
-        //ui->label_trgt->setText(trgt);
-
-//        QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect();
-//        ui->label_trgt->setGraphicsEffect(effect);
-//        QPropertyAnimation *anim = new QPropertyAnimation(effect,"opacity");
-//        anim->setDuration(500);
-//        anim->setStartValue(0.0);
-//        anim->setEndValue(1.0);
-//        anim->setEasingCurve(QEasingCurve::OutQuad);
-//        connect(anim, &QPropertyAnimation::finished, [=]()
-//        {
-//            ui->label_trgt->setText(trgt);
-//        });
-
-//        anim->start(QAbstractAnimation::KeepWhenStopped);
-
         ui->label_trgt->setText(trgt);
-
-        QTimer::singleShot(1000, [&](){ ui->label_srce->setText(srce);});
-
+        ui->label_srce->setText(srce);
         ui->label_exmp->setText(exmp);
         ui->label_defn->setText(defn);
         ui->label_note->setText(note);
+
+        QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect();
+        ui->widget_2->setGraphicsEffect(effect);
+        QPropertyAnimation *anim = new QPropertyAnimation(effect,"opacity");
+        anim->setDuration(300);
+        anim->setStartValue(0.0);
+        anim->setEndValue(1.0);
+        anim->setEasingCurve(QEasingCurve::OutQuad);
+        connect(anim, &QPropertyAnimation::finished, [=]()
+        {
+            ui->widget_2->show();
+        });
+
+        anim->start(QAbstractAnimation::KeepWhenStopped);
+
+        //QTimer::singleShot(1000, [&](){ ui->label_srce->setText(srce);});
 
     }
     else if (type == "2") {
@@ -264,25 +262,23 @@ void Vwr::setLabelText(QString trgt){
         ui->label_exmp->hide();
         ui->label_defn->hide();
 
-//        ui->label_trgt->setText(grmr);
-
-//        QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect();
-//        ui->label_trgt->setGraphicsEffect(effect);
-//        QPropertyAnimation *anim = new QPropertyAnimation(effect,"opacity");
-//        anim->setDuration(500);
-//        anim->setStartValue(0.0);
-//        anim->setEndValue(1.0);
-//        anim->setEasingCurve(QEasingCurve::OutQuad);
-//        connect(anim, &QPropertyAnimation::finished, [=]()
-//        {
-//            ui->label_trgt->setText(grmr);
-//        });
-//        anim->start(QAbstractAnimation::KeepWhenStopped);
-
         ui->label_trgt->setText(grmr);
+        ui->label_srce->setText(srce);
 
+        QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect();
+        ui->widget_2->setGraphicsEffect(effect);
+        QPropertyAnimation *anim = new QPropertyAnimation(effect,"opacity");
+        anim->setDuration(300);
+        anim->setStartValue(0.0);
+        anim->setEndValue(1.0);
+        anim->setEasingCurve(QEasingCurve::OutQuad);
+        connect(anim, &QPropertyAnimation::finished, [=]()
+        {
+            ui->widget_2->show();
+        });
+        anim->start(QAbstractAnimation::KeepWhenStopped);
 
-        QTimer::singleShot(1000, [&](){ ui->label_srce->setText(srce);});
+        // QTimer::singleShot(1000, [&](){ ui->label_srce->setText(srce);});
     }
 
     qry.finish();

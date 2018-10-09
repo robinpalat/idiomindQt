@@ -154,6 +154,19 @@ void Pract2::set_text_cuestion_card(QString trgt) {
             twist = true;
         }
     }
+
+    QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect();
+    ui->widget->setGraphicsEffect(effect);
+    QPropertyAnimation *anim = new QPropertyAnimation(effect,"opacity");
+    anim->setDuration(400);
+    anim->setStartValue(0.0);
+    anim->setEndValue(1.0);
+    anim->setEasingCurve(QEasingCurve::OutQuad);
+    connect(anim, &QPropertyAnimation::finished, [=]()
+    {
+        ui->widget->show();
+    });
+    anim->start(QAbstractAnimation::KeepWhenStopped);
 }
 
 

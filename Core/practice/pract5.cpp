@@ -149,6 +149,19 @@ void Pract5::set_text_write_card(QString trgt) {
 
     ui->label_trgt->setText(_trgt);
     ui->label_trgt->setWordWrap(true);
+
+    QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect();
+    ui->widget->setGraphicsEffect(effect);
+    QPropertyAnimation *anim = new QPropertyAnimation(effect,"opacity");
+    anim->setDuration(400);
+    anim->setStartValue(0.0);
+    anim->setEndValue(1.0);
+    anim->setEasingCurve(QEasingCurve::OutQuad);
+    connect(anim, &QPropertyAnimation::finished, [=]()
+    {
+        ui->widget->show();
+    });
+    anim->start(QAbstractAnimation::KeepWhenStopped);
 }
 
 
