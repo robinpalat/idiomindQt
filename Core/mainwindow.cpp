@@ -20,6 +20,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->hide();
     this->setWindowIcon(QIcon(ivar::DS+"/images/logo.png"));
+
+    QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
+    restoreGeometry(settings.value("mainwin").toByteArray());
+
 //    ui->list_learning->setStyleSheet("QTableWidget::item { padding: 20px }");
 //    ui->list_learnt->setStyleSheet("QTableWidget::item { padding: 20px }");
 
@@ -210,6 +214,7 @@ void MainWindow::on_list_learning_itemChanged(QTableWidgetItem *item)
 void MainWindow::closeEvent(QCloseEvent * event)
 {
     // Save data
+
     tpc = get_tpc();
 
     QSqlDatabase db = Database::instance().getConnection(tpc);
@@ -236,6 +241,9 @@ void MainWindow::closeEvent(QCloseEvent * event)
         QTextStream stream( &file );
         stream << text;
     }
+
+    QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
+    settings.setValue("mainwin", saveGeometry());
 
     if(this->isVisible()){
         event->ignore();
