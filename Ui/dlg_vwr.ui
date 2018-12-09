@@ -102,10 +102,6 @@ selection-color: rgb(33, 33, 33);</string>
         <property name="text">
          <string>&lt;</string>
         </property>
-        <property name="icon">
-         <iconset theme="next">
-          <normaloff>.</normaloff>.</iconset>
-        </property>
         <property name="flat">
          <bool>true</bool>
         </property>
@@ -897,10 +893,6 @@ selection-color: rgb(33, 33, 33);</string>
         </property>
         <property name="text">
          <string>&gt;</string>
-        </property>
-        <property name="icon">
-         <iconset theme="next">
-          <normaloff>.</normaloff>.</iconset>
         </property>
         <property name="default">
          <bool>true</bool>
