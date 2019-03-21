@@ -3,12 +3,10 @@
 #include "dlg_vwr.h"
 
 #include <QMessageBox>
-
 #include <iostream>
 #include <sstream>
 #include <vector>
 #include <string>
-
 #include <QDebug>
 
 using namespace std;
@@ -16,20 +14,15 @@ using namespace std;
 
 Dlg_editItem::Dlg_editItem(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Dlg_editItem)
-{
+    ui(new Ui::Dlg_editItem) {
     ui->setupUi(this);
 }
 
-
-Dlg_editItem::~Dlg_editItem()
-{
+Dlg_editItem::~Dlg_editItem() {
     delete ui;
 }
 
-
-void Dlg_editItem::load_data(QString trgt_ind, QString list_sel)
-{
+void Dlg_editItem::load_data(QString trgt_ind, QString list_sel) {
     trgt = trgt_ind;
     list = list_sel;
     QSqlDatabase db = Database::instance().getConnection(tpc);
@@ -39,7 +32,6 @@ void Dlg_editItem::load_data(QString trgt_ind, QString list_sel)
     qry.prepare("select list from '"+list+"'");
 
    if (qry.exec()) {
-
         unsigned long int indexpos = 0;
         while(qry.next()) {
             t = qry.value(0).toString();
@@ -62,9 +54,7 @@ void Dlg_editItem::load_data(QString trgt_ind, QString list_sel)
     qry.finish();
 }
 
-
-void Dlg_editItem::fill_data(QString trgt)
-{
+void Dlg_editItem::fill_data(QString trgt) {
     ui->lineEdit_trgt->setText("");
     ui->lineEdit_srce->setText("");
     ui->plainTextEdit_exmp->clear();
@@ -90,9 +80,7 @@ void Dlg_editItem::fill_data(QString trgt)
             mark = qry.value(11).toString();
         }
     }
-
     if (type == "1") {
-
         ui->lineEdit_trgt->setText(trgt);
         ui->lineEdit_srce->setText(srce);
 
@@ -101,21 +89,17 @@ void Dlg_editItem::fill_data(QString trgt)
         ui->plainTextEdit_note->insertPlainText(note);
     }
     else if (type == "2") {
-
         ui->lineEdit_trgt->setText(trgt);
         ui->lineEdit_srce->setText(srce);
 
         ui->plainTextEdit_note->insertPlainText(note);
     }
-
     if (mark=="TRUE") ui->checkBox_editItem_mark->setChecked(true);
 
     qry.finish();
 }
 
-
 void Dlg_editItem::save_data() {
-
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
@@ -137,7 +121,6 @@ void Dlg_editItem::save_data() {
         qry.exec();
         qry.prepare("update '"+list+"' set list='"+trgt_mod+"' where list='"+trgt+"'");
         qry.exec();
-
         if (type == "1") {
             qry.prepare("update words set list='"+trgt_mod+"' where list='"+trgt+"'");
             qry.exec();
@@ -147,69 +130,51 @@ void Dlg_editItem::save_data() {
             qry.exec();
         }
     }
-
     if (srce_mod!=srce) {
         qry.prepare("update "+Source_LANG+" set srce='"+srce_mod+"' where trgt='"+trgt+"'");
         qry.exec();
     }
-
     if (exmp_mod != exmp || defn_mod != defn ||  note_mod != note) {
         qry.prepare("update "+Source_LANG+" set exmp='"+exmp_mod+"', defn='"+defn_mod+"', note='"+note_mod+"' where trgt='"+trgt+"'");
         qry.exec();
     }
-
     if (mark_mod!=mark) {
         qry.prepare("update "+Source_LANG+" set mark='"+mark_mod+"' where trgt='"+trgt+"'");
         qry.exec();
     }
-
     qry.finish();
     trgt = trgt_mod;
     load_data(trgt, list);
 }
 
-void Dlg_editItem::on_pushButton_editItem_next_clicked()
-{
+void Dlg_editItem::on_pushButton_editItem_next_clicked() {
     save_data();
-
     pos++;
     if (pos>items) pos = 0;
     trgt = arr[pos];
-
     fill_data(trgt);
-
 }
 
-
-void Dlg_editItem::on_pushButton_editItem_prev_clicked()
-{
+void Dlg_editItem::on_pushButton_editItem_prev_clicked() {
     save_data();
-
     checkpos = pos;
     checkpos--;
     if (checkpos<0) {pos = items;}
     else {pos--;}
     trgt = arr[pos];
-
     fill_data(trgt);
 }
 
-
-void Dlg_editItem::on_pushButton_editItem_close_clicked()
-{
+void Dlg_editItem::on_pushButton_editItem_close_clicked() {
     this->close();
 }
 
-
-void Dlg_editItem::closeEvent( QCloseEvent* event )
-{
+void Dlg_editItem::closeEvent( QCloseEvent* event ) {
     save_data();
-
     if(this->isVisible()){
         event->ignore();
         this->hide();
     }
-
     Vwr * mVwr;
     mVwr = new Vwr(this);
     mVwr->load_array(trgt, list);
