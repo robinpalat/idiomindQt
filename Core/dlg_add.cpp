@@ -9,10 +9,8 @@
 
 Add::Add(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Add)
-{
+    ui(new Ui::Add) {
     ui->setupUi(this);
-
     ui->pushButton_add->setIcon(QIcon(ivar::DS+"/images/add.png"));
     ui->pushButton_more->setIcon(QIcon(ivar::DS+"/images/add_more.png"));
     ui->pushButton_list->setIcon(QIcon(ivar::DS+"/images/add_list.png"));
@@ -26,11 +24,9 @@ Add::Add(QWidget *parent) :
     load_data();
 }
 
-Add::~Add()
-{
+Add::~Add() {
     delete ui;
 }
-
 
 void Add::load_data() {
     QDirIterator it(DM_tl, QDir::Dirs);
@@ -39,33 +35,27 @@ void Add::load_data() {
         QString tpc = substring.baseName();
         if (tpc!=""){
             ui->comboBox->addItem(tpc);
-
         }
     }
 }
 
-void Add::on_pushButton_add_clicked()
-{
+void Add::on_pushButton_add_clicked() {
 
 }
 
-void Add::on_pushButton_more_clicked()
-{
+void Add::on_pushButton_more_clicked() {
 
 }
 
-void Add::on_pushButton_audio_clicked()
-{
+void Add::on_pushButton_audio_clicked() {
 
 }
 
-void Add::on_pushButton_image_clicked()
-{
+void Add::on_pushButton_image_clicked() {
 
 }
 
-void Add::on_pushButton_clip_clicked()
-{
+void Add::on_pushButton_clip_clicked() {
 
 }
 
