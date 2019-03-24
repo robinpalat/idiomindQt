@@ -8,31 +8,23 @@
 #include <random>
 
 
-
 Pract2::Pract2(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Pract2)
 {
     ui->setupUi(this);
-
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
     restoreGeometry(settings.value("dlgPract2").toByteArray());
-
     player = new QMediaPlayer(this);
-
     QFont font_trgt = ui->label_trgt->font();
     font_trgt.setPointSize(28);
     ui->label_trgt->setFont(font_trgt);
-
     ui->pushButton_no->setIcon(QIcon(ivar::DS+"/images/no.png"));
     ui->pushButton_ok->setIcon(QIcon(ivar::DS+"/images/yes.png"));
-
     ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
-
     ui->tableWidget->setColumnCount(2);
     ui->tableWidget->setStyleSheet("QTableWidget::item { padding: 10px }");
     ui->tableWidget->setStyleSheet("QTableWidget::item { padding: 10px }");
-
     //ui->pushButton_ok->setEnabled(false);
 }
 
@@ -49,7 +41,6 @@ void Pract2::load_data(std::map<QString, QString> &tmp_list_pair_words,
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
     qry.prepare("SELECT list FROM words");
-
     if (qry.exec( )) {
         while(qry.next()) {
             trgt = qry.value(0).toString();
@@ -61,7 +52,6 @@ void Pract2::load_data(std::map<QString, QString> &tmp_list_pair_words,
             type = "2";
             srce = qry.value(1).toString();
             type = qry.value(13).toString();
-
             if (trgt != "" && srce != "" && type == "1") {
                 list_pair_words_words[trgt]=srce;
                 list_words_words.push_back(trgt);
@@ -84,7 +74,7 @@ void Pract2::load_data(std::map<QString, QString> &tmp_list_pair_words,
     cuestion_card();
 }
 
-/* ------------------------------------------------ (2) */
+/* (2) */
 void Pract2::cuestion_card() {
 
     if (count_pos == count_items) {
@@ -112,13 +102,12 @@ void Pract2::cuestion_card() {
 }
 
 
-/* ------------------------------------------------ (3) */
+/* (3) */
 void Pract2::set_text_cuestion_card(QString trgt) {
 
     ui->label_trgt->setText(trgt);
     list_shufle.clear();
     list_shufle.push_back(list_pair_words[trgt]);
-
     tmp_count_pos = count_pos;
     QString tmp_srce, tmp_trgt;
     for (short unsigned n = 0; n < 7; n++) {
@@ -130,10 +119,8 @@ void Pract2::set_text_cuestion_card(QString trgt) {
         }
         tmp_trgt = list_words_words[tmp_count_pos];
         tmp_srce = list_pair_words_words[tmp_trgt];
-
         list_shufle.push_back(tmp_srce);
     }
-
     for (int unsigned long l = 0; l < 8; l++) {
         int unsigned long r = l + rand() % (8 - l);
         swap(list_shufle[l], list_shufle[r]);
@@ -154,7 +141,6 @@ void Pract2::set_text_cuestion_card(QString trgt) {
             twist = true;
         }
     }
-
     QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect();
     ui->widget->setGraphicsEffect(effect);
     QPropertyAnimation *anim = new QPropertyAnimation(effect,"opacity");
@@ -170,21 +156,18 @@ void Pract2::set_text_cuestion_card(QString trgt) {
 }
 
 
-/* ------------------------------------------------ (1) */
+/* (1) */
 void Pract2::on_pushButton_ok_clicked() { // si / next
 
     if (srce_cell == list_pair_words[trgt]) {
-
         count_pos++;
         count_ok++;
-
             if (count_round == 1) {
                 list_easy.push_back(trgt);
             }
             else if (count_round == 2) {
                 list_learnt.push_back(trgt);
             }
-
          ui->pushButton_ok->setText(tr("I Knew it (")+QString::number(count_ok)+")");
          cuestion_card();
     }
@@ -201,7 +184,6 @@ void Pract2::on_pushButton_no_clicked() { // no / next
 
     count_pos++;
     count_no++;
-
         if (count_round == 1) {
             list_learning.push_back(trgt);
         }
@@ -218,12 +200,10 @@ void Pract2::closeEvent( QCloseEvent* event ) {
 
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
     settings.setValue("dlgPract2", saveGeometry());
-
     if(this->isVisible()){
         event->ignore();
         this->hide();
      }
-
     Practice dlg;
     dlg.go_back_results(count_quiz, list_easy, list_learning,
                                 list_difficult, "Pract2");

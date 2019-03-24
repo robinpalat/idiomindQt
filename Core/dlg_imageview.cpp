@@ -10,15 +10,14 @@ Dlg_ImageView::Dlg_ImageView(QWidget *parent) :
 }
 
 
-void Dlg_ImageView::load_image(QString trgt)
-{
+void Dlg_ImageView::load_image(QString trgt) {
+
     QString userimg=DC_tls+"/images/"+trgt.toLower()+"-1.jpg";
     ui->Label_image_set->setPixmap(QPixmap(userimg) );
 
 }
 
 
-Dlg_ImageView::~Dlg_ImageView()
-{
+Dlg_ImageView::~Dlg_ImageView() {
     delete ui;
 }

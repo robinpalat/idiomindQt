@@ -38,11 +38,8 @@ public:
     std::vector< QString > arr;
     QString trgt, srce, list, grmr,
     wrds, type, note, defn, exmp, mark;
-
     void load_data(QString trgt, QString list);
-
     void fill_data(QString trgt);
-
     void save_data();
 
 private slots:
@@ -53,10 +50,6 @@ private slots:
 
 private:
 
-
-
 };
-
-
 
 #endif // DLG_EDITITEM_H

@@ -1,13 +1,13 @@
 #include "vars_session.h"
 #include "Media/database.h"
 
-Global::Global()
-{
-
+Global::Global() {
 
 }
 
+
 QString Global::get_textline(QString tfile){ // To get topic name and topics status
+
       QFile file(tfile);
       QString line;
       if (file.open(QIODevice::ReadOnly)) {
@@ -18,7 +18,9 @@ QString Global::get_textline(QString tfile){ // To get topic name and topics sta
       return line;
 }
 
+
 QString user_name() {
+
     QString name = qgetenv("USER");
       if (name.isEmpty())
           name = qgetenv("USERNAME");
@@ -31,31 +33,30 @@ QString get_tlng(){
     Database conn;
     conn.Opendb(config_db);
     QSqlQuery qry;
-
     qry.prepare("select tlng from lang");
     if(!qry.exec()) qDebug() << "Error";
     qry.next();
     QString pre_tlng = qry.value(0).toString();
-
     qry.finish();
     conn.Closedb();
     return pre_tlng;
 }
 
+
 QString get_slng(){
+
     Database conn;
     conn.Opendb(config_db);
     QSqlQuery qry;
-
     qry.prepare("select slng from lang");
     if(!qry.exec()) qDebug() << "Error";
     qry.next();
     QString pre_slng = qry.value(0).toString();
-
     qry.finish();
     conn.Closedb();
     return pre_slng;
 }
+
 
 QString mn(){
 
@@ -69,6 +70,7 @@ QString mn(){
       }
       return line;
 }
+
 
 QString get_LANG(QString LANG) {
 

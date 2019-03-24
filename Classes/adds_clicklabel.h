@@ -19,8 +19,6 @@ signals:
 protected:
     void mousePressEvent(QMouseEvent* event);
     void mouseDoubleClickEvent(QMouseEvent* event);
-
-
 };
 
 #endif // ADDS_CLICKLABEL_H

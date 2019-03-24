@@ -12,16 +12,12 @@
 Pract4::Pract4(QWidget *parent) : QWidget(parent), ui(new Ui::Pract4) {
 
     ui->setupUi(this);
-
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
     restoreGeometry(settings.value("dlgPract4").toByteArray());
-
     QFont font_trgt = ui->label_trgt->font();
     font_trgt.setPointSize(28);
     ui->label_trgt->setFont(font_trgt);
-
     player = new QMediaPlayer(this);
-
     ui->pushButton_no->setIcon(QIcon(ivar::DS+"/images/no.png"));
     ui->pushButton_no->setText(tr("I did not know it"));
     ui->pushButton_ok->setIcon(QIcon(ivar::DS+"/images/yes.png"));
@@ -48,7 +44,7 @@ void Pract4::load_data(std::map<QString, QString> &tmp_list_pair_words,
     cuestion_card();
 }
 
-/* ------------------------------------------------ (2) */
+/*  (2) */
 void Pract4::cuestion_card() {
 
     if (count_pos == count_items) {
@@ -75,7 +71,7 @@ void Pract4::cuestion_card() {
 }
 
 
-/* ------------------------------------------------ (3) */
+/* (3) */
 void Pract4::set_text_cuestion_card(QString trgt) {
 
     QString userimg1=DM_tl+"/.share/images/"+trgt.toLower()+"-1.jpg";
@@ -90,7 +86,6 @@ void Pract4::set_text_cuestion_card(QString trgt) {
 
     trgt = "...";
     ui->label_trgt->setText(trgt);
-
     QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect();
     ui->widget->setGraphicsEffect(effect);
     QPropertyAnimation *anim = new QPropertyAnimation(effect,"opacity");
@@ -103,27 +98,23 @@ void Pract4::set_text_cuestion_card(QString trgt) {
         ui->widget->show();
     });
     anim->start(QAbstractAnimation::KeepWhenStopped);
-
     ui->label_srce->setText("");
     ui->pushButton_answer->show();
 }
 
 
-/* ------------------------------------------------ (1) */
+/* (1) */
 void Pract4::on_pushButton_ok_clicked() {
 
     if (cuest == false) count_pos++;
-
     if (count_round == 1) {
         list_easy.push_back(trgt);
     }
     else if (count_round == 2) {
         list_learnt.push_back(trgt);
     }
-
     count_ok++;
     ui->pushButton_ok->setText(tr("I Knew it (")+QString::number(count_ok)+")");
-
     cuestion_card();
 }
 
@@ -131,7 +122,6 @@ void Pract4::on_pushButton_ok_clicked() {
 void Pract4::on_pushButton_no_clicked() {
 
     if (cuest == false ) count_pos++;
-
     if (count_round == 1) {
         list_learning.push_back(trgt);
     }
@@ -139,7 +129,6 @@ void Pract4::on_pushButton_no_clicked() {
         list_difficult.push_back(trgt);
     }
     count_no++;
-
     ui->pushButton_no->setText(tr("I did not know it (")+QString::number(count_no)+")");
     cuestion_card();
 }
@@ -150,7 +139,6 @@ void Pract4::closeEvent( QCloseEvent* event ) {
 
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
     settings.setValue("dlgPract4", saveGeometry());
-
     if(this->isVisible()){
         event->ignore();
         this->hide();
@@ -173,8 +161,8 @@ void Pract4::on_label_trgt_clicked() {
     player->play();
 }
 
-void Pract4::on_pushButton_answer_clicked()
-{
+void Pract4::on_pushButton_answer_clicked() {
+
     ui->label_trgt->setText(trgt);
     srce = list_pair_words[trgt];
     ui->label_srce->setText(srce);

@@ -14,11 +14,9 @@ class Share : public QDialog
 public:
     explicit Share(QWidget *parent = nullptr);
     ~Share();
-
     void load_data();
     QString get_tpc();
     QString tpc;
-
 
 private slots:
     void on_pushButton_close_clicked();

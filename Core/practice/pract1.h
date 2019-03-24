@@ -45,19 +45,14 @@ public:
     count_pos, count_round, count_ok = 0, count_no = 0;
 
     //unsigned long int count_items;
-
     std::vector< QString > list_easy;
     std::vector< QString > list_learnt;
     std::vector< QString > list_learning;
     std::vector< QString > list_difficult;
-
-
     std::vector< QString > list_words;
     std::map<QString,QString> list_pair_words;
-
     void load_data(std::map<QString, QString> &tmp_list_pair_words,
                    std::vector< QString > &tmp_list_words);
-
 
 private slots:
     void on_pushButton_ok_clicked();

@@ -45,20 +45,15 @@ public:
     bool iwrite;
     unsigned short int count_quiz, count_items,
     count_pos, count_round, count_ok = 0, count_no = 0;
-
     //unsigned long int count_items;
-
     std::vector< QString > list_easy;
     std::vector< QString > list_learnt;
     std::vector< QString > list_learning;
     std::vector< QString > list_difficult;
-
-
     std::vector< QString > list_words;
     std::vector< QString > list_trgt_words;
     std::vector< QString > list_trgt_words_in;
     std::map<QString,QString> list_pair_words;
-
     void load_data(std::map<QString, QString> &tmp_list_pair_words,
                    std::vector< QString > &tmp_list_words);
 
@@ -72,4 +67,5 @@ private:
     Ui::Pract5 *ui;
     QMediaPlayer * player;
 };
+
 #endif // Pract5_H

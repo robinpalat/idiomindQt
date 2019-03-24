@@ -10,17 +10,14 @@
 
 
 Pract3::Pract3(QWidget *parent) : QWidget(parent), ui(new Ui::Pract3) {
-    ui->setupUi(this);
 
+    ui->setupUi(this);
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
     restoreGeometry(settings.value("dlgPract3").toByteArray());
-
     QFont font_trgt = ui->label_trgt->font();
     font_trgt.setPointSize(28);
     ui->label_trgt->setFont(font_trgt);
-
     player = new QMediaPlayer(this);
-
     ui->pushButton_no->setIcon(QIcon(ivar::DS+"/images/no.png"));
     ui->pushButton_no->setText(tr("I did not know it"));
     ui->pushButton_ok->setIcon(QIcon(ivar::DS+"/images/yes.png"));
@@ -47,7 +44,7 @@ void Pract3::load_data(std::map<QString, QString> &tmp_list_pair_words,
 }
 
 
-/* ------------------------------------------------ (2) */
+/* (2) */
 void Pract3::cuestion_card() {
     if (count_pos == count_items) {
         if (count_round == 1) {
@@ -73,15 +70,12 @@ void Pract3::cuestion_card() {
 }
 
 
-/* ------------------------------------------------ (3) */
+/* (3) */
 void Pract3::set_text_cuestion_card(QString trgt) {
 
     QTimer::singleShot(1000, this, SLOT(on_label_trgt_clicked()));
-
     trgt = hide_word(trgt.toStdString());
     ui->label_trgt->setText(trgt);
-
-
     QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect();
     ui->widget->setGraphicsEffect(effect);
     QPropertyAnimation *anim = new QPropertyAnimation(effect,"opacity");
@@ -94,16 +88,15 @@ void Pract3::set_text_cuestion_card(QString trgt) {
         ui->widget->show();
     });
     anim->start(QAbstractAnimation::KeepWhenStopped);
-
     ui->label_srce->setText("");
     ui->pushButton_answer->show();
 }
 
 
-/* ------------------------------------------------ (1) */
+/* (1) */
 void Pract3::on_pushButton_ok_clicked() {
-    if (cuest == false) count_pos++;
 
+    if (cuest == false) count_pos++;
         if (count_round == 1) {
             list_easy.push_back(trgt);
         }
@@ -119,8 +112,8 @@ void Pract3::on_pushButton_ok_clicked() {
 
 
 void Pract3::on_pushButton_no_clicked() {
-    if (cuest == false ) count_pos++;
 
+    if (cuest == false ) count_pos++;
         if (count_round == 1) {
             list_learning.push_back(trgt);
         }
@@ -136,14 +129,13 @@ void Pract3::on_pushButton_no_clicked() {
 
 
 void Pract3::closeEvent( QCloseEvent* event ) {
+
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
     settings.setValue("dlgPract3", saveGeometry());
-
     if(this->isVisible()){
         event->ignore();
         this->hide();
      }
-
     Practice dlg;
     qDebug() << list_easy.size();
     qDebug() << list_learning.size();

@@ -19,11 +19,8 @@ public:
      Database();
     void closeConnections();
     void closeConnection();
-
     QSqlDatabase mdb;
-
     bool Opendb(QString dbpath) {
-
         mdb = QSqlDatabase::addDatabase("QSQLITE");
         mdb.setDatabaseName(dbpath);
         if (!mdb.open()) {
@@ -34,9 +31,7 @@ public:
             return true;
         }
     }
-
     void Closedb() {
-
         QSqlQuery qry;
         qry.finish();
         mdb.close();
@@ -48,7 +43,6 @@ public:
     }
 
 private:
-
     QMutex lock;
     QHash<QThread*, QSqlDatabase> connections;
 

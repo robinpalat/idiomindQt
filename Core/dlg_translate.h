@@ -38,9 +38,7 @@ public:
 
 private slots:
     void on_pushButton_close_clicked();
-
     void on_pushButton_save_trans_clicked();
-
     void on_checkBox_verifiedtrans_stateChanged(int arg1);
 
 private:

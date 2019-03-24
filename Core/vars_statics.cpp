@@ -1,12 +1,9 @@
 #include "vars_statics.h"
 
 #include <QDialog>
-
 #include <iostream>
 
-
 using namespace std;
-
 
 namespace ivar {
 
@@ -18,7 +15,6 @@ namespace ivar {
     }
 
     QString Username = user_name();
-
     QString Home = QDir::homePath();
 
 
@@ -35,7 +31,6 @@ namespace ivar {
     QString FILE_conf = Home+"/AppData/Local/Idiomind/Config/config.cfg";
 #endif
 
-
 #if (defined (LINUX) || defined (__linux__))
     QString DT = "/tmp/.idiomind-"+Username+"/";
     QString DS = "/usr/share/idiomind/";
@@ -48,7 +43,6 @@ namespace ivar {
     QString FILE_mn = Home+"/.config/idiomind/tpc";
     QString FILE_conf = Home+"/.config/idiomind/config.cfg";
 #endif
-
 
     QString slangs[47][47] = {
 
@@ -67,8 +61,8 @@ namespace ivar {
 
 }
 
-Session::Session(QObject *parent) : QObject(parent)
-{
+Session::Session(QObject *parent) : QObject(parent) {
+
     if (!QDir(ivar::DM).exists() || !QDir(ivar::DC).exists()) {
 
         Welcome newu;

@@ -4,12 +4,10 @@
 
 EditTpc::EditTpc(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::EditTpc)
-{
+    ui(new Ui::EditTpc) {
+
     ui->setupUi(this);
-
     load_data();
-
     ui->tableWidget_edit->verticalHeader()->setFixedWidth(30);
     ui->tableWidget_edit->verticalHeader()->setSectionsMovable(true);
     ui->tableWidget_edit->setAcceptDrops(true);
@@ -22,8 +20,6 @@ EditTpc::EditTpc(QWidget *parent) :
     ui->tableWidget_edit->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     ui->tableWidget_edit->verticalHeader()->setCursor(Qt::ClosedHandCursor);
     ui->tableWidget_edit->verticalHeader()->showDropIndicator();
-
-
     ui->tableWidget_edit->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->tableWidget_edit, SIGNAL(customContextMenuRequested(QPoint)),
               SLOT(customMenuRequested(QPoint)));
@@ -46,10 +42,8 @@ void EditTpc::customMenuRequested(QPoint pos) {
 void EditTpc::delete_item() {
 
     QString trgt = ui->tableWidget_edit->item(ui->tableWidget_edit->currentRow(), 0)->text();
-
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
-
     qry.prepare("DELETE FROM "+Source_LANG+" WHERE trgt = ?");
     qry.addBindValue(trgt);
     if (!qry.exec()) qDebug() << qry.lastError().text();
@@ -68,13 +62,11 @@ void EditTpc::delete_item() {
     qry.prepare("DELETE FROM words  WHERE list = ?");
     qry.addBindValue(trgt);
     if (!qry.exec()) qDebug() << qry.lastError().text();
-
     qry.finish();
-
     load_data();
 }
-EditTpc::~EditTpc()
-{
+
+EditTpc::~EditTpc() {
     delete ui;
 }
 
@@ -90,43 +82,30 @@ void EditTpc::load_data() {
 
     tpc = get_tpc();
     this->setWindowTitle("Idiomind - "+tpc);
-
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
-
     qry.prepare("select trgt from "+Source_LANG+"");
-
     ui->tableWidget_edit->setColumnCount(1);
     ui->tableWidget_edit->setRowCount(0);
-
     edittpc_check_items.clear();
-
     if (qry.exec( )) {
         while(qry.next()) {
-
             QString trgt = qry.value(0).toString();
             edittpc_load_items.push_back(trgt);
-
             ui->tableWidget_edit->insertRow(ui->tableWidget_edit->rowCount());
             QTableWidgetItem *itemTrgt = new QTableWidgetItem(trgt);
             ui->tableWidget_edit->setItem(ui->tableWidget_edit->rowCount() -1, 0, itemTrgt);
 
         }
     }
-
     ui->tableWidget_edit->setColumnWidth(0, 500);
-
     qry.finish();
-
 }
-
 
 void EditTpc::save_data() {
 
     this->setWindowTitle("Idiomind - "+tpc);
-
     QSqlDatabase db = Database::instance().getConnection(tpc);
-
     edittpc_check_items.clear();
     QAbstractItemModel *model = ui->tableWidget_edit->model();
     //for ( int col = 0; col < model->columnCount(); ++col )
@@ -142,13 +121,10 @@ void EditTpc::save_data() {
    if ( edittpc_load_items != edittpc_check_items ) {
        qDebug() << "Diff...";
    }
-
     QString* arraytrgt = &edittpc_check_items[0];
-
     int n = 0;
     for(std::vector<QString>::iterator it = edittpc_load_items.begin();
         it != edittpc_load_items.end(); ++it) {
-
         if (*it != arraytrgt[n]) {
             QSqlQuery qry(db);
             qry.prepare("update "+Source_LANG+" set trgt='"+arraytrgt[n]+"' where trgt='"+*it+"'");
@@ -169,14 +145,11 @@ void EditTpc::save_data() {
     }
 }
 
-
-void EditTpc::on_pushButton_close_clicked()
-{
+void EditTpc::on_pushButton_close_clicked() {
     this->close();
 }
 
-void EditTpc::on_pushButton_save_edits_clicked()
-{
+void EditTpc::on_pushButton_save_edits_clicked() {
     save_data();
     ui->pushButton_save_edits->setEnabled(false);
 }

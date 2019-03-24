@@ -29,9 +29,7 @@ QSqlDatabase Database::getConnection(QString tpc) {
     if (!currentThread) {
         return QSqlDatabase();
     }
-
     const QString threadName = currentThread->objectName();
-
     if (connections.contains(currentThread)) {
         return connections.value(currentThread);
     } else {

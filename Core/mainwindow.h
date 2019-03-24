@@ -16,7 +16,6 @@
 #include <QFileSystemWatcher>
 #include <QTableWidgetItem>
 
-
 #include "dlg_vwr.h"
 #include "dlg_topics.h"
 #include "vars_statics.h"
@@ -26,7 +25,6 @@
 #include "dlg_translate.h"
 #include "practice/dlg_practice.h"
 #include "Media/database.h"
-
 
 
 namespace Ui {
@@ -41,8 +39,6 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-
-
 public:
     QSqlQueryModel * modal=new QSqlQueryModel();
     bool mod = false;
@@ -54,29 +50,21 @@ public:
     QString col;
     QString get_tpc();
     void edit_mode();
-
     Database conn;
-
-
 
 private slots:
     void on_list_learning_doubleClicked(const QModelIndex &index);
     void on_list_learnt_doubleClicked(const QModelIndex &index);
     void on_list_learning_itemChanged(QTableWidgetItem *item);
-
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
-
     void closeEvent(QCloseEvent * event);
     void fileChangedEvent(const QString & path);
-
     void on_pushButton_play_clicked();
     void on_pushButton_close_clicked();
-
     void on_pushButton_tabmanage_delete_clicked();
     void on_pushButton_tabmanage_trans_clicked();
     void on_pushButton_tabmanage_share_clicked();
     void on_pushButton_tabmanage_markas_clicked();
-
     void on_pushButton_practice_clicked();
 
 private:

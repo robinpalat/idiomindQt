@@ -12,14 +12,10 @@
 Pract5::Pract5(QWidget *parent) : QWidget(parent), ui(new Ui::Pract5) {
 
     ui->setupUi(this);
-
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
     restoreGeometry(settings.value("dlgPract5").toByteArray());
-
     player = new QMediaPlayer(this);
-
     ui->pushButton->setText(tr("Check"));
-
     //ui->label_trgt->setTextFormat(Qt::RichText);
 }
 
@@ -45,11 +41,10 @@ void Pract5::load_data(std::map<QString, QString> &tmp_list_pair_words,
 
 
 void Pract5::write_card() {
-    iwrite = true;
 
+    iwrite = true;
     ui->plainTextEdit->clear();
     ui->plainTextEdit->show();
-
     if (count_pos == count_items) {
         if (count_round == 1) {
             count_round=2;
@@ -69,21 +64,17 @@ void Pract5::write_card() {
     else {
         trgt = list_words[count_pos];
     }
-
     set_text_write_card(trgt);
 }
 
 
 void Pract5::check_card() {
-    iwrite = false;
 
+    iwrite = false;
     QString trgt_in = ui->plainTextEdit->toPlainText();
     ui->plainTextEdit->hide();
-
-
     list_trgt_words.clear();
     list_trgt_words_in.clear();
-
     QString Word;
     for(short i = 0; i < trgt_in.length(); i++) {
         if(trgt_in[i] == ' ' && !Word.isEmpty()) {
@@ -94,7 +85,6 @@ void Pract5::check_card() {
             Word += trgt_in[i];
         }
     }
-
     for(short i = 0; i < trgt.length(); i++) {
         if(trgt[i] == ' ' && !Word.isEmpty()) {
            list_trgt_words.push_back(Word);
@@ -104,12 +94,8 @@ void Pract5::check_card() {
             Word += trgt[i];
         }
     }
-
-
     qDebug() << list_trgt_words_in;
     qDebug() << list_trgt_words;
-
-
     if ("porc" == "porc") {
         if (count_round == 1) {
             list_easy.push_back(trgt);
@@ -124,32 +110,26 @@ void Pract5::check_card() {
 
         count_ok++;
     }
-
     else {
 
         count_no++;
     }
-
     set_text_check_card(trgt);
 }
 
 
 void Pract5::set_text_write_card(QString trgt) {
+
     QString useraud1=DM_tl+"/.share/audio/"+trgt.toLower()+"-1.mp3";
     QString useraud2=DM_tl+"/"+tpc+"/"+trgt.toLower()+".mp3";
-
     std::vector<QString> vect = hide_sent(trgt);
-
     QString _trgt;
-
     for ( auto it = vect.begin(); it != vect.end(); ++it  ) {
         _trgt += *it;
         _trgt += "      ";
    }
-
     ui->label_trgt->setText(_trgt);
     ui->label_trgt->setWordWrap(true);
-
     QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect();
     ui->widget->setGraphicsEffect(effect);
     QPropertyAnimation *anim = new QPropertyAnimation(effect,"opacity");
@@ -166,6 +146,7 @@ void Pract5::set_text_write_card(QString trgt) {
 
 
 void Pract5::set_text_check_card(QString trgt) {
+
     ui->label_trgt->setText(trgt);
     ui->label_trgt->setWordWrap(true);
 }
@@ -185,6 +166,7 @@ void Pract5::on_pushButton_clicked() {
 }
 
 QString Pract5::hide_word(const QString& in) {
+
     int n = 0; QString trgt;
     in.size();
     for(auto c : in) {
@@ -213,8 +195,7 @@ std::vector<QString> Pract5::hide_sent(QString trgt) {
             Word += trgt[i];
         }
     }
-
-     qDebug() << list_trgt_words;
+    qDebug() << list_trgt_words;
     return Sentence;
 
 
@@ -225,12 +206,10 @@ void Pract5::closeEvent( QCloseEvent* event ) {
 
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
     settings.setValue("dlgPract5", saveGeometry());
-
     if(this->isVisible()){
         event->ignore();
         this->hide();
      }
-
     Practice dlg;
     dlg.go_back_results(count_quiz, list_easy, list_learning,
                                 list_difficult, "Pract5");

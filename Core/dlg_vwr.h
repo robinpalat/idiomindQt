@@ -40,9 +40,7 @@ public:
     explicit Vwr(QWidget *parent = nullptr);
     ~Vwr();
 
-
 public:
-
     QSqlDatabase mydb;
     Global mGlobal;
     QString tpc = mGlobal.get_textline(ivar::FILE_mn);
@@ -60,20 +58,16 @@ public:
     void white_dark();
     void change_white_dark();
 
-
 public:
     void setLabelText(QString);
     void setPos(QString);
     string int_array_to_string(string int_array[], int size_of_array);
     void setConnect_lABEL_IMAGE();
-
     void word_list(QString wrds);
-
 
 public:
     QSqlQueryModel * modal=new QSqlQueryModel();
     Database conn;
-
 
 private slots:
     void on_pushButton_next_clicked();
@@ -84,11 +78,9 @@ private slots:
     void on_label_note_clicked();
     //void on_pushButton_edit_clicked();
     //void closeEvent( QCloseEvent* event );
-
     //void on_pushButton_2_clicked();
     void closeEvent(QCloseEvent * event);
     void customMenuRequested(QPoint pos);
-
 
 private:
     Ui::Vwr *ui;

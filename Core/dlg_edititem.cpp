@@ -23,21 +23,19 @@ Dlg_editItem::~Dlg_editItem() {
 }
 
 void Dlg_editItem::load_data(QString trgt_ind, QString list_sel) {
+
     trgt = trgt_ind;
     list = list_sel;
     QSqlDatabase db = Database::instance().getConnection(tpc);
-
     QString t, s;
     QSqlQuery qry(db);
     qry.prepare("select list from '"+list+"'");
-
    if (qry.exec()) {
         unsigned long int indexpos = 0;
         while(qry.next()) {
             t = qry.value(0).toString();
             arr.push_back(t);
             items++;
-
             if (t == trgt) {
                 pos = indexpos;
                 fill_data(trgt);
@@ -55,18 +53,17 @@ void Dlg_editItem::load_data(QString trgt_ind, QString list_sel) {
 }
 
 void Dlg_editItem::fill_data(QString trgt) {
+
     ui->lineEdit_trgt->setText("");
     ui->lineEdit_srce->setText("");
     ui->plainTextEdit_exmp->clear();
     ui->plainTextEdit_defn->clear();
     ui->plainTextEdit_note->clear();
     ui->checkBox_editItem_mark->setChecked(false);
-
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
     QString trgt_qry = trgt.replace("'", "''");
     qry.prepare("select * from "+Source_LANG+" where trgt='"+trgt_qry+"'");
-
     if (qry.exec( )) {
         while(qry.next()) {
             srce = qry.value(1).toString();
@@ -83,7 +80,6 @@ void Dlg_editItem::fill_data(QString trgt) {
     if (type == "1") {
         ui->lineEdit_trgt->setText(trgt);
         ui->lineEdit_srce->setText(srce);
-
         ui->plainTextEdit_exmp->insertPlainText(exmp);
         ui->plainTextEdit_defn->insertPlainText(defn);
         ui->plainTextEdit_note->insertPlainText(note);
@@ -91,7 +87,6 @@ void Dlg_editItem::fill_data(QString trgt) {
     else if (type == "2") {
         ui->lineEdit_trgt->setText(trgt);
         ui->lineEdit_srce->setText(srce);
-
         ui->plainTextEdit_note->insertPlainText(note);
     }
     if (mark=="TRUE") ui->checkBox_editItem_mark->setChecked(true);
@@ -100,19 +95,16 @@ void Dlg_editItem::fill_data(QString trgt) {
 }
 
 void Dlg_editItem::save_data() {
+
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
-
     QString trgt_mod, srce_mod, note_mod,
             defn_mod, exmp_mod, mark_mod;
-
     trgt_mod=ui->lineEdit_trgt->text();
     srce_mod=ui->lineEdit_srce->text();
-
     note_mod=ui->plainTextEdit_note->toPlainText();
     defn_mod=ui->plainTextEdit_defn->toPlainText();
     exmp_mod=ui->plainTextEdit_exmp->toPlainText();
-
     if(ui->checkBox_editItem_mark->checkState() == Qt::Unchecked) mark_mod = "";
     else mark_mod = "TRUE";
 
@@ -148,6 +140,7 @@ void Dlg_editItem::save_data() {
 }
 
 void Dlg_editItem::on_pushButton_editItem_next_clicked() {
+
     save_data();
     pos++;
     if (pos>items) pos = 0;
@@ -156,6 +149,7 @@ void Dlg_editItem::on_pushButton_editItem_next_clicked() {
 }
 
 void Dlg_editItem::on_pushButton_editItem_prev_clicked() {
+
     save_data();
     checkpos = pos;
     checkpos--;
@@ -166,10 +160,12 @@ void Dlg_editItem::on_pushButton_editItem_prev_clicked() {
 }
 
 void Dlg_editItem::on_pushButton_editItem_close_clicked() {
+
     this->close();
 }
 
 void Dlg_editItem::closeEvent( QCloseEvent* event ) {
+
     save_data();
     if(this->isVisible()){
         event->ignore();

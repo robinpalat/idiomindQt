@@ -9,7 +9,6 @@
 Practice::Practice(QWidget *parent) : QDialog(parent), ui(new Ui::Practice) {
 
     ui->setupUi(this);
-
     ui->widget_final->hide();
     ui->widget_score->hide();
     ui->tableWidget->setColumnCount(2);
@@ -21,9 +20,7 @@ Practice::Practice(QWidget *parent) : QDialog(parent), ui(new Ui::Practice) {
     verticalHeader->setDefaultSectionSize(68);
     //ui->tableWidget->setStyleSheet("QTableWidget::item { margin-right: 20px }");
     ui->verticalLayout_2->setSizeConstraint(QLayout::SetFixedSize);
-
     player = new QMediaPlayer(this);
-
     get_icons_stats();
     show_icons_stats();
 }
@@ -46,7 +43,6 @@ void Practice::get_icons_stats() {
 
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
-
     for( int n = 1; n < 6; n = n + 1 ) {
         qry.prepare("SELECT * FROM Practice_stats");
         if (qry.exec( )) {
@@ -66,7 +62,6 @@ void Practice::show_icons_stats() {
 
     tpc = get_tpc();
     this->setWindowTitle(tr("Practice - ")+tpc);
-
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
 
@@ -87,11 +82,10 @@ void Practice::show_icons_stats() {
 void Practice::starting_a_pract(QString pract) {
 
     active_pract = pract;
-
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
 
-    if (list_pair_icon_practs[active_pract] == "21") { // if the quiz is concluded --------------
+    if (list_pair_icon_practs[active_pract] == "21") { // quiz concluded
         QMessageBox msgBox;
         msgBox.setText(tr("Practice Completed"));
         msgBox.setWindowTitle(tr("Practice Completed"));
@@ -100,7 +94,6 @@ void Practice::starting_a_pract(QString pract) {
         QPushButton *okButton = msgBox.addButton(tr("Ok"), QMessageBox::ActionRole);
         msgBox.setDefaultButton(okButton);
         msgBox.exec();
-
         if (msgBox.clickedButton() == restartButton) {
             qry.exec("UPDATE Practice_stats SET "+active_pract+"_icon='0'");
             list_pair_icon_practs[active_pract]="0";
@@ -112,15 +105,11 @@ void Practice::starting_a_pract(QString pract) {
            practice_is_21_0(active_pract);
        }
 
-        qry.prepare("SELECT items_0 FROM "+active_pract+""); // if the quiz is started --------------
-
+        qry.prepare("SELECT items_0 FROM "+active_pract+""); // quiz started
         QString trgt, srce, type, cdid, img, aud;
         unsigned short count_check = 0;
-
         if (qry.exec( )) { // itinerate over items0 in Practx
-
             while(qry.next()) {
-
                 trgt = qry.value(0).toString();
                 QSqlQuery qry(db);
                 qry.prepare("SELECT * FROM "+Source_LANG+" WHERE trgt=(:trgt_val)");
@@ -130,7 +119,6 @@ void Practice::starting_a_pract(QString pract) {
                 type = "2";
                 srce = qry.value(1).toString();
                 type = qry.value(13).toString();
-
                 if (trgt != "" && srce != "" ) {
                     if (type == "1") {
                         if (active_pract == "Pract1") {
@@ -177,7 +165,6 @@ void Practice::starting_a_pract(QString pract) {
         else {
             this->hide();
             qry.finish();
-
             if (active_pract == "Pract1") {
                 mPrac_a = new Prac_a();
                 mPrac_a->load_data(list_pair_words,list_words);
@@ -212,21 +199,17 @@ void Practice::practice_is_21_0(QString active_pract) {
 
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
-
     if (!qry.exec("DELETE FROM "+active_pract+" WHERE items_0"))
         qDebug() << qry.lastError().text();
 
     db.transaction();
     qry.prepare("SELECT list FROM learning");
-
     unsigned short count_total_words= 0;
     unsigned short count_total_sents= 0;
     QString trgt, srce, type;
     if (qry.exec( )) {
-
         while(qry.next()) {
             trgt = qry.value(0).toString();
-
             QSqlQuery qry(db);
             qry.prepare("SELECT * FROM "+Source_LANG+" WHERE trgt=(:trgt_val)");
             qry.bindValue(":trgt_val", trgt);

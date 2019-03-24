@@ -25,7 +25,6 @@ class Practice : public QDialog
 
     friend class Pract2;
 
-
 public:
     explicit Practice(QWidget *parent = nullptr);
     ~Practice();
@@ -68,14 +67,10 @@ public:
                         tr("Recognize Pronunciation"),
                         tr("Images"),tr("Listen and Writing Sentences")};
 
-
-
 private slots:
     void on_pushButton_restart_clicked();
     void closeEvent(QCloseEvent * event);
-
     void on_tableWidget_itemDoubleClicked(QTableWidgetItem *item);
-
 
 private:
     Ui::Practice *ui;

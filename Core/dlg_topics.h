@@ -21,18 +21,13 @@ public:
 private slots:
     void on_pushButton_clicked();
     void closeEvent(QCloseEvent * event);
-
-
-
     void on_tableWidget_topics_cellDoubleClicked();
-
     void on_pushButton_2_clicked();
 
 private:
     Ui::Topics *ui;
     Global *mGlobal;
     //MainWindow * mMainWindow;
-
 
 public:
     void load_index();

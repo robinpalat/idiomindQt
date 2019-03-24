@@ -18,18 +18,12 @@ public:
     bool field_srce;
     void load_data();
 
-
 private slots:
     void on_pushButton_add_clicked();
-
     void on_pushButton_more_clicked();
-
     void on_pushButton_audio_clicked();
-
     void on_pushButton_image_clicked();
-
     void on_pushButton_clip_clicked();
-
     void on_pushButton_srce_clicked();
     void closeEvent(QCloseEvent * event);
 

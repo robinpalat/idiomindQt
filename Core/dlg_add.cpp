@@ -29,6 +29,7 @@ Add::~Add() {
 }
 
 void Add::load_data() {
+
     QDirIterator it(DM_tl, QDir::Dirs);
     while (it.hasNext()) {
         QFileInfo substring = it.next();
@@ -59,8 +60,8 @@ void Add::on_pushButton_clip_clicked() {
 
 }
 
-void Add::on_pushButton_srce_clicked()
-{
+void Add::on_pushButton_srce_clicked() {
+
     if(field_srce == false){
         ui->lineEdit_srce->show();
         field_srce = true;
@@ -73,8 +74,8 @@ void Add::on_pushButton_srce_clicked()
 }
 
 
-void Add::closeEvent(QCloseEvent * event)
-{
+void Add::closeEvent(QCloseEvent * event) {
+
     if(this->isVisible()){
         event->ignore();
         this->hide();

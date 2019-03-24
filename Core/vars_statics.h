@@ -26,10 +26,8 @@ namespace ivar {
     extern QString DC;
     extern QString DC_a;
     extern QString DC_d;
-
-     extern QString FILE_mn;
-     extern QString FILE_conf;
-
+    extern QString FILE_mn;
+    extern QString FILE_conf;
     extern QString slangs[47][47];
 }
 
@@ -42,15 +40,11 @@ class Session : public QObject
 public:
     explicit Session(QObject *parent = nullptr);
 
-
 public:
-
 
 signals:
 
-
 public slots:
-
 
 private:
    // Welcome * mWelcome;

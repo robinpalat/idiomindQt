@@ -12,7 +12,6 @@
 #include <QCloseEvent>
 #include <QSystemTrayIcon>
 #include <QAction>
-
 #include <QFileSystemWatcher>
 
 #include "mainwindow.h"
@@ -28,7 +27,6 @@ class Icontray : public QMainWindow
 public:
     Icontray(QWidget *parent = nullptr);
     ~Icontray();
-
     void icontray();
     bool UpdateFileTimestamp(std::string fileName);
 

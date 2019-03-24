@@ -5,8 +5,8 @@
 
 Share::Share(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Share)
-{
+    ui(new Ui::Share) {
+
     ui->setupUi(this);
     QString lang = tlng;
     ui->label_link_library->setText("<a href=\"http://idiomind.net/"+lang.toLower()+"\">Visit the topics library</a>");
@@ -17,8 +17,7 @@ Share::Share(QWidget *parent) :
 
 }
 
-Share::~Share()
-{
+Share::~Share() {
     delete ui;
 }
 
@@ -30,7 +29,6 @@ QString Share::get_tpc() {
 void Share::load_data() {
 
     tpc = get_tpc();
-
     // load note
     QFile file(DM_tl+"/"+tpc+"/.conf/note");
     if(!file.open(QIODevice::ReadOnly)) {
@@ -44,17 +42,14 @@ void Share::load_data() {
 
 
 
-void Share::on_pushButton_close_clicked()
-{
+void Share::on_pushButton_close_clicked() {
     this->close();
 }
 
-void Share::on_pushButton_upload_clicked()
-{
+void Share::on_pushButton_upload_clicked() {
 
 }
 
-void Share::on_pushButton_export_clicked()
-{
+void Share::on_pushButton_export_clicked() {
 
 }
