@@ -70,7 +70,6 @@ void Dlg_editItem::fill_data(QString trgt) {
             grmr = qry.value(8).toString();
             wrds = qry.value(9).toString();
             type = qry.value(13).toString();
-
             note = qry.value(4).toString();
             defn = qry.value(3).toString();
             exmp = qry.value(2).toString();
@@ -107,7 +106,6 @@ void Dlg_editItem::save_data() {
     exmp_mod=ui->plainTextEdit_exmp->toPlainText();
     if(ui->checkBox_editItem_mark->checkState() == Qt::Unchecked) mark_mod = "";
     else mark_mod = "TRUE";
-
     if (trgt_mod!=trgt) {
         qry.prepare("update "+Source_LANG+" set trgt='"+trgt_mod+"' where trgt='"+trgt+"'");
         qry.exec();
