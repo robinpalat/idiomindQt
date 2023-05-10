@@ -34,7 +34,7 @@ QString get_tlng(){
     conn.Opendb(config_db);
     QSqlQuery qry;
     qry.prepare("select tlng from lang");
-    if(!qry.exec()) qDebug() << "Error";
+    if(!qry.exec()) qDebug() << "Error - can´t open config db... "+config_db;
     qry.next();
     QString pre_tlng = qry.value(0).toString();
     qry.finish();

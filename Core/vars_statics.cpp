@@ -2,6 +2,7 @@
 
 #include <QDialog>
 #include <iostream>
+#include <QDebug>
 
 
 
