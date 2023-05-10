@@ -10,7 +10,7 @@ Prac_a::Prac_a(QWidget *parent) : QWidget(parent), ui(new Ui::Prac_a) {
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
     restoreGeometry(settings.value("dlgPract1").toByteArray());
     player = new QMediaPlayer(this);
-    ui->pushButton_no->setIcon(QIcon(ivar::DS+"/images/no.png"));
+    ui->pushButton_no->setIcon(QIcon(ivar::DS+"/images/nou.png"));
     ui->pushButton_no->setText(tr("I did not know it"));
     ui->pushButton_ok->setIcon(QIcon(ivar::DS+"/images/yes.png"));
     ui->pushButton_ok->setText(tr("I Knew it"));
@@ -170,6 +170,6 @@ void Prac_a::closeEvent( QCloseEvent* event ) {
 void Prac_a::on_label_trgt_clicked() {
 
     Audioplayer path;
-    player->setMedia(QUrl::fromLocalFile(path.pathplay(trgt)));
+    player->setSource(QUrl::fromLocalFile(path.pathplay(trgt)));
     player->play();
 }

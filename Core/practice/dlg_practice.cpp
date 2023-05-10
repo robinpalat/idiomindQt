@@ -43,8 +43,9 @@ void Practice::get_icons_stats() {
 
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
+
+    qry.prepare("SELECT * FROM Practice_stats");
     for( int n = 1; n < 6; n = n + 1 ) {
-        qry.prepare("SELECT * FROM Practice_stats");
         if (qry.exec( )) {
             qry.next();
             list_pair_icon_practs["Pract1"] = qry.value(0).toString();
@@ -106,19 +107,21 @@ void Practice::starting_a_pract(QString pract) {
        }
 
         qry.prepare("SELECT items_0 FROM "+active_pract+""); // quiz started
-        QString trgt, srce, type, cdid, img, aud;
+        QString trgt, srce, type;
+        // QString cdid, img, aud;
         unsigned short count_check = 0;
+
         if (qry.exec( )) { // itinerate over items0 in Practx
             while(qry.next()) {
                 trgt = qry.value(0).toString();
                 QSqlQuery qry(db);
-                qry.prepare("SELECT * FROM "+Source_LANG+" WHERE trgt=(:trgt_val)");
+                qry.prepare("SELECT * FROM Data WHERE trgt=(:trgt_val)");
                 qry.bindValue(":trgt_val", trgt);
                 qry.exec( );
                 qry.next();
                 type = "2";
                 srce = qry.value(1).toString();
-                type = qry.value(13).toString();
+                type = qry.value(14).toString();
                 if (trgt != "" && srce != "" ) {
                     if (type == "1") {
                         if (active_pract == "Pract1") {
@@ -137,7 +140,7 @@ void Practice::starting_a_pract(QString pract) {
                             count_check++;
                         }
                         else if (active_pract == "Pract4") {
-                            QString userimg1=DM_tl+"/.share/images/"+trgt.toLower()+"-1.jpg";
+                            QString userimg1=DM_tl+"/.share/images/"+trgt.toLower()+"-0.jpg";
                             QString userimg2=DM_tl+"/"+tpc+"/images/"+trgt.toLower()+".jpg";
                             if(QFileInfo(userimg1).exists() || QFileInfo(userimg2).exists()){
                                 list_words.push_back(trgt);
@@ -197,13 +200,18 @@ void Practice::starting_a_pract(QString pract) {
 
 void Practice::practice_is_21_0(QString active_pract) {
 
+    qDebug() << "practice_is_21_0";
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
     if (!qry.exec("DELETE FROM "+active_pract+" WHERE items_0"))
         qDebug() << qry.lastError().text();
 
     db.transaction();
-    qry.prepare("SELECT list FROM learning");
+
+    if (qry.prepare("SELECT list FROM learning") != true ) {
+        qDebug() << "DB no prepared - vwr";
+    };
+
     unsigned short count_total_words= 0;
     unsigned short count_total_sents= 0;
     QString trgt, srce, type;
@@ -211,13 +219,13 @@ void Practice::practice_is_21_0(QString active_pract) {
         while(qry.next()) {
             trgt = qry.value(0).toString();
             QSqlQuery qry(db);
-            qry.prepare("SELECT * FROM "+Source_LANG+" WHERE trgt=(:trgt_val)");
+            qry.prepare("SELECT * FROM Data WHERE trgt=(:trgt_val)");
             qry.bindValue(":trgt_val", trgt);
 
             if (qry.exec( )) {
                 while(qry.next()) {
                     srce = qry.value(1).toString();
-                    type = qry.value(13).toString();
+                    type = qry.value(14).toString();
                 }
             }
             if (trgt != "" && srce != "") {
@@ -265,7 +273,7 @@ void Practice::practice_is_21_0(QString active_pract) {
                 }
             }
             else if (active_pract == "Pract4") {
-                QString userimg1=DM_tl+"/.share/images/"+trgt.toLower()+"-1.jpg";
+                QString userimg1=DM_tl+"/.share/images/"+trgt.toLower()+"-0.jpg";
                 QString userimg2=DM_tl+"/"+tpc+"/images/"+trgt.toLower()+".jpg";
                 if(QFileInfo(userimg1).exists()|| QFileInfo(userimg2).exists()){
                     qry.exec("INSERT INTO Pract4 VALUES ('"+trgt+"')");
@@ -336,14 +344,14 @@ void Practice::calc_score_data(QString active_pract) {
     count_session = qry.value(0).toUInt();
     QString str_count_session = QString::number(count_session);
     QString str_easy = QString::number(size_easy);
-    QString str_lrnt = QString::number(size_lrnt);
+    //QString str_lrnt = QString::number(size_lrnt);
     QString str_ling = QString::number(size_ling);
     QString str_hard = QString::number(size_hard);
     count_learnt = count_session - (count_quiz - size_easy);
     QString str_count_learnt = QString::number(count_learnt);
 
     if(count_learnt >= count_session) {
-        player->setMedia(QUrl::fromLocalFile(ivar::DS+"practice/all.mp3"));
+        player->setSource(QUrl::fromLocalFile(ivar::DS+"practice/all.mp3"));
         player->play();
         QString lbl = "Congratulations! You have completed a test of <big>"+QString::number(count_session)+"</big> words";
         ui->label_11->setText(lbl);

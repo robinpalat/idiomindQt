@@ -221,6 +221,6 @@ void Pract5::closeEvent( QCloseEvent* event ) {
 void Pract5::on_label_trgt_clicked() {
 
     Audioplayer path;
-    player->setMedia(QUrl::fromLocalFile(path.pathplay(trgt)));
+    player->setSource(QUrl::fromLocalFile(path.pathplay(trgt)));
     player->play();
 }

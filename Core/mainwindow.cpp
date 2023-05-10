@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowIcon(QIcon(ivar::DS+"/images/logo.png"));
 //    ui->list_learning->setStyleSheet("QTableWidget::item { padding: 20px }");
 //    ui->list_learnt->setStyleSheet("QTableWidget::item { padding: 20px }");
-    QSqlQuery qry;
+    // QSqlQuery qry;
     ui->label_tpc_name->setText(tpc);
     this->setWindowTitle("Idiomind - "+tpc);
     watcher = new QFileSystemWatcher();
@@ -65,7 +65,11 @@ void MainWindow::load_data() {
     QSqlDatabase db = Database::instance().getConnection(tpc);
      // Tab 2
     QSqlQuery qry_a(db);
-    qry_a.prepare("select list from learning");
+
+    if (qry_a.prepare("select list from learning") != true ) {
+        qDebug() << "DB no prepared - main";
+    };
+
     ui->list_learning->setColumnCount(2);
     ui->list_learning->setRowCount(0);
     int numberOfRows = 0;
@@ -79,16 +83,24 @@ void MainWindow::load_data() {
             ui->list_learning->setItem(ui->list_learning->rowCount() -1, 1, item2);
             numberOfRows ++;
         }
+        } else {
+        qDebug() << tpc;
     }
     ui->tabWidget->setTabText(0, "Learning (" +QString::number(numberOfRows)+ ")");
+
+
+
     // Tab 2
-    QSqlQueryModel * tab2_modal=new QSqlQueryModel();
-    //QSqlQuery qry_b;
+    QSqlQueryModel * model=new QSqlQueryModel();
+    QSqlQuery qry(db);
+    qry.prepare("select list from learnt");
+    qry.exec();
+    model->setQuery(std::move(qry));
+    ui->list_learnt->setModel(model);
+
+    numberOfRows = 0;
     qry_a.prepare("select list from learnt");
     qry_a.exec();
-    tab2_modal->setQuery(qry_a);
-    ui->list_learnt->setModel(tab2_modal);
-    numberOfRows = 0;
     if(qry_a.last())
     {
         numberOfRows =  qry_a.at() + 1;
@@ -97,6 +109,8 @@ void MainWindow::load_data() {
     }
     ui->tabWidget->setTabText(1, "Learnt (" +QString::number(numberOfRows)+ ")");
     qry_a.finish();
+
+
     // load note
     QFile file(DM_tl+"/"+tpc+"/.conf/note");
     if(!file.open(QIODevice::ReadOnly)) {
@@ -126,7 +140,7 @@ void MainWindow::on_list_learning_doubleClicked(const QModelIndex &index) {
     QString trgt=ui->list_learning->model()->data(index).toString();
     if (trgt == "") {
         load_data();
-        QString trgt=ui->list_learning->model()->data(index).toString();
+        trgt=ui->list_learning->model()->data(index).toString();
     }
     mVwr = new Vwr(this);
     mVwr->load_array(trgt, "learning");
@@ -138,7 +152,7 @@ void MainWindow::on_list_learnt_doubleClicked(const QModelIndex &index) {
     QString trgt=ui->list_learnt->model()->data(index).toString();
     if (trgt == "") {
         load_data();
-        QString trgt=ui->list_learning->model()->data(index).toString();
+        trgt=ui->list_learning->model()->data(index).toString();
     }
     mVwr = new Vwr(this);
     mVwr->load_array(trgt, "learnt");

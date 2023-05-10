@@ -12,7 +12,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = idiomind
 TEMPLATE = app
 
-CONFIG += c++14
+CONFIG += c++17
+
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -53,7 +54,6 @@ SOURCES += \
 
 HEADERS += \
     Core/icontray.h \
-    Core/ui_item_list.h \
     Core/dlg_imageview.h \
     Core/dlg_vwr.h \
     Core/dlg_edititem.h \
@@ -126,9 +126,9 @@ DISTFILES += \
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
-
 #QMAKE_CXXFLAGS += -std=gnu++14
-QMAKE_CXXFLAGS += -std=c++14
+
+QMAKE_CXXFLAGS += -std=c++17
 
 DESTDIR = build/target/
 OBJECTS_DIR = build/obj/

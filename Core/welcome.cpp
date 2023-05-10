@@ -8,7 +8,6 @@
 #include <iostream>
 #include <map>
 
-using namespace std;
 
 
 Welcome::Welcome(QWidget *parent) :
@@ -58,7 +57,7 @@ bool Welcome::create_user(){
     if (!QDir(ivar::DM).exists()) QDir().mkdir(ivar::DM);
     if (!QDir(ivar::DT).exists()) QDir().mkdir(ivar::DT);
     if (!QDir(ivar::DT).exists()) QDir().mkdir(ivar::DT);
-    std::map <string, string> tlangs;
+    std::map <std::string, std::string> tlangs;
     tlangs["English"] = "en";
     tlangs["Spanish"] = "es";
     tlangs["Italian"] = "it";
@@ -69,8 +68,8 @@ bool Welcome::create_user(){
     tlangs["Vietnamese"] = "vi";
     tlangs["Chinese"] = "en";
     tlangs["Russian"] = "ru";
-    cout << tlangs["Chinese"] << endl;
-    cout << tlangs["Italian"] << endl;
+    std::cout << tlangs["Chinese"] << std::endl;
+    std::cout << tlangs["Italian"] << std::endl;
     //conn.Closedb();
 }
 

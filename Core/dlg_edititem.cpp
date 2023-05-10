@@ -9,7 +9,7 @@
 #include <string>
 #include <QDebug>
 
-using namespace std;
+
 
 
 Dlg_editItem::Dlg_editItem(QWidget *parent) :
@@ -63,17 +63,17 @@ void Dlg_editItem::fill_data(QString trgt) {
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
     QString trgt_qry = trgt.replace("'", "''");
-    qry.prepare("select * from "+Source_LANG+" where trgt='"+trgt_qry+"'");
+    qry.prepare("select * from Data where trgt='"+trgt_qry+"'");
     if (qry.exec( )) {
         while(qry.next()) {
             srce = qry.value(1).toString();
-            grmr = qry.value(8).toString();
-            wrds = qry.value(9).toString();
-            type = qry.value(13).toString();
+            grmr = qry.value(6).toString();
+            wrds = qry.value(5).toString();
+            type = qry.value(14).toString();
             note = qry.value(4).toString();
             defn = qry.value(3).toString();
             exmp = qry.value(2).toString();
-            mark = qry.value(11).toString();
+            mark = qry.value(8).toString();
         }
     }
     if (type == "1") {
@@ -107,7 +107,7 @@ void Dlg_editItem::save_data() {
     if(ui->checkBox_editItem_mark->checkState() == Qt::Unchecked) mark_mod = "";
     else mark_mod = "TRUE";
     if (trgt_mod!=trgt) {
-        qry.prepare("update "+Source_LANG+" set trgt='"+trgt_mod+"' where trgt='"+trgt+"'");
+        qry.prepare("update Data set trgt='"+trgt_mod+"' where trgt='"+trgt+"'");
         qry.exec();
         qry.prepare("update '"+list+"' set list='"+trgt_mod+"' where list='"+trgt+"'");
         qry.exec();
@@ -121,15 +121,15 @@ void Dlg_editItem::save_data() {
         }
     }
     if (srce_mod!=srce) {
-        qry.prepare("update "+Source_LANG+" set srce='"+srce_mod+"' where trgt='"+trgt+"'");
+        qry.prepare("update Data set srce='"+srce_mod+"' where trgt='"+trgt+"'");
         qry.exec();
     }
     if (exmp_mod != exmp || defn_mod != defn ||  note_mod != note) {
-        qry.prepare("update "+Source_LANG+" set exmp='"+exmp_mod+"', defn='"+defn_mod+"', note='"+note_mod+"' where trgt='"+trgt+"'");
+        qry.prepare("update Data set exmp='"+exmp_mod+"', defn='"+defn_mod+"', note='"+note_mod+"' where trgt='"+trgt+"'");
         qry.exec();
     }
     if (mark_mod!=mark) {
-        qry.prepare("update "+Source_LANG+" set mark='"+mark_mod+"' where trgt='"+trgt+"'");
+        qry.prepare("update Data set mark='"+mark_mod+"' where trgt='"+trgt+"'");
         qry.exec();
     }
     qry.finish();

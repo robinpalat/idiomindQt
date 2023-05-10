@@ -11,11 +11,11 @@ QString Audioplayer::pathplay(QString clue) {
     trgt = clue;
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
-    qry.prepare("select * from "+Source_LANG+" where trgt=(:trgt_val)");
+    qry.prepare("select * from Data where trgt=(:trgt_val)");
     qry.bindValue(":trgt_val", trgt);
     if (qry.exec( )) {
         while(qry.next()) {
-            cdid = qry.value(12).toString();
+            cdid = qry.value(15).toString();
         }
     }
     else {

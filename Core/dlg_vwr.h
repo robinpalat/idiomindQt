@@ -23,9 +23,6 @@
 #include "Media/database.h"
 #include "Media/audioplayer.h"
 
-using namespace std;
-
-
 
 namespace Ui {
 class Vwr;
@@ -61,7 +58,7 @@ public:
 public:
     void setLabelText(QString);
     void setPos(QString);
-    string int_array_to_string(string int_array[], int size_of_array);
+    std::string int_array_to_string(std::string int_array[], int size_of_array);
     void setConnect_lABEL_IMAGE();
     void word_list(QString wrds);
 

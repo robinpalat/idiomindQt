@@ -3,7 +3,7 @@
 #include <QDialog>
 #include <iostream>
 
-using namespace std;
+
 
 namespace ivar {
 
@@ -24,7 +24,7 @@ namespace ivar {
     QString DS_a = "C:/Program Files/Idiomind/addons";
     QString DM = Home+"/AppData/Local/Idiomind";
     QString DM_t = Home+"/AppData/Local/Idiomind/Topics";
-    QString DC = Home+"/AppData/Local/Idiomind/Config/";
+    QString DC = Home+"/AppData/Local/Idiomind/Config";
     QString DC_a =  Home+"AppData/Local/Idiomind/Config/addons";
     QString DC_d =  Home+"AppData/Local/Idiomind/Config/addons/dict/enables";
     QString FILE_mn = Home+"/AppData/Local/Idiomind/Config/tpc";

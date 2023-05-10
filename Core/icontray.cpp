@@ -28,6 +28,12 @@ void Icontray::fileChangedEvent(const QString & path) {
   icontray();
 }
 
+
+//void changeTpcLabel() {
+//  icontray();
+
+//}
+
 void Icontray::icontray() {
 
     Global mGlobal;
