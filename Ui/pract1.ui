@@ -33,9 +33,6 @@
    <property name="rightMargin">
     <number>15</number>
    </property>
-   <property name="bottomMargin">
-    <number>15</number>
-   </property>
    <property name="horizontalSpacing">
     <number>15</number>
    </property>
@@ -53,7 +50,6 @@
         <property name="font">
          <font>
           <pointsize>26</pointsize>
-          <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
@@ -128,9 +124,8 @@
         <property name="font">
          <font>
           <pointsize>18</pointsize>
-          <weight>75</weight>
           <italic>true</italic>
-          <bold>true</bold>
+          <bold>false</bold>
          </font>
         </property>
         <property name="text">
@@ -172,7 +167,7 @@
       <number>12</number>
      </property>
      <property name="bottomMargin">
-      <number>10</number>
+      <number>0</number>
      </property>
      <item>
       <widget class="QPushButton" name="pushButton_no">
@@ -186,11 +181,8 @@
         <font>
          <pointsize>8</pointsize>
          <italic>false</italic>
+         <bold>false</bold>
         </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 170, 127);
-color: rgb(77, 51, 0);</string>
        </property>
        <property name="text">
         <string/>
@@ -210,11 +202,8 @@ color: rgb(77, 51, 0);</string>
          <family>DejaVu Sans</family>
          <pointsize>8</pointsize>
          <italic>false</italic>
+         <bold>false</bold>
         </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(247, 247, 227);
-color: rgb(75, 75, 6);</string>
        </property>
        <property name="text">
         <string>Show Answer</string>
@@ -240,11 +229,8 @@ color: rgb(75, 75, 6);</string>
          <family>DejaVu Sans</family>
          <pointsize>8</pointsize>
          <italic>false</italic>
+         <bold>false</bold>
         </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(170, 255, 127);
-color: rgb(40, 81, 0);</string>
        </property>
        <property name="text">
         <string/>

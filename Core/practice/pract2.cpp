@@ -17,10 +17,10 @@ Pract2::Pract2(QWidget *parent) :
     restoreGeometry(settings.value("dlgPract2").toByteArray());
     player = new QMediaPlayer(this);
     QFont font_trgt = ui->label_trgt->font();
-    font_trgt.setPointSize(28);
+    font_trgt.setPointSize(26);
     ui->label_trgt->setFont(font_trgt);
-    ui->pushButton_no->setIcon(QIcon(ivar::DS+"/images/no.png"));
-    ui->pushButton_ok->setIcon(QIcon(ivar::DS+"/images/yes.png"));
+    ui->pushButton_no->setIcon(QIcon(ivar::DS+"/images/nou.png"));
+    //ui->pushButton_ok->setIcon(QIcon(ivar::DS+"/images/yes.png"));
     ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
     ui->tableWidget->setColumnCount(2);
     ui->tableWidget->setStyleSheet("QTableWidget::item { padding: 10px }");
@@ -45,13 +45,13 @@ void Pract2::load_data(std::map<QString, QString> &tmp_list_pair_words,
         while(qry.next()) {
             trgt = qry.value(0).toString();
             QSqlQuery qry(db);
-            qry.prepare("SELECT * FROM "+Source_LANG+" WHERE trgt=(:trgt_val)");
+            qry.prepare("SELECT * FROM Data WHERE trgt=(:trgt_val)");
             qry.bindValue(":trgt_val", trgt);
             qry.exec( );
             qry.next();
             type = "2";
             srce = qry.value(1).toString();
-            type = qry.value(13).toString();
+            type = qry.value(14).toString();
             if (trgt != "" && srce != "" && type == "1") {
                 list_pair_words_words[trgt]=srce;
                 list_words_words.push_back(trgt);
@@ -168,11 +168,11 @@ void Pract2::on_pushButton_ok_clicked() { // si / next
             else if (count_round == 2) {
                 list_learnt.push_back(trgt);
             }
-         ui->pushButton_ok->setText(tr("I Knew it (")+QString::number(count_ok)+")");
+         //ui->pushButton_ok->setText(tr("I Knew it (")+QString::number(count_ok)+")");
          cuestion_card();
     }
     else {
-        player->setMedia(QUrl::fromLocalFile(ivar::DS+"practice/no.mp3"));
+        player->setSource(QUrl::fromLocalFile(ivar::DS+"practice/no.mp3"));
         player->play();
         on_pushButton_no_clicked();
     }
@@ -215,7 +215,7 @@ void Pract2::closeEvent( QCloseEvent* event ) {
 void Pract2::on_label_trgt_clicked() {
 
     Audioplayer path;
-    player->setMedia(QUrl::fromLocalFile(path.pathplay(trgt)));
+    player->setSource(QUrl::fromLocalFile(path.pathplay(trgt)));
     player->play();
 }
 

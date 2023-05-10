@@ -14,8 +14,6 @@
 #include <QTimer>
 #include <QPainter>
 
-using namespace std;
-
 
 Vwr::Vwr(QWidget *parent) :
     QDialog(parent),
@@ -80,7 +78,11 @@ void Vwr::load_array(QString trgt_ind, QString list_sel) {
     QSqlQuery qry(db);
     trgt = trgt_ind;
     list = list_sel;
-    qry.prepare("select list from '"+list+"'");
+
+    if (qry.prepare("select list from '"+list+"'") != true ) {
+        qDebug() << "DB no prepared - vwr";
+    };
+
    if (qry.exec()) {
         loaded = true;
         unsigned long int indexpos = 0;
@@ -120,20 +122,29 @@ void Vwr::word_list(QString wrds){
         if (lo==false) {
             ui->tableWidget_wrdsList->insertRow(ui->tableWidget_wrdsList->rowCount());
             QTableWidgetItem * abocada = new QTableWidgetItem( QString::fromStdString(substring));
-            if (dark==true) abocada->setTextColor("#AFAFAF"); else abocada->setTextColor("#676767");
+            if (dark==true) abocada->setForeground(QBrush(QColor(215, 215, 215)));
+            else abocada->setForeground(QBrush(QColor(48, 48, 48)));
             ui->tableWidget_wrdsList->setItem(ui->tableWidget_wrdsList->rowCount() -1, 0, abocada);
             lo=true;
         }
         else {
             QTableWidgetItem * abocado = new QTableWidgetItem( QString::fromStdString(substring));
-            if (dark==true) abocado->setTextColor("#868686"); else abocado->setTextColor("#8E8E8E");
-            //ui->tableWidget_wrdsList->setStyleSheet("QTableWidget::item:selected{background-color:'#FFFFFF'};");
+            if (dark==true) abocado->setForeground(QBrush(QColor(215, 215, 215)));
+            else abocado->setForeground(QBrush(QColor(48, 48, 48)));
+            ui->tableWidget_wrdsList->setStyleSheet("QTableWidget::item:selected{background-color:'#FFFFFF'};");
             ui->tableWidget_wrdsList->setItem(ui->tableWidget_wrdsList->rowCount() -1, 1, abocado);
             lo=false;
         }
         prev_pos = ++pos;
     }
 }
+
+
+//item = QTableWidgetItem('text')
+//       item.setForeground(QBrush(QColor(0, 255, 0)))
+
+
+
 
 void Vwr::setLabelText(QString trgt){
 
@@ -143,29 +154,44 @@ void Vwr::setLabelText(QString trgt){
     //QTimer::singleShot(100, ui->widget_sizelimit, &QWidget::show);
     QSqlDatabase db = Database::instance().getConnection(tpc);
     QSqlQuery qry(db);
-    qry.prepare("select * from "+Source_LANG+" where trgt=(:trgt_val)");
+    qry.prepare("select * from Data where trgt=(:trgt_val)");
+
+
+
     qry.bindValue(":trgt_val", trgt);
+
+
+
+
+
     if (qry.exec( )) {
         while(qry.next()) {
             srce = qry.value(1).toString();
-            grmr = qry.value(8).toString();
-            wrds = qry.value(9).toString();
-            type = qry.value(13).toString();
+            grmr = qry.value(6).toString();
+            wrds = qry.value(5).toString();
+            type = qry.value(14).toString();
             note = qry.value(4).toString();
             defn = qry.value(3).toString();
             exmp = qry.value(2).toString();
         }
     }
+
+
+
+
     if (type == "2") {
         word_list(wrds);
     }
     if (type == "1") {
-        QString userimg=DM_tl+"/.share/images/"+trgt.toLower()+"-1.jpg";
+
+
+
+        QString userimg=DM_tl+"/.share/images/"+trgt.toLower()+"-0.jpg";
         if(QFileInfo(userimg).exists()){
             ui->label_image->show();
             ui->label_image->setPixmap(QPixmap(userimg) );
-            ui->label_trgt->setAlignment(Qt::AlignCenter);
-            ui->label_srce->setAlignment(Qt::AlignCenter);
+            ui->label_trgt->setAlignment(Qt::AlignLeft);
+            ui->label_srce->setAlignment(Qt::AlignLeft);
             ui->label_trgt->setContentsMargins(25,0,0,0);
             ui->label_srce->setContentsMargins(28,0,0,0);
         }
@@ -210,11 +236,11 @@ void Vwr::setLabelText(QString trgt){
     else if (type == "2") {
         ui->label_image->hide();
         QFont font_trgt = ui->label_trgt->font();
-        font_trgt.setPointSize(18);
+        font_trgt.setPointSize(16);
         ui->label_trgt->setAlignment(Qt::AlignLeft);
         ui->label_trgt->setFont(font_trgt);
         QFont font_srce = ui->label_srce->font();
-        font_srce.setPointSize(12);
+        font_srce.setPointSize(10);
         ui->label_srce->setAlignment(Qt::AlignLeft);
         //font_srce.setStyle()
         ui->label_srce->setFont(font_srce);
@@ -299,7 +325,7 @@ void Vwr::closeEvent( QCloseEvent* event ) {
 void Vwr::on_label_trgt_clicked() {
 
     Audioplayer path;
-    player->setMedia(QUrl::fromLocalFile(path.pathplay(trgt)));
+    player->setSource(QUrl::fromLocalFile(path.pathplay(trgt)));
     player->play();
 }
 

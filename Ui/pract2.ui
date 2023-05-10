@@ -35,6 +35,12 @@
    </property>
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
      <item>
       <widget class="QWidget" name="widget" native="true">
        <property name="sizePolicy">
@@ -58,7 +64,6 @@
           <property name="font">
            <font>
             <pointsize>21</pointsize>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -92,13 +97,13 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <property name="leftMargin">
-         <number>0</number>
+         <number>20</number>
         </property>
         <property name="topMargin">
          <number>0</number>
         </property>
         <property name="rightMargin">
-         <number>0</number>
+         <number>20</number>
         </property>
         <property name="bottomMargin">
          <number>0</number>
@@ -113,14 +118,20 @@
           </property>
           <property name="font">
            <font>
-            <pointsize>13</pointsize>
+            <pointsize>12</pointsize>
            </font>
           </property>
           <property name="focusPolicy">
            <enum>Qt::NoFocus</enum>
           </property>
+          <property name="autoFillBackground">
+           <bool>true</bool>
+          </property>
           <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
           </property>
           <property name="verticalScrollBarPolicy">
            <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -183,13 +194,19 @@
    </item>
    <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>11</number>
+     </property>
+     <property name="topMargin">
+      <number>8</number>
+     </property>
      <property name="bottomMargin">
-      <number>10</number>
+      <number>0</number>
      </property>
      <item>
       <widget class="QPushButton" name="pushButton_no">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -204,37 +221,11 @@
         <font>
          <family>DejaVu Sans</family>
          <pointsize>8</pointsize>
+         <bold>false</bold>
         </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 170, 127);
-color: rgb(77, 51, 0);</string>
        </property>
        <property name="text">
         <string>I Don't Know</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_ok">
-       <property name="minimumSize">
-        <size>
-         <width>80</width>
-         <height>32</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>DejaVu Sans</family>
-         <pointsize>8</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(170, 255, 127);
-color: rgb(40, 81, 0);</string>
-       </property>
-       <property name="text">
-        <string>Select</string>
        </property>
       </widget>
      </item>

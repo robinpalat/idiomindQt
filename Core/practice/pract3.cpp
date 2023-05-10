@@ -18,7 +18,7 @@ Pract3::Pract3(QWidget *parent) : QWidget(parent), ui(new Ui::Pract3) {
     font_trgt.setPointSize(28);
     ui->label_trgt->setFont(font_trgt);
     player = new QMediaPlayer(this);
-    ui->pushButton_no->setIcon(QIcon(ivar::DS+"/images/no.png"));
+    ui->pushButton_no->setIcon(QIcon(ivar::DS+"/images/nou.png"));
     ui->pushButton_no->setText(tr("I did not know it"));
     ui->pushButton_ok->setIcon(QIcon(ivar::DS+"/images/yes.png"));
     ui->pushButton_ok->setText(tr("I Knew it"));
@@ -149,7 +149,7 @@ void Pract3::closeEvent( QCloseEvent* event ) {
 
 void Pract3::on_label_trgt_clicked() {
     Audioplayer path;
-    player->setMedia(QUrl::fromLocalFile(path.pathplay(trgt)));
+    player->setSource(QUrl::fromLocalFile(path.pathplay(trgt)));
     player->play();
 }
 

@@ -15,10 +15,10 @@ Pract4::Pract4(QWidget *parent) : QWidget(parent), ui(new Ui::Pract4) {
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
     restoreGeometry(settings.value("dlgPract4").toByteArray());
     QFont font_trgt = ui->label_trgt->font();
-    font_trgt.setPointSize(28);
+    font_trgt.setPointSize(18);
     ui->label_trgt->setFont(font_trgt);
     player = new QMediaPlayer(this);
-    ui->pushButton_no->setIcon(QIcon(ivar::DS+"/images/no.png"));
+    ui->pushButton_no->setIcon(QIcon(ivar::DS+"/images/nou.png"));
     ui->pushButton_no->setText(tr("I did not know it"));
     ui->pushButton_ok->setIcon(QIcon(ivar::DS+"/images/yes.png"));
     ui->pushButton_ok->setText(tr("I Knew it"));
@@ -74,7 +74,7 @@ void Pract4::cuestion_card() {
 /* (3) */
 void Pract4::set_text_cuestion_card(QString trgt) {
 
-    QString userimg1=DM_tl+"/.share/images/"+trgt.toLower()+"-1.jpg";
+    QString userimg1=DM_tl+"/.share/images/"+trgt.toLower()+"-0.jpg";
     QString userimg2=DM_tl+"/"+tpc+"/images/"+trgt.toLower()+".jpg";
     if(QFileInfo(userimg1).exists()) {
         ui->image_trgt->setPixmap(QPixmap(userimg1));
@@ -134,7 +134,6 @@ void Pract4::on_pushButton_no_clicked() {
 }
 
 
-
 void Pract4::closeEvent( QCloseEvent* event ) {
 
     QSettings settings(ivar::FILE_conf, QSettings::IniFormat);
@@ -157,7 +156,7 @@ void Pract4::closeEvent( QCloseEvent* event ) {
 void Pract4::on_label_trgt_clicked() {
 
     Audioplayer path;
-    player->setMedia(QUrl::fromLocalFile(path.pathplay(trgt)));
+    player->setSource(QUrl::fromLocalFile(path.pathplay(trgt)));
     player->play();
 }
 

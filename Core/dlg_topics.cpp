@@ -38,8 +38,12 @@ void Topics::load_index() {
     ui->tableWidget_topics->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     QDirIterator it(DM_tl, QDir::Dirs);
     while (it.hasNext()) {
-        QFileInfo substring = it.next();
-        QString tpc = substring.baseName();
+
+
+//        QFileInfo substring = it.next();
+//        QString tpc = substring.baseName();
+
+
         if (tpc!=""){
             QString Home = QDir::homePath();
             QString FILE_mn = DM_tl+"/"+tpc+"/.conf/stts";

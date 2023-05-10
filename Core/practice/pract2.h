@@ -36,6 +36,7 @@ public:
     void set_text_cuestion_card(QString trgt);
     void cuestion_card();
     void save_data();
+    void on_pushButton_ok_clicked();
     QString tpc, trgt, srce, type, srce_cell;
     unsigned long int size_easy, size_learnt, size_ling, size_hard;
     bool twist;
@@ -60,7 +61,7 @@ public:
 
 
 private slots:
-    void on_pushButton_ok_clicked();
+
     void on_pushButton_no_clicked();
     void on_label_trgt_clicked();
     void on_tableWidget_cellClicked(int row, int column);

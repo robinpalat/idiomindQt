@@ -34,7 +34,7 @@ QSqlDatabase Database::getConnection(QString tpc) {
         return connections.value(currentThread);
     } else {
         QSqlDatabase connection = QSqlDatabase::addDatabase("QSQLITE", threadName);
-        connection.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpcdb");
+        connection.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpc");
         if(!connection.open()) {
             qWarning() << QString("Cannot connect to database")
                           .arg(connection.databaseName(), threadName);

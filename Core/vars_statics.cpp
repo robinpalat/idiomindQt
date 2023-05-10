@@ -3,7 +3,7 @@
 #include <QDialog>
 #include <iostream>
 
-using namespace std;
+
 
 namespace ivar {
 

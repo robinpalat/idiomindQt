@@ -21,7 +21,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>456</width>
+    <width>400</width>
     <height>0</height>
    </size>
   </property>
@@ -141,7 +141,6 @@
             <property name="font">
              <font>
               <pointsize>11</pointsize>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -188,7 +187,6 @@
             <property name="font">
              <font>
               <pointsize>11</pointsize>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -235,7 +233,6 @@
             <property name="font">
              <font>
               <pointsize>11</pointsize>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -282,7 +279,6 @@
             <property name="font">
              <font>
               <pointsize>11</pointsize>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -329,7 +325,6 @@
             <property name="font">
              <font>
               <pointsize>11</pointsize>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -366,7 +361,6 @@
           <property name="font">
            <font>
             <pointsize>10</pointsize>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -396,9 +390,6 @@
            <width>16777215</width>
            <height>350</height>
           </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <property name="leftMargin">
@@ -441,8 +432,11 @@
             <property name="focusPolicy">
              <enum>Qt::NoFocus</enum>
             </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
             <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
+             <enum>QFrame::NoFrame</enum>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Plain</enum>
