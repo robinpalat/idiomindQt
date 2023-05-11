@@ -19,7 +19,7 @@ public:
     ~Topics();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_pushButton_0_clicked();
     void closeEvent(QCloseEvent * event);
     void on_tableWidget_topics_cellDoubleClicked();
     void on_pushButton_2_clicked();

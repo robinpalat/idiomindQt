@@ -26,7 +26,7 @@
    <string>Topics</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../res.qrc">
+   <iconset>
     <normaloff>:/images/idiomind.png</normaloff>:/images/idiomind.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -187,7 +187,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="pushButton_0">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -208,8 +208,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../res.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

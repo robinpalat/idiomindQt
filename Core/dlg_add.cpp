@@ -32,7 +32,10 @@ void Add::load_data() {
 
     QDirIterator it(DM_tl, QDir::Dirs);
     while (it.hasNext()) {
-        QString tpc = "tpc";
+        QFileInfo substring(it.next());
+        QString tpc = substring.baseName();
+
+
         if (tpc!=""){
             ui->comboBox->addItem(tpc);
         }

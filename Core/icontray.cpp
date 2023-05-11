@@ -40,18 +40,25 @@ void Icontray::icontray() {
     QString tpc = mGlobal.get_textline(ivar::FILE_mn);
     trayIcon = new QSystemTrayIcon(this);
     trayIcon->setIcon(QIcon(ivar::DS+"/images/logo.png"));
-    trayIcon->setToolTip("");
+    trayIcon->setToolTip("ddddddd");
     QMenu * menu = new QMenu(this);
     QAction * play_ = new QAction(tr("Play"), this);
     QAction * add_ = new QAction(tr("Add"), this);
     QAction * viewTopic = new QAction(tpc, this);
-    QAction * viewTopics = new QAction(tr("Index"), this);
+
+
+
+    QAction * viewTopics = new QAction("Index", this);
     QAction * options = new QAction(tr("Options"), this);
     QAction * about = new QAction(tr("About"), this);
     QAction * quitAction = new QAction(tr("Salir"), this);
-    connect(play_, SIGNAL(triggered()), this, SLOT(show_tpc()));
+
     connect(add_, SIGNAL(triggered()), this, SLOT(show_dlg_add()));
+    connect(play_, SIGNAL(triggered()), this, SLOT(show_tpc()));
     connect(viewTopic, SIGNAL(triggered()), this, SLOT(show_tpc()));
+    connect(viewTopics, SIGNAL(triggered()), this, SLOT(show_index()));
+    connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
+
     // ----------------------------------------
     //viewTopic->setIcon(QIcon("/usr/share/icons/hicolor/16x16/emblems/gtg-home.png"));
     // QIcon::setThemeName("oxygen");
@@ -74,8 +81,7 @@ void Icontray::icontray() {
     }
     if (testicon.isNull()) testicon = QIcon(ivar::DS+"/images/home.png");
     viewTopic->setIcon(testicon);
-    connect(viewTopics, SIGNAL(triggered()), this, SLOT(show_index()));
-    connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
+
     menu->addAction(add_);
     menu->addAction(play_);
     menu->addAction(viewTopic);
@@ -87,6 +93,8 @@ void Icontray::icontray() {
     menu->addAction(quitAction);
     trayIcon->setContextMenu(menu);
     trayIcon->show();
+
+
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
     this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
 }

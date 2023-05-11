@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <string>
 
+
 extern QString tpc;
 extern QString FILE_mn;
 extern QString config_db;

@@ -8,12 +8,10 @@
 #include <QCloseEvent>
 #include <QDirIterator>
 
-Topics::Topics(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Topics) {
+Topics::Topics(QWidget *parent) : QDialog(parent), ui(new Ui::Topics) {
     ui->setupUi(this);
     mGlobal = new Global();
-    QString tpc = mGlobal->get_textline(ivar::FILE_mn);
+    //QString tpc = mGlobal->get_textline(ivar::FILE_mn);
     load_index();
 
 }
@@ -24,7 +22,7 @@ Topics::~Topics() {
 }
 
 
-void Topics::on_pushButton_clicked() {
+void Topics::on_pushButton_0_clicked() {
  this->hide();
 }
 
@@ -36,16 +34,15 @@ void Topics::load_index() {
     ui->tableWidget_topics->setColumnWidth(1, 485);
     ui->tableWidget_topics->setStyleSheet("QTableWidget::item { padding: 1px }");
     ui->tableWidget_topics->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+
     QDirIterator it(DM_tl, QDir::Dirs);
     while (it.hasNext()) {
-
-
-//        QFileInfo substring = it.next();
-//        QString tpc = substring.baseName();
-
+        QFileInfo substring(it.next());
+        QString tpc = substring.baseName();
 
         if (tpc!=""){
-            QString Home = QDir::homePath();
+            //QString Home = QDir::homePath();
             QString FILE_mn = DM_tl+"/"+tpc+"/.conf/stts";
             Global mGlobal;
             QString stts = mGlobal.get_textline(FILE_mn);
