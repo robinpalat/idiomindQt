@@ -60,66 +60,82 @@ QString MainWindow::get_tpc() {
 void MainWindow::load_data() {
 
     tpc = get_tpc();
+
     ui->label_tpc_name->setText(tpc);
     this->setWindowTitle("Idiomind - "+tpc);
     QSqlDatabase db = Database::instance().getConnection(tpc);
      // Tab 2
     QSqlQuery qry_a(db);
+    qDebug() << db;
 
-    if (qry_a.prepare("select list from learning") != true ) {
-        qDebug() << "DB no prepared - main";
-    };
+    if (db.open()) {
+        // Realizar operaciones con la base de datos...
 
-    ui->list_learning->setColumnCount(2);
-    ui->list_learning->setRowCount(0);
-    int numberOfRows = 0;
-    if (qry_a.exec( )) {
-        while(qry_a.next()) {
-            QString srce = qry_a.value(0).toString();
-            QTableWidgetItem *item2 = new QTableWidgetItem("");
-            item2->setCheckState(Qt::Unchecked);
-            ui->list_learning->insertRow(ui->list_learning->rowCount());
-            ui->list_learning->setItem(ui->list_learning->rowCount() -1, 0, new QTableWidgetItem(srce));
-            ui->list_learning->setItem(ui->list_learning->rowCount() -1, 1, item2);
-            numberOfRows ++;
-        }
+        if (qry_a.prepare("select list from learning") != true ) {
+            qDebug() << "DB no prepared - main";
+        };
+
+        ui->list_learning->setColumnCount(2);
+        ui->list_learning->setRowCount(0);
+        int numberOfRows = 0;
+        if (qry_a.exec( )) {
+            while(qry_a.next()) {
+                QString srce = qry_a.value(0).toString();
+                QTableWidgetItem *item2 = new QTableWidgetItem("");
+                item2->setCheckState(Qt::Unchecked);
+                ui->list_learning->insertRow(ui->list_learning->rowCount());
+                ui->list_learning->setItem(ui->list_learning->rowCount() -1, 0, new QTableWidgetItem(srce));
+                ui->list_learning->setItem(ui->list_learning->rowCount() -1, 1, item2);
+                numberOfRows ++;
+            }
         } else {
-        qDebug() << tpc;
+            qDebug() << tpc;
+        }
+        ui->tabWidget->setTabText(0, "Learning (" +QString::number(numberOfRows)+ ")");
+
+
+
+        // Tab 2
+        QSqlQueryModel * model=new QSqlQueryModel();
+        QSqlQuery qry(db);
+        qry.prepare("select list from learnt");
+        qry.exec();
+        model->setQuery(std::move(qry));
+        ui->list_learnt->setModel(model);
+
+        numberOfRows = 0;
+        qry_a.prepare("select list from learnt");
+        qry_a.exec();
+        if(qry_a.last())
+        {
+            numberOfRows =  qry_a.at() + 1;
+            qry_a.first();
+            qry_a.previous();
+        }
+        ui->tabWidget->setTabText(1, "Learnt (" +QString::number(numberOfRows)+ ")");
+        qry_a.finish();
+
+
+        // load note
+        QFile file(DM_tl+"/"+tpc+"/.conf/note");
+        if(!file.open(QIODevice::ReadOnly)) {
+            QMessageBox::information(nullptr, "error", file.errorString());
+        }
+        QTextStream in(&file);
+        QString text = in.readAll();
+        ui->textEdit->setHtml(text);
     }
-    ui->tabWidget->setTabText(0, "Learning (" +QString::number(numberOfRows)+ ")");
 
 
 
-    // Tab 2
-    QSqlQueryModel * model=new QSqlQueryModel();
-    QSqlQuery qry(db);
-    qry.prepare("select list from learnt");
-    qry.exec();
-    model->setQuery(std::move(qry));
-    ui->list_learnt->setModel(model);
 
-    numberOfRows = 0;
-    qry_a.prepare("select list from learnt");
-    qry_a.exec();
-    if(qry_a.last())
-    {
-        numberOfRows =  qry_a.at() + 1;
-        qry_a.first();
-        qry_a.previous();
+        // Cerrar la base de datos
+        db.close();
+
+        // Eliminar la instancia de la base de datos
     }
-    ui->tabWidget->setTabText(1, "Learnt (" +QString::number(numberOfRows)+ ")");
-    qry_a.finish();
 
 
-    // load note
-    QFile file(DM_tl+"/"+tpc+"/.conf/note");
-    if(!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(nullptr, "error", file.errorString());
-    }
-    QTextStream in(&file);
-    QString text = in.readAll();
-    ui->textEdit->setHtml(text);
-}
 
 
 void MainWindow::on_pushButton_play_clicked() {
@@ -217,9 +233,9 @@ void MainWindow::closeEvent(QCloseEvent * event) {
         event->ignore();
         this->hide();
     }
+
+    db.close();
 }
-
-
 
 void MainWindow::on_pushButton_tabmanage_delete_clicked() {
 

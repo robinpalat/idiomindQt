@@ -32,6 +32,17 @@ public:
     bool UpdateFileTimestamp(std::string fileName);
 
 
+signals:
+    void setTopicLabel(const QString& text);
+
+
+public slots:
+    void updateTopicLabel(QString tpc) {
+        emit setTopicLabel(tpc);
+    }
+
+
+
 private slots:
     void show_tpc();
     void show_dlg_add();

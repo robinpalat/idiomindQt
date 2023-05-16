@@ -60,7 +60,6 @@ QString get_slng(){
 
 QString mn(){
 
-    QString Home = QDir::homePath();
       QFile file(FILE_mn);
       QString line;
       if (file.open(QIODevice::ReadOnly)) {

@@ -11,22 +11,14 @@
 
 
 
-
-
-
-
-
-QAction* viewTopic;
-
 Icontray::Icontray(QWidget *parent)
     : QMainWindow(parent) {
 
     watcher = new QFileSystemWatcher();
     connect(watcher, SIGNAL(fileChanged(QString)), this, SLOT(fileChangedEvent(QString)));
     watcher->addPath(ivar::FILE_mn);
-
-
 }
+
 
 Icontray::~Icontray() {
     QCoreApplication::quit();
@@ -34,10 +26,9 @@ Icontray::~Icontray() {
 
 
 void Icontray::fileChangedEvent(const QString) {
-
-    viewTopic->setText("Nuevo texto");
-    viewTopic->parentWidget()->update();
-
+    Global mGlobal;
+    QString tpc = mGlobal.get_textline(ivar::FILE_mn);
+    Icontray::updateTopicLabel(tpc);
 }
 
 
@@ -51,10 +42,7 @@ void Icontray::icontray() {
     QMenu * menu = new QMenu(this);
     QAction * play_ = new QAction(tr("Play"), this);
     QAction * add_ = new QAction(tr("Add"), this);
-
-
     QAction * viewTopic = new QAction(tpc, this);
-
     QAction * viewTopics = new QAction("Index", this);
     QAction * options = new QAction(tr("Options"), this);
     QAction * about = new QAction(tr("About"), this);
@@ -65,7 +53,7 @@ void Icontray::icontray() {
     connect(viewTopic, SIGNAL(triggered()), this, SLOT(show_tpc()));
     connect(viewTopics, SIGNAL(triggered()), this, SLOT(show_index()));
     connect(quitAction, SIGNAL(triggered()), this, SLOT(quit()));
-
+   QObject::connect(this, &Icontray::setTopicLabel, viewTopic, &QAction::setText);
 
 
     QIcon testicon;
@@ -145,6 +133,7 @@ void Icontray::iconActivated(QSystemTrayIcon::ActivationReason reason) {
         break;
     }
 }
+
 
 
 

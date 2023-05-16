@@ -70,7 +70,7 @@ void Topics::on_tableWidget_topics_cellDoubleClicked() {
 
     QModelIndex currentIndex = ui->tableWidget_topics->currentIndex();
     QString tpc = ui->tableWidget_topics->item(currentIndex.row(), 1)->text();
-    qDebug() << "\""+tpc+ "\" is your topic now";
+    qDebug() <<  tpc+ " is your topic now";
     QString filename=ivar::FILE_mn;
     QFile file( filename );
     if ( file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
@@ -88,7 +88,7 @@ void Topics::on_pushButton_2_clicked() {
 
     QModelIndex currentIndex = ui->tableWidget_topics->currentIndex();
     QString tpc = ui->tableWidget_topics->item(currentIndex.row(), 1)->text();
-    qDebug() << "\""+tpc+ "\" is your topic now";
+    qDebug() <<  tpc+ " is your topic now";
     QString filename=ivar::FILE_mn;
     QFile file( filename );
     if ( file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
