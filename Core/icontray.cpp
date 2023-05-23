@@ -52,8 +52,8 @@ void Icontray::icontray() {
     connect(play_, SIGNAL(triggered()), this, SLOT(show_tpc()));
     connect(viewTopic, SIGNAL(triggered()), this, SLOT(show_tpc()));
     connect(viewTopics, SIGNAL(triggered()), this, SLOT(show_index()));
-    connect(quitAction, SIGNAL(triggered()), this, SLOT(quit()));
-   QObject::connect(this, &Icontray::setTopicLabel, viewTopic, &QAction::setText);
+    connect(quitAction, SIGNAL(triggered()), this, SLOT(quitar()));
+    connect(this, &Icontray::setTopicLabel, viewTopic, &QAction::setText);
 
 
     QIcon testicon;
@@ -86,9 +86,9 @@ void Icontray::icontray() {
 }
 
 
-void Icontray::quit() {
+void Icontray::quitar() {
 
-    this->quit();
+    QCoreApplication::quit();
 }
 
 

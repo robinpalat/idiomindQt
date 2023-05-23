@@ -42,13 +42,12 @@ public slots:
     }
 
 
-
 private slots:
     void show_tpc();
     void show_dlg_add();
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
     void show_index();
-    void quit();
+    void quitar();
     void fileChangedEvent(const QString);
 
 private:

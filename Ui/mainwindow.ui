@@ -564,6 +564,9 @@
                      <property name="text">
                       <string>Mark as Learned</string>
                      </property>
+                     <property name="icon">
+                      <iconset theme="face-smile"/>
+                     </property>
                     </widget>
                    </item>
                    <item>

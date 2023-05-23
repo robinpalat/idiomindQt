@@ -66,7 +66,6 @@ void MainWindow::load_data() {
     QSqlDatabase db = Database::instance().getConnection(tpc);
      // Tab 2
     QSqlQuery qry_a(db);
-    qDebug() << db;
 
     if (db.open()) {
         // Realizar operaciones con la base de datos...
@@ -130,7 +129,8 @@ void MainWindow::load_data() {
 
 
         // Cerrar la base de datos
-        db.close();
+
+
 
         // Eliminar la instancia de la base de datos
     }

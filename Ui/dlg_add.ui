@@ -128,8 +128,10 @@
             <height>26</height>
            </size>
           </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(115, 115, 115);</string>
+          <property name="font">
+           <font>
+            <kerning>false</kerning>
+           </font>
           </property>
           <property name="frame">
            <bool>false</bool>

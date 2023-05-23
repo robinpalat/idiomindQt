@@ -4,10 +4,8 @@ Database::Database() {
 
     QMutexLocker locker(&lock);
 
-//    if(QFile::exists()) {
-
-//    } else create();
 }
+
 
 Database::~Database() {
 
@@ -23,32 +21,41 @@ Database& Database::instance() {
     return *databaseInstance;
 }
 
-QSqlDatabase Database::getConnection(QString tpc) {
 
-qDebug() << DM_tl+"/"+tpc+"/.conf/tpc   <<<<< getconections";
+QSqlDatabase Database::getConnection(QString tpc) {
 
     QThread *currentThread = QThread::currentThread();
     if (!currentThread) {
         return QSqlDatabase();
-        qDebug() << DM_tl+"/"+tpc+"/.conf/tpc   <<<<< currentThread";
     }
+//    if (in == 1){
+//        QSqlDatabase connection = QSqlDatabase::addDatabase("QSQLITE", threadName);
+//        connection.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpc");
+//        if(!connection.open()) {
+//            qWarning() << QString("Cannot connect to database")
+//                              .arg(connection.databaseName(), threadName);
+//        }
+//        connections.insert(currentThread, connection);
+//        return connection;
+//    }
     const QString threadName = currentThread->objectName();
+    qDebug() << threadName;
     if (connections.contains(currentThread)) {
-        qDebug() << DM_tl+"/"+tpc+"/.conf/tpc   <<<<< return 2";
         return connections.value(currentThread);
 
     } else {
         QSqlDatabase connection = QSqlDatabase::addDatabase("QSQLITE", threadName);
         connection.setDatabaseName(DM_tl+"/"+tpc+"/.conf/tpc");
-        qDebug() << DM_tl+"/"+tpc+"/.conf/tpc   <<<<<<<<<<";
         if(!connection.open()) {
             qWarning() << QString("Cannot connect to database")
-                          .arg(connection.databaseName(), threadName);
+                              .arg(connection.databaseName(), threadName);
         }
         connections.insert(currentThread, connection);
         return connection;
     }
 }
+
+
 
 void Database::closeConnections() {
 
@@ -57,6 +64,7 @@ void Database::closeConnections() {
     }
     connections.clear();
 }
+
 
 void Database::closeConnection() {
 
