@@ -184,9 +184,19 @@ void Vwr::setLabelText(QString trgt){
     }
     if (type == "1") {
 
+        QString userimg;
 
+        QString userimg1=DM_tl+"/.share/images/"+trgt.toLower()+"-0.jpg";
+        QString userimg2=DM_tl+"/"+tpc+"/images/"+trgt.toLower()+".jpg";
 
-        QString userimg=DM_tl+"/.share/images/"+trgt.toLower()+"-0.jpg";
+        if(QFileInfo(userimg1).exists()) {
+            userimg = userimg1;
+        }
+        else if (QFileInfo(userimg2).exists()) {
+            userimg = userimg2;
+
+        }
+
         if(QFileInfo(userimg).exists()){
             ui->label_image->show();
             ui->label_image->setPixmap(QPixmap(userimg) );

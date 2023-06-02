@@ -2,10 +2,7 @@
 #include "Core/practice/pract4.h"
 #include "ui_pract4.h"
 #include "dlg_practice.h"
-
 #include <QTimer>
-
-
 #include "Core/vars_statics.h"
 
 
