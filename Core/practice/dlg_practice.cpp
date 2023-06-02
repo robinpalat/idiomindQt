@@ -121,7 +121,7 @@ void Practice::starting_a_pract(QString pract) {
                 qry.next();
                 type = "2";
                 srce = qry.value(1).toString();
-                type = qry.value(14).toString();
+                type = qry.value(13).toString();
                 if (trgt != "" && srce != "" ) {
                     if (type == "1") {
                         if (active_pract == "Pract1") {
@@ -225,7 +225,7 @@ void Practice::practice_is_21_0(QString active_pract) {
             if (qry.exec( )) {
                 while(qry.next()) {
                     srce = qry.value(1).toString();
-                    type = qry.value(14).toString();
+                    type = qry.value(13).toString();
                 }
             }
             if (trgt != "" && srce != "") {

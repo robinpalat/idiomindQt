@@ -69,7 +69,7 @@ void Dlg_editItem::fill_data(QString trgt) {
             srce = qry.value(1).toString();
             grmr = qry.value(6).toString();
             wrds = qry.value(5).toString();
-            type = qry.value(14).toString();
+            type = qry.value(13).toString();
             note = qry.value(4).toString();
             defn = qry.value(3).toString();
             exmp = qry.value(2).toString();

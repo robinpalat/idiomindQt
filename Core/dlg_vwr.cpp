@@ -169,7 +169,7 @@ void Vwr::setLabelText(QString trgt){
             srce = qry.value(1).toString();
             grmr = qry.value(6).toString();
             wrds = qry.value(5).toString();
-            type = qry.value(14).toString();
+            type = qry.value(13).toString();
             note = qry.value(4).toString();
             defn = qry.value(3).toString();
             exmp = qry.value(2).toString();
@@ -186,15 +186,18 @@ void Vwr::setLabelText(QString trgt){
 
         QString userimg;
 
-        QString userimg1=DM_tl+"/.share/images/"+trgt.toLower()+"-0.jpg";
+        QString userimg0=DM_tl+"/.share/images/"+trgt.toLower()+"-0.jpg";
+        QString userimg1=DM_tl+"/.share/images/"+trgt.toLower()+"-1.jpg";
         QString userimg2=DM_tl+"/"+tpc+"/images/"+trgt.toLower()+".jpg";
 
-        if(QFileInfo(userimg1).exists()) {
+        if(QFileInfo(userimg0).exists()) {
+            userimg = userimg0;
+        }
+        else if (QFileInfo(userimg1).exists()) {
             userimg = userimg1;
         }
         else if (QFileInfo(userimg2).exists()) {
-            userimg = userimg2;
-
+                userimg = userimg2;
         }
 
         if(QFileInfo(userimg).exists()){
