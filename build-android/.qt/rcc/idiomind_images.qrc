@@ -1,0 +1,40 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="images/logo.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/logo.png</file>
+    <file alias="images/states/img.0.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/states/img.0.png</file>
+    <file alias="images/states/img.1.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/states/img.1.png</file>
+    <file alias="images/states/img.2.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/states/img.2.png</file>
+    <file alias="images/states/img.3.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/states/img.3.png</file>
+    <file alias="images/states/img.4.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/states/img.4.png</file>
+    <file alias="images/states/img.5.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/states/img.5.png</file>
+    <file alias="images/states/img.6.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/states/img.6.png</file>
+    <file alias="images/states/img.7.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/states/img.7.png</file>
+    <file alias="images/states/img.8.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/states/img.8.png</file>
+    <file alias="images/states/img.9.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/states/img.9.png</file>
+    <file alias="images/states/img.10.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/states/img.10.png</file>
+    <file alias="images/states/img.13.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/states/img.13.png</file>
+    <file alias="images/practice/0.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/0.png</file>
+    <file alias="images/practice/1.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/1.png</file>
+    <file alias="images/practice/2.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/2.png</file>
+    <file alias="images/practice/3.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/3.png</file>
+    <file alias="images/practice/4.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/4.png</file>
+    <file alias="images/practice/5.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/5.png</file>
+    <file alias="images/practice/6.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/6.png</file>
+    <file alias="images/practice/7.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/7.png</file>
+    <file alias="images/practice/8.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/8.png</file>
+    <file alias="images/practice/9.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/9.png</file>
+    <file alias="images/practice/10.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/10.png</file>
+    <file alias="images/practice/11.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/11.png</file>
+    <file alias="images/practice/12.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/12.png</file>
+    <file alias="images/practice/13.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/13.png</file>
+    <file alias="images/practice/14.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/14.png</file>
+    <file alias="images/practice/15.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/15.png</file>
+    <file alias="images/practice/16.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/16.png</file>
+    <file alias="images/practice/17.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/17.png</file>
+    <file alias="images/practice/18.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/18.png</file>
+    <file alias="images/practice/19.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/19.png</file>
+    <file alias="images/practice/20.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/20.png</file>
+    <file alias="images/practice/21.png">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/resources/images/practice/21.png</file>
+  </qresource>
+</RCC>
+

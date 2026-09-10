@@ -1,0 +1,16 @@
+-rootPath
+/home/robin/1Devin/Projects/Idiomind/IdiomindQt
+-cmake-output
+-output-file
+/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/.qt/qml_imports/idiomindqt_conf.cmake
+-importPath
+/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/Idiomind
+-importPath
+/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android
+-importPath
+/home/robin/Qt/6.10.0/android_arm64_v8a/qml
+-qrcFiles
+/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/.qt/rcc/qmake_Idiomind.qrc
+/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/.qt/rcc/idiomindqt_raw_qml_0.qrc
+/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/.qt/rcc/idiomindqt_raw_qml_0_extra_qmldirs.qrc
+/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/.qt/rcc/idiomind_images.qrc

@@ -1,0 +1,39 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/logo.png</file>
+        <file>images/states/img.0.png</file>
+        <file>images/states/img.1.png</file>
+        <file>images/states/img.2.png</file>
+        <file>images/states/img.3.png</file>
+        <file>images/states/img.4.png</file>
+        <file>images/states/img.5.png</file>
+        <file>images/states/img.6.png</file>
+        <file>images/states/img.7.png</file>
+        <file>images/states/img.8.png</file>
+        <file>images/states/img.9.png</file>
+        <file>images/states/img.10.png</file>
+        <file>images/states/img.13.png</file>
+        <file>images/practice/0.png</file>
+        <file>images/practice/1.png</file>
+        <file>images/practice/2.png</file>
+        <file>images/practice/3.png</file>
+        <file>images/practice/4.png</file>
+        <file>images/practice/5.png</file>
+        <file>images/practice/6.png</file>
+        <file>images/practice/7.png</file>
+        <file>images/practice/8.png</file>
+        <file>images/practice/9.png</file>
+        <file>images/practice/10.png</file>
+        <file>images/practice/11.png</file>
+        <file>images/practice/12.png</file>
+        <file>images/practice/13.png</file>
+        <file>images/practice/14.png</file>
+        <file>images/practice/15.png</file>
+        <file>images/practice/16.png</file>
+        <file>images/practice/17.png</file>
+        <file>images/practice/18.png</file>
+        <file>images/practice/19.png</file>
+        <file>images/practice/20.png</file>
+        <file>images/practice/21.png</file>
+    </qresource>
+</RCC>

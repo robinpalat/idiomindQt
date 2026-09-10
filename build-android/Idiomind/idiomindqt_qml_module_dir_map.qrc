@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="/qt/qml/Idiomind">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/Idiomind</file>
+
+  </qresource>
+</RCC>

@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="/qt/qml/Idiomind/">
+    <file alias="src/ui/qml/qmldir">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/Idiomind/src/ui/qml/qmldir</file>
+    <file alias="src/ui/qml/components/qmldir">/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/Idiomind/src/ui/qml/components/qmldir</file>
+  </qresource>
+</RCC>
+

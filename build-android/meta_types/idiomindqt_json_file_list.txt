@@ -1,0 +1,1 @@
+/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/idiomindqt_autogen/include/../ISMKEKEPX5/moc_Application.cpp.json

@@ -1,0 +1,295 @@
+{
+    "formatRevision": 1,
+    "modules": [
+        {
+            "moduleFiles": [
+                {
+                    "entries": [
+                        {
+                            "codegenResult": 2,
+                            "column": 25,
+                            "durationMicroseconds": 143,
+                            "functionName": "proxy",
+                            "line": 11,
+                            "message": "Cannot access value for name App"
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 23,
+                            "durationMicroseconds": 84,
+                            "functionName": "contentWidth",
+                            "line": 15,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 24,
+                            "durationMicroseconds": 73,
+                            "functionName": "contentHeight",
+                            "line": 16,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 23,
+                            "durationMicroseconds": 54,
+                            "functionName": "fill",
+                            "line": 14,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 20,
+                            "durationMicroseconds": 110,
+                            "functionName": "width",
+                            "line": 20,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 26,
+                            "durationMicroseconds": 90,
+                            "functionName": "visible",
+                            "line": 28,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 59,
+                            "durationMicroseconds": 64,
+                            "functionName": "alignment",
+                            "line": 25,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 23,
+                            "durationMicroseconds": 56,
+                            "functionName": "text",
+                            "line": 35,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 26,
+                            "durationMicroseconds": 49,
+                            "functionName": "visible",
+                            "line": 37,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 27,
+                            "durationMicroseconds": 62,
+                            "functionName": "wrapMode",
+                            "line": 38,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 26,
+                            "durationMicroseconds": 57,
+                            "functionName": "visible",
+                            "line": 44,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 34,
+                            "durationMicroseconds": 138,
+                            "functionName": "visible",
+                            "line": 61,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 35,
+                            "durationMicroseconds": 31,
+                            "functionName": "text",
+                            "line": 69,
+                            "message": "Cannot access value for name model"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 35,
+                            "durationMicroseconds": 162,
+                            "functionName": "text",
+                            "line": 74,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 26,
+                            "durationMicroseconds": 49,
+                            "functionName": "visible",
+                            "line": 89,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 24,
+                            "durationMicroseconds": 180,
+                            "functionName": "color",
+                            "line": 95,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 26,
+                            "durationMicroseconds": 84,
+                            "functionName": "visible",
+                            "line": 97,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 31,
+                            "durationMicroseconds": 61,
+                            "functionName": "color",
+                            "line": 96,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 35,
+                            "durationMicroseconds": 54,
+                            "functionName": "fill",
+                            "line": 100,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 31,
+                            "durationMicroseconds": 55,
+                            "functionName": "text",
+                            "line": 103,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 31,
+                            "durationMicroseconds": 56,
+                            "functionName": "text",
+                            "line": 107,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 77,
+                            "durationMicroseconds": 67,
+                            "functionName": "cursorShape",
+                            "line": 113,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 32,
+                            "durationMicroseconds": 61,
+                            "functionName": "onClicked",
+                            "line": 114,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 56,
+                            "durationMicroseconds": 92,
+                            "functionName": "fill",
+                            "line": 113,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 26,
+                            "durationMicroseconds": 53,
+                            "functionName": "visible",
+                            "line": 120,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 26,
+                            "durationMicroseconds": 52,
+                            "functionName": "visible",
+                            "line": 126,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 32,
+                            "durationMicroseconds": 37,
+                            "functionName": "color",
+                            "line": 136,
+                            "message": "Cannot access value for name model"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 39,
+                            "durationMicroseconds": 35,
+                            "functionName": "color",
+                            "line": 137,
+                            "message": "Cannot access value for name model"
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 43,
+                            "durationMicroseconds": 54,
+                            "functionName": "fill",
+                            "line": 139,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 42,
+                            "durationMicroseconds": 35,
+                            "functionName": "text",
+                            "line": 141,
+                            "message": "Cannot access value for name model"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 81,
+                            "durationMicroseconds": 42,
+                            "functionName": "color",
+                            "line": 141,
+                            "message": "Cannot access value for name model"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 42,
+                            "durationMicroseconds": 33,
+                            "functionName": "text",
+                            "line": 142,
+                            "message": "Cannot access value for name model"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 82,
+                            "durationMicroseconds": 41,
+                            "functionName": "color",
+                            "line": 142,
+                            "message": "Cannot access value for name model"
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 72,
+                            "durationMicroseconds": 64,
+                            "functionName": "cursorShape",
+                            "line": 144,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 51,
+                            "durationMicroseconds": 49,
+                            "functionName": "fill",
+                            "line": 144,
+                            "message": ""
+                        }
+                    ],
+                    "filePath": "/home/robin/1Devin/Projects/Idiomind/IdiomindQt/src/ui/qml/components/ManageView.qml"
+                }
+            ],
+            "moduleId": "Idiomind(idiomindqt)"
+        }
+    ]
+}

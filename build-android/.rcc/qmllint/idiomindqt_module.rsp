@@ -1,0 +1,14 @@
+-I
+/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android
+-I
+/home/robin/Qt/6.10.0/android_arm64_v8a/qml
+--resource
+/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/.qt/rcc/qmake_Idiomind.qrc
+--resource
+/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/.qt/rcc/idiomindqt_raw_qml_0.qrc
+--resource
+/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/.qt/rcc/idiomindqt_raw_qml_0_extra_qmldirs.qrc
+--resource
+/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/.qt/rcc/idiomind_images.qrc
+--module
+Idiomind

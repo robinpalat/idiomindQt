@@ -1,0 +1,143 @@
+{
+    "formatRevision": 1,
+    "modules": [
+        {
+            "moduleFiles": [
+                {
+                    "entries": [
+                        {
+                            "codegenResult": 2,
+                            "column": 25,
+                            "durationMicroseconds": 157,
+                            "functionName": "proxy",
+                            "line": 10,
+                            "message": "Cannot access value for name App"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 34,
+                            "durationMicroseconds": 36,
+                            "functionName": "currentNote",
+                            "line": 11,
+                            "message": "Cannot load property note from (component in /home/robin/1Devin/Projects/Idiomind/IdiomindQt/src/ui/qml/components/NotesView.qml)::proxy with type QVariant."
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 27,
+                            "durationMicroseconds": 69,
+                            "functionName": "onCurrentNoteChanged",
+                            "line": 13,
+                            "message": "Cannot retrieve a non-object type by ID: noteArea"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 17,
+                            "durationMicroseconds": 24,
+                            "functionName": "target",
+                            "line": 19,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 9,
+                            "durationMicroseconds": 50,
+                            "functionName": "onActiveTopicChanged",
+                            "line": 20,
+                            "message": "Cannot access value for name proxy"
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 23,
+                            "durationMicroseconds": 86,
+                            "functionName": "contentWidth",
+                            "line": 28,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 24,
+                            "durationMicroseconds": 27,
+                            "functionName": "contentHeight",
+                            "line": 29,
+                            "message": "Cannot retrieve a non-object type by ID: noteArea"
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 29,
+                            "durationMicroseconds": 72,
+                            "functionName": "flickableDirection",
+                            "line": 30,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 25,
+                            "durationMicroseconds": 57,
+                            "functionName": "boundsBehavior",
+                            "line": 33,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 0,
+                            "column": 23,
+                            "durationMicroseconds": 52,
+                            "functionName": "fill",
+                            "line": 27,
+                            "message": ""
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 20,
+                            "durationMicroseconds": 0,
+                            "functionName": "width",
+                            "line": 37,
+                            "message": "Could not find property \"width\"."
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 30,
+                            "durationMicroseconds": 0,
+                            "functionName": "placeholderText",
+                            "line": 38,
+                            "message": "Could not find property \"placeholderText\"."
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 23,
+                            "durationMicroseconds": 0,
+                            "functionName": "wrapMode",
+                            "line": 42,
+                            "message": "Could not find property \"wrapMode\"."
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 19,
+                            "durationMicroseconds": 0,
+                            "functionName": "text",
+                            "line": 43,
+                            "message": "Could not find property \"text\"."
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 35,
+                            "durationMicroseconds": 0,
+                            "functionName": "onActiveFocusChanged",
+                            "line": 46,
+                            "message": "Could not find signal \"activeFocusChanged\"."
+                        },
+                        {
+                            "codegenResult": 2,
+                            "column": 28,
+                            "durationMicroseconds": 0,
+                            "functionName": "onTextChanged",
+                            "line": 51,
+                            "message": "Could not find signal \"textChanged\"."
+                        }
+                    ],
+                    "filePath": "/home/robin/1Devin/Projects/Idiomind/IdiomindQt/src/ui/qml/components/NotesView.qml"
+                }
+            ],
+            "moduleId": "Idiomind(idiomindqt)"
+        }
+    ]
+}
