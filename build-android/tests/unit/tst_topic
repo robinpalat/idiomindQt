@@ -1,8 +1,0 @@
-#!/bin/sh
-
-/home/robin/Qt/6.10.0/gcc_64/libexec/qt-android-runner.py \
-    --adb "/home/robin/Android/platform-tools/adb" \
-    --build-path "/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/tests/unit/android-build" \
-    --apk "/home/robin/1Devin/Projects/Idiomind/IdiomindQt/build-android/tests/unit/android-build/tst_topic.apk" \
-    $@
-
