@@ -1,21 +1,55 @@
-# Build
-build/
-*/build/
+# Build directories
+/build/
+/build-android/
 
-# CMake
+# Qt Creator user-specific files
+.qtcreator/
+*.user
+*.user.*
+*.pro.user
+*.pro.user.*
+
+# CMake generated files
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
 CTestTestfile.cmake
-Testing/
+Makefile
+Makefile.*
+compile_commands.json
 
-# Qt Creator
-*.pro.user
-*.user
-CMakeLists.txt.user
+# Qt generated files
+*_autogen/
+*.qmltypes
+qmldir
+moc_*.cpp
+mocs_compilation.cpp
+qrc_*.cpp
+qt_*.cpp
+*.qrc.depends
 
-# Editors / OS
-.vscode/
-.idea/
-*.swp
-*~
+# Build artifacts
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.dylib
+*.exe
+*.apk
+*.aab
+
+# Ninja
+.ninja_deps
+.ninja_log
+
+# Qt generated metadata
+meta_types/
+qmltypes/
+
+# Android generated/local files
+local.properties
+
+# OS
+.DS_Store
+Thumbs.db
